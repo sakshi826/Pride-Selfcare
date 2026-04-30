@@ -23,6 +23,25 @@ import NavigatingMedicalTransition from "./features/pride/static/navigating-medi
 import TransAndMentalHealth from "./features/pride/static/trans-and-mental-health";
 import TransComingOut from "./features/pride/static/trans-coming-out";
 
+// Hub Suite
+import { LGBTQSelfCare } from "./features/pride/hub/LGBTQSelfCare";
+import { LGBTQTips } from "./features/pride/hub/LGBTQTips";
+import { LGBTQMythsFacts } from "./features/pride/hub/LGBTQMythsFacts";
+import { LGBTQMythDetail } from "./features/pride/hub/LGBTQMythDetail";
+import { LGBTQArticles } from "./features/pride/hub/LGBTQArticles";
+import { LGBTQArticleDetail } from "./features/pride/hub/LGBTQArticleDetail";
+import { LesbianGuide } from "./features/pride/hub/LesbianGuide";
+import { GayGuide } from "./features/pride/hub/GayGuide";
+import { BisexualGuide } from "./features/pride/hub/BisexualGuide";
+import { TransGuide } from "./features/pride/hub/TransGuide";
+import { ServicePage } from "./features/pride/hub/ServicePage";
+import { FindYourCommunity } from "./features/pride/hub/FindYourCommunity";
+import { SetGentleBoundaries } from "./features/pride/hub/SetGentleBoundaries";
+import { HonorYourIdentity } from "./features/pride/hub/HonorYourIdentity";
+import { AffirmingSelfTalk } from "./features/pride/hub/AffirmingSelfTalk";
+import { CreateSafeSpaces } from "./features/pride/hub/CreateSafeSpaces";
+import { ProcessGriefLoss } from "./features/pride/hub/ProcessGriefLoss";
+
 function Index() {
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-8">
@@ -120,6 +139,25 @@ function App() {
 
               {/* PrideMantra — Claude HTML Minis */}
               <Route path="/content/:slug" element={<PrideStaticViewer />} />
+
+              {/* LGBTQ+ Self-Care Hub */}
+              <Route path="/lgbtq-hub" element={<LGBTQSelfCare />} />
+              <Route path="/lgbtq-tips" element={<LGBTQTips />} />
+              <Route path="/lgbtq-myths-facts" element={<LGBTQMythsFacts />} />
+              <Route path="/lgbtq-myth/:mythId" element={<LGBTQMythDetail />} />
+              <Route path="/lgbtq-articles" element={<LGBTQArticles />} />
+              <Route path="/lgbtq-article/:articleId" element={<LGBTQArticleDetail />} />
+              <Route path="/lesbian-guide" element={<LesbianGuide />} />
+              <Route path="/gay-guide" element={<GayGuide />} />
+              <Route path="/bisexual-guide" element={<BisexualGuide />} />
+              <Route path="/trans-guide" element={<TransGuide />} />
+              <Route path="/service/lgbtq" element={<ServicePage />} />
+              <Route path="/find-your-community" element={<FindYourCommunity />} />
+              <Route path="/set-gentle-boundaries" element={<SetGentleBoundaries />} />
+              <Route path="/honor-your-identity" element={<HonorYourIdentity />} />
+              <Route path="/affirming-self-talk" element={<AffirmingSelfTalk />} />
+              <Route path="/create-safe-spaces" element={<CreateSafeSpaces />} />
+              <Route path="/process-grief-loss" element={<ProcessGriefLoss />} />
             </Routes>
           </AuthGuard>
         } />
