@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+@PrideMantra — LGBTQ+ Self-Care Dashboard
 
-TODO: Document your project here
+A unified platform for LGBTQ+ mental health resources, identity exploration tools, and community support. Built with React, Vite, and Tailwind CSS.
