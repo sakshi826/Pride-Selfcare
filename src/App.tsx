@@ -114,7 +114,8 @@ function App() {
         <Route path="*" element={
           <AuthGuard>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<LGBTQSelfCare />} />
+              <Route path="/menu" element={<Index />} />
               
               {/* PrideMantra — Dynamic Minis */}
               <Route path="/find-your-right-time/*" element={<FindYourRightTime />} />
