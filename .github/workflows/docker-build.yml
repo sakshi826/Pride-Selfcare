@@ -23,5 +23,5 @@ jobs:
         run: |
           docker build \
             --build-arg VITE_NEON_DATABASE_URL=${{ secrets.VITE_NEON_DATABASE_URL }} \
-            -t bunker.mantracare.com/pride:1.2 .
-          docker push bunker.mantracare.com/pride:1.2
+            -t bunker.mantracare.com/lovable/pride:1.2 .
+          docker push bunker.mantracare.com/lovable/pride:1.2
