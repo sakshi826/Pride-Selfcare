@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 30% 98%;
+    --foreground: 262 25% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 262 25% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 262 25% 20%;
+
+    --primary: 262 40% 70%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 20 80% 92%;
+    --secondary-foreground: 262 25% 20%;
+
+    --muted: 262 10% 60%;
+    --muted-foreground: 262 10% 60%;
+
+    --accent: 155 40% 92%;
+    --accent-foreground: 262 25% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 262 20% 92%;
+    --input: 262 20% 92%;
+    --ring: 262 40% 70%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom tokens */
+    --mint: 155 40% 92%;
+    --peach: 20 80% 92%;
+    --lavender-soft: 262 40% 95%;
+    --shadow-cloud: 0 0 0 1px rgba(0,0,0,.01), 0 2px 4px rgba(0,0,0,.02), 0 12px 24px -12px rgba(100,80,120,.1);
+    --pride-gradient: linear-gradient(
+      180deg,
+      hsla(0, 70%, 92%, 0.5) 0%,
+      hsla(25, 80%, 92%, 0.5) 16%,
+      hsla(50, 75%, 92%, 0.5) 32%,
+      hsla(140, 50%, 92%, 0.5) 48%,
+      hsla(220, 60%, 92%, 0.5) 64%,
+      hsla(270, 55%, 93%, 0.5) 80%,
+      hsla(310, 50%, 93%, 0.5) 100%
+    );
+  }
+
+  .dark {
+    --background: 262 25% 8%;
+    --foreground: 260 30% 95%;
+    --card: 262 20% 12%;
+    --card-foreground: 260 30% 95%;
+    --popover: 262 20% 12%;
+    --popover-foreground: 260 30% 95%;
+    --primary: 262 40% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 40% 20%;
+    --secondary-foreground: 20 80% 92%;
+    --muted: 262 10% 40%;
+    --muted-foreground: 262 10% 60%;
+    --accent: 155 30% 20%;
+    --accent-foreground: 155 40% 92%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 262 20% 20%;
+    --input: 262 20% 20%;
+    --ring: 262 40% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Instrument Sans', sans-serif;
+  }
+}
+
+/* Custom comfort slider */
+.comfort-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  border-radius: 9999px;
+  background: hsl(var(--secondary));
+  outline: none;
+}
+
+.comfort-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(100, 80, 120, 0.2);
+}
+
+.comfort-slider::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: white;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(100, 80, 120, 0.2);
+}

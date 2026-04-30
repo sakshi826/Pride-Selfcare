@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebrate Women Loving Women</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf0f5;
+  --ink: #3d1a28;
+  --muted: #9c6070;
+  --rose: #d4437a;
+  --card-bg: rgba(255,255,255,0.75);
+  --card-border: rgba(212,67,122,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; height:100%; overflow:hidden; font-family:'Jost',sans-serif; background:var(--bg); color:var(--ink); }
+
+/* ── Background blobs — transform only, no filter animation ── */
+.bg-blobs {
+  position:fixed; inset:0; z-index:0;
+  background:linear-gradient(145deg,#fdf0f5 0%,#fce4ef 50%,#f3e5f5 100%);
+  overflow:hidden;
+}
+.blob { position:absolute; border-radius:50%; filter:blur(75px); opacity:0.45; will-change:transform; }
+.blob1 { width:520px;height:520px;background:#f8bbd0;top:-130px;left:-110px; animation:mv1 16s ease-in-out infinite alternate; }
+.blob2 { width:440px;height:440px;background:#e1bee7;bottom:-90px;right:-90px; animation:mv2 20s ease-in-out infinite alternate; }
+.blob3 { width:370px;height:370px;background:#fce4ec;top:38%;left:52%; animation:mv1 24s ease-in-out infinite alternate-reverse; }
+.blob4 { width:290px;height:290px;background:#f48fb1;bottom:12%;left:3%;opacity:0.28; animation:mv2 18s ease-in-out infinite alternate; }
+@keyframes mv1 { from{transform:translate(0,0)} to{transform:translate(36px,26px)} }
+@keyframes mv2 { from{transform:translate(0,0)} to{transform:translate(-28px,-36px)} }
+
+/* ── Stage ── */
+.stage { position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:1.5rem 2rem; }
+
+/* ── Screen base ── */
+.screen {
+  display:none; flex-direction:column; align-items:center;
+  text-align:center; max-width:520px; width:100%;
+}
+.screen.active  { display:flex; animation:fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) both; }
+.screen.leaving { display:flex; animation:fadeDown 0.35s ease both; pointer-events:none; }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeDown { from{opacity:1;transform:translateY(0)}    to{opacity:0;transform:translateY(-18px)} }
+
+/* ── Progress dots ── */
+.step-dots { display:flex;gap:7px;margin-bottom:1.8rem; }
+.step-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(165,0,98,0.16);
+  transition:width 0.38s cubic-bezier(0.22,1,0.36,1), background 0.38s ease;
+}
+.step-dot.active { width:22px; border-radius:3px; background:var(--rose); }
+.step-dot.done   { background:rgba(165,0,98,0.38); }
+
+/* ── Flag bar ── */
+.flag-bar { display:flex;width:96px;height:5px;border-radius:100px;overflow:hidden;margin-bottom:1.8rem;gap:2px; }
+.flag-bar span { flex:1;border-radius:2px; }
+.f1{background:#b55690} .f2{background:#d262a6} .f3{background:#e0a0c0} .f4{background:#e5638b} .f5{background:#a50062}
+
+/* ── Typography ── */
+.title { font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1.18;letter-spacing:-0.01em;margin-bottom:1.1rem;color:var(--ink); }
+.title em { font-style:italic;font-weight:400;color:var(--rose); }
+.subtitle { font-size:1rem;font-weight:300;color:var(--muted);line-height:1.85;max-width:400px;margin-bottom:2.4rem;letter-spacing:0.01em; }
+
+/* ── Prompt card ── */
+.prompt-card {
+  background:var(--card-bg); border:1px solid var(--card-border);
+  border-radius:22px; padding:1.8rem 2.2rem; margin-bottom:2rem;
+  width:100%; text-align:left;
+  box-shadow:0 4px 28px rgba(212,67,122,0.07);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+}
+.prompt-card p { font-size:1rem;line-height:1.85;color:var(--ink);font-weight:300; }
+.prompt-card p + p { margin-top:0.85rem; }
+.prompt-card strong { color:var(--rose);font-weight:500; }
+
+/* ── Breath ring ── */
+.breath-wrap { display:flex;align-items:center;justify-content:center;position:relative;width:110px;height:110px;margin-bottom:1.8rem; }
+.breath-outer2 { position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(212,67,122,0.1);animation:breathRing 4s ease-in-out infinite 0.4s; }
+.breath-outer  { position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(212,67,122,0.22);animation:breathRing 4s ease-in-out infinite; }
+.breath-mid    { position:absolute;inset:14px;border-radius:50%;background:radial-gradient(circle,rgba(212,67,122,0.1),rgba(186,104,200,0.07));animation:breathRing 4s ease-in-out infinite; }
+.breath-emoji  { font-size:2.2rem;position:relative;z-index:1;animation:breathRing 4s ease-in-out infinite; }
+@keyframes breathRing { 0%,100%{transform:scale(1);opacity:0.75} 50%{transform:scale(1.16);opacity:1} }
+
+/* ── Affirmations ── */
+.affirmations { width:100%;display:flex;flex-direction:column;gap:1rem;margin-bottom:2.2rem; }
+.affirmation-line {
+  border-left:4px solid;
+  border-radius:0 18px 18px 0;
+  padding:1.1rem 1.6rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.42rem;
+  font-style:italic;
+  font-weight:700;
+  color:var(--ink);
+  text-align:left;
+  box-shadow:0 4px 18px rgba(212,67,122,0.08);
+  opacity:0;
+  animation:slideIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+  position:relative;
+  overflow:hidden;
+}
+/* Gradient bg per line — set via inline or nth-child */
+.affirmation-line:nth-child(1){
+  background:linear-gradient(100deg,#fce4ec,#fdf0f8);
+  border-left-color:#c2185b;
+  animation-delay:0.12s;
+}
+.affirmation-line:nth-child(2){
+  background:linear-gradient(100deg,#f3e5f5,#fdf4ff);
+  border-left-color:#9c27b0;
+  animation-delay:0.28s;
+}
+.affirmation-line:nth-child(3){
+  background:linear-gradient(100deg,#fce4ec,#fdf0f8);
+  border-left-color:#e91e8c;
+  animation-delay:0.44s;
+}
+@keyframes slideIn {
+  from{opacity:0;transform:translateX(-18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* ── Floating hearts animation (screen 4) ── */
+.hearts-container { position:relative;width:120px;height:80px;margin:0 auto 1.6rem; }
+.heart-float {
+  position:absolute; font-size:1.6rem;
+  animation:heartFloat 3s ease-in-out infinite;
+  opacity:0;
+}
+.heart-float:nth-child(1){ left:10px;  animation-delay:0s;   font-size:1.8rem; }
+.heart-float:nth-child(2){ left:45px;  animation-delay:0.6s; font-size:1.4rem; }
+.heart-float:nth-child(3){ left:82px;  animation-delay:1.2s; font-size:1.6rem; }
+@keyframes heartFloat {
+  0%   { opacity:0; transform:translateY(0) scale(0.7); }
+  30%  { opacity:1; transform:translateY(-18px) scale(1); }
+  70%  { opacity:1; transform:translateY(-32px) scale(0.95); }
+  100% { opacity:0; transform:translateY(-50px) scale(0.8); }
+}
+
+/* ── Ripple tap screen (screen 5) ── */
+.ripple-area {
+  position:relative; width:140px; height:140px;
+  margin:0 auto 1.8rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.ripple-circle {
+  position:absolute; border-radius:50%;
+  border:2px solid rgba(212,67,122,0.3);
+  animation:rippleOut 2.5s ease-out infinite;
+}
+.ripple-circle:nth-child(1){ width:80px; height:80px; animation-delay:0s; }
+.ripple-circle:nth-child(2){ width:80px; height:80px; animation-delay:0.8s; }
+.ripple-circle:nth-child(3){ width:80px; height:80px; animation-delay:1.6s; }
+@keyframes rippleOut {
+  0%   { transform:scale(0.8); opacity:0.8; }
+  100% { transform:scale(2.2); opacity:0; }
+}
+.ripple-core {
+  width:80px; height:80px; border-radius:50%;
+  background:linear-gradient(135deg,#fce4ec,#f3e5f5);
+  border:2px solid rgba(212,67,122,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2.2rem; z-index:1;
+  transition:transform 0.15s ease;
+}
+.ripple-core:active { transform:scale(0.92); }
+.tap-label { font-size:0.82rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1.8rem; }
+
+/* ── Quote card (screen 6) ── */
+.quote-card {
+  background:var(--card-bg); border:1px solid var(--card-border);
+  border-radius:22px; padding:2rem 2.2rem; margin-bottom:2rem; width:100%;
+  box-shadow:0 4px 28px rgba(212,67,122,0.07);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+}
+.quote-mark { font-family:'Cormorant Garamond',serif;font-size:4rem;line-height:0.5;color:var(--rose);opacity:0.35;display:block;margin-bottom:0.5rem; }
+.quote-text { font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-style:italic;font-weight:300;color:var(--ink);line-height:1.7;margin-bottom:0.8rem; }
+.quote-author { font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted); }
+
+/* ── Countdown dots (screen 6) ── */
+.glow-dots { display:flex;justify-content:center;gap:14px;margin-bottom:1.8rem; }
+.glow-dot {
+  width:12px; height:12px; border-radius:50%;
+  opacity:0;
+  animation:dotGlow 1.8s ease-in-out infinite;
+}
+.glow-dot:nth-child(1){ background:#f48fb1; animation-delay:0s; }
+.glow-dot:nth-child(2){ background:#ce93d8; animation-delay:0.3s; }
+.glow-dot:nth-child(3){ background:#90caf9; animation-delay:0.6s; }
+.glow-dot:nth-child(4){ background:#a5d6a7; animation-delay:0.9s; }
+.glow-dot:nth-child(5){ background:#fff176; animation-delay:1.2s; }
+@keyframes dotGlow {
+  0%,100%{ opacity:0.2; transform:scale(0.8); }
+  50%    { opacity:1;   transform:scale(1.3); }
+}
+
+/* ── Buttons ── */
+.btn {
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#c2185b,#d4437a);
+  color:white;font-family:'Jost',sans-serif;font-weight:500;
+  font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.9rem 2.4rem;border-radius:100px;border:none;cursor:pointer;
+  box-shadow:0 4px 22px rgba(194,24,91,0.25);
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform:translateY(-2px);box-shadow:0 8px 30px rgba(194,24,91,0.35); }
+.btn:active { transform:scale(0.97); }
+.btn-ghost {
+  background:rgba(212,67,122,0.08);color:var(--rose);
+  box-shadow:none;border:1.5px solid rgba(212,67,122,0.25);
+}
+.btn-ghost:hover { background:rgba(212,67,122,0.14);box-shadow:none;transform:translateY(-1px); }
+
+/* ── Finish ── */
+.heart-burst { font-size:5.5rem;margin-bottom:1.1rem;animation:heartPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both; }
+@keyframes heartPop { from{transform:scale(0) rotate(-8deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
+.finish-note { font-size:0.8rem;font-weight:300;color:var(--muted);margin-top:1.3rem;opacity:0.65;letter-spacing:0.03em; }
+
+/* ── Confetti ── */
+.conf-container { position:fixed;inset:0;z-index:99;pointer-events:none;overflow:hidden; }
+.conf { position:absolute;animation:confFall linear forwards; }
+@keyframes confFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(520deg);opacity:0} }
+
+
+
+  /* ── Revamped Screen 2 ── */
+  .breath-orb-wrap {
+    position:relative; width:160px; height:160px;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 1.8rem;
+  }
+  .breath-ring {
+    position:absolute; border-radius:50%;
+    border:1.5px solid rgba(212,67,122,0.2);
+    will-change:transform;
+  }
+  .br1 { width:100px; height:100px; animation:breathPulse 4s ease-in-out infinite; }
+  .br2 { width:130px; height:130px; animation:breathPulse 4s ease-in-out infinite 0.5s; }
+  .br3 { width:160px; height:160px; animation:breathPulse 4s ease-in-out infinite 1s; }
+  @keyframes breathPulse {
+    0%,100% { transform:scale(0.92); opacity:0.4; }
+    50%     { transform:scale(1.04); opacity:0.9; }
+  }
+  .breath-orb-core {
+    width:90px; height:90px; border-radius:50%;
+    background:radial-gradient(circle at 38% 38%, #fce4ec, #f8bbd0);
+    box-shadow:0 8px 30px rgba(212,67,122,0.22);
+    display:flex; align-items:center; justify-content:center;
+    z-index:2;
+    animation:breathPulse 4s ease-in-out infinite;
+  }
+  .breath-orb-emoji { font-size:2.6rem; }
+
+  /* ── Highlighted sentence lines ── */
+  .breath-lines {
+    width:100%; max-width:420px;
+    display:flex; flex-direction:column; gap:0.7rem;
+    margin-bottom:2rem;
+  }
+  .breath-line {
+    border-radius:14px;
+    padding:0.85rem 1.3rem;
+    opacity:0;
+    animation:lineReveal 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+    display:flex; align-items:center;
+    text-align:left;
+  }
+  .bl1 { background:linear-gradient(90deg,#fce4ec,#fdf0f8); border-left:3px solid #f48fb1; animation-delay:0.1s; }
+  .bl2 { background:linear-gradient(90deg,#f3e5f5,#fdf4ff); border-left:3px solid #ce93d8; animation-delay:0.3s; }
+  .bl3 { background:linear-gradient(90deg,#fce4ec,#fdf0f8); border-left:3px solid #e91e8c; animation-delay:0.5s; }
+  .bl4 { background:linear-gradient(90deg,#f3e5f5,#fdf4ff); border-left:3px solid #ba68c8; animation-delay:0.7s; }
+  @keyframes lineReveal {
+    from { opacity:0; transform:translateX(-14px); }
+    to   { opacity:1; transform:translateX(0); }
+  }
+  .bl-text {
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.12rem; font-weight:600; line-height:1.6;
+    color:var(--ink); letter-spacing:0.01em;
+  }
+  .bl-text em {
+    font-style:italic; color:var(--rose); font-weight:700;
+    background:rgba(212,67,122,0.08);
+    padding:0 4px; border-radius:4px;
+  }
+
+  .aff-ic {
+    font-size:1.1rem;
+    margin-right:6px;
+    vertical-align:middle;
+    display:inline-block;
+    animation:iconBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    animation-delay:inherit;
+  }
+  @keyframes iconBounce {
+    from { transform:scale(0) rotate(-10deg); opacity:0; }
+    to   { transform:scale(1) rotate(0deg);   opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob1"></div><div class="blob blob2"></div>
+  <div class="blob blob3"></div><div class="blob blob4"></div>
+</div>
+<div class="conf-container" id="confBox"></div>
+
+
+<div class="stage">
+
+  <!-- S1: Welcome -->
+  <div class="screen active" id="s1">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots1"></div>
+    <h1 class="title">Celebrate<br><em>Women Loving Women</em></h1>
+    <p class="subtitle">Take a quiet moment to appreciate the beauty of women loving women. Your identity is valid, meaningful, and part of a powerful community.</p>
+    <button class="btn" onclick="goTo(2)">Begin &#10022;</button>
+  </div>
+
+  <!-- S2: Breathe -->
+  <div class="screen" id="s2">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots2"></div>
+
+    <!-- Revamped breath orb -->
+    <div class="breath-orb-wrap">
+      <div class="breath-ring br3"></div>
+      <div class="breath-ring br2"></div>
+      <div class="breath-ring br1"></div>
+      <div class="breath-orb-core">
+        <span class="breath-orb-emoji">&#127800;</span>
+      </div>
+    </div>
+
+    <!-- Sentence-style highlighted lines -->
+    <div class="breath-lines">
+      <div class="breath-line bl1">
+        <span class="bl-text">Close your eyes for a moment.</span>
+      </div>
+      <div class="breath-line bl2">
+        <span class="bl-text">Take a <em>slow breath in</em> ... and out.</span>
+      </div>
+      <div class="breath-line bl3">
+        <span class="bl-text">Think of a moment when you felt <em>proud to be yourself.</em></span>
+      </div>
+      <div class="breath-line bl4">
+        <span class="bl-text">Hold that moment gently. Let it fill you.</span>
+      </div>
+    </div>
+
+    <button class="btn" onclick="goTo(3)">Continue &#8594;</button>
+  </div>
+
+  <!-- S3: Affirmations -->
+  <div class="screen" id="s3">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots3"></div>
+    <h2 class="title" style="font-size:clamp(1.5rem,4vw,2.2rem);margin-bottom:0.85rem">Repeat quietly<br><em>in your mind</em></h2>
+    <div class="affirmations" id="affirmBox">
+      <div class="affirmation-line"><span class="aff-ic">&#128149;</span> I am proud of who I am.</div>
+      <div class="affirmation-line"><span class="aff-ic">&#10024;</span> My love is meaningful.</div>
+      <div class="affirmation-line"><span class="aff-ic">&#127752;</span> My identity deserves respect.</div>
+    </div>
+    <button class="btn" onclick="goTo(4)">Next &#8594;</button>
+  </div>
+
+  <!-- S4: Floating hearts — connection -->
+  <div class="screen" id="s4">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots4"></div>
+    <div class="hearts-container">
+      <span class="heart-float">&#128149;</span>
+      <span class="heart-float">&#128150;</span>
+      <span class="heart-float">&#128151;</span>
+    </div>
+    <h2 class="title" style="font-size:clamp(1.5rem,4vw,2.3rem);margin-bottom:0.9rem">The Love Between<br><em>Women Is Ancient</em></h2>
+    <p class="subtitle">Women have loved women across every culture and every century. You are part of a story that stretches back thousands of years. You are never alone in this.</p>
+    <button class="btn" onclick="goTo(5)">Next &#8594;</button>
+  </div>
+
+  <!-- S5: Tap to feel proud -->
+  <div class="screen" id="s5">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots5"></div>
+    <h2 class="title" style="font-size:clamp(1.5rem,4vw,2.3rem);margin-bottom:0.6rem">Feel It<br><em>Right Now</em></h2>
+    <p class="subtitle" style="margin-bottom:1.2rem">When you feel a spark of pride in who you are, tap the circle below.</p>
+    <div class="ripple-area" onclick="onTap()" id="rippleArea">
+      <div class="ripple-circle"></div>
+      <div class="ripple-circle"></div>
+      <div class="ripple-circle"></div>
+      <div class="ripple-core">&#127752;</div>
+    </div>
+    <p class="tap-label" id="tapLabel">Tap when you feel proud</p>
+    <button class="btn" id="tapBtn" style="display:none" onclick="goTo(6)">I feel it &#9825;</button>
+  </div>
+
+  <!-- S6: Quote -->
+  <div class="screen" id="s6">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots6"></div>
+    <div class="glow-dots">
+      <div class="glow-dot"></div><div class="glow-dot"></div><div class="glow-dot"></div>
+      <div class="glow-dot"></div><div class="glow-dot"></div>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">&#8220;</span>
+      <p class="quote-text">I am not free while any woman is unfree, even when her shackles are very different from my own.</p>
+      <p class="quote-author">Audre Lorde</p>
+    </div>
+    <p class="subtitle" style="margin-bottom:2rem">Women like Audre Lorde, Sappho, and so many unsung others held space for love like yours. Their words still carry you.</p>
+    <button class="btn" onclick="goTo(7)">Next &#8594;</button>
+  </div>
+
+  <!-- S7: More affirmations -->
+  <div class="screen" id="s7">
+    <div class="flag-bar"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <div class="step-dots" id="dots7"></div>
+    <h2 class="title" style="font-size:clamp(1.5rem,4vw,2.2rem);margin-bottom:0.85rem">Say these<br><em>with your whole heart</em></h2>
+    <div class="affirmations" id="affirmBox2">
+      <div class="affirmation-line" style="background:linear-gradient(100deg,#e3f2fd,#f0f8ff);border-left-color:#64b5f6;animation-delay:0.12s"><span class="aff-ic">&#128150;</span> I deserve a love that is full and free.</div>
+      <div class="affirmation-line" style="background:linear-gradient(100deg,#e8f5e9,#f2fdf4);border-left-color:#66bb6a;animation-delay:0.28s"><span class="aff-ic">&#127807;</span> My identity is a gift, not a burden.</div>
+      <div class="affirmation-line" style="background:linear-gradient(100deg,#fff8e1,#fffdf0);border-left-color:#ffa726;animation-delay:0.44s"><span class="aff-ic">&#127775;</span> I am exactly who I am meant to be.</div>
+    </div>
+    <button class="btn" onclick="goTo(8)">Finish &#9825;</button>
+  </div>
+
+  <!-- S8: Closing -->
+  <div class="screen" id="s8">
+    <div class="heart-burst">&#128151;</div>
+    <div class="flag-bar" style="margin-bottom:1.5rem"><span class="f1"></span><span class="f2"></span><span class="f3"></span><span class="f4"></span><span class="f5"></span></div>
+    <h1 class="title" style="font-size:clamp(1.7rem,4.5vw,2.8rem)">You are seen.<br><em>You are loved.</em></h1>
+    <p class="subtitle" style="margin-bottom:1.5rem">Carry this feeling with you. Come back whenever you need a reminder of how worthy and wonderful you are.</p>
+    <button class="btn btn-ghost" onclick="restart()">Start again &#8635;</button>
+    <p class="finish-note">Women loving women, always, beautifully, unapologetically.</p>
+  </div>
+
+</div>
+
+<script>
+const TOTAL = 8;
+let current = 1;
+let tapCount = 0;
+
+// Build dot rows
+function buildDots() {
+  for (let s = 1; s <= TOTAL; s++) {
+    const container = document.getElementById('dots' + s);
+    if (!container) continue;
+    container.innerHTML = '';
+    for (let i = 1; i <= TOTAL; i++) {
+      const d = document.createElement('div');
+      d.className = 'step-dot' + (i === s ? ' active' : i < s ? ' done' : '');
+      container.appendChild(d);
+    }
+  }
+}
+
+function goTo(n) {
+  const cur = document.querySelector('.screen.active');
+  if (!cur) return;
+
+  cur.classList.remove('active');
+  cur.classList.add('leaving');
+
+  const next = document.getElementById('s' + n);
+  if (!next) return;
+
+  setTimeout(function() {
+    cur.classList.remove('leaving');
+
+    // Re-trigger breath line animations on s2
+    if (n === 2) {
+      const lines = next.querySelectorAll('.breath-line');
+      lines.forEach(function(l) {
+        l.style.animation = 'none';
+        l.style.opacity = '0';
+        requestAnimationFrame(function() {
+          l.style.animation = '';
+        });
+      });
+    }
+
+    // Re-trigger affirmation animations
+    ['affirmBox','affirmBox2'].forEach(function(id) {
+      if (next.querySelector('#'+id)) {
+        const box = next.querySelector('#'+id);
+        const h = box.innerHTML;
+        box.innerHTML = '';
+        requestAnimationFrame(function(){ box.innerHTML = h; });
+      }
+    });
+
+    // Reset tap screen
+    if (n === 5) {
+      tapCount = 0;
+      document.getElementById('tapLabel').textContent = 'Tap when you feel proud';
+      document.getElementById('tapBtn').style.display = 'none';
+      document.getElementById('tapBtn').style.animation = '';
+    }
+
+    next.classList.add('active');
+    current = n;
+
+  }, 340);
+}
+
+function restart() {
+  tapCount = 0;
+  goTo(1);
+}
+
+// Tap interaction on screen 5
+function onTap() {
+  tapCount++;
+  const core = document.querySelector('.ripple-core');
+  const label = document.getElementById('tapLabel');
+  const btn = document.getElementById('tapBtn');
+
+  // Pulse effect
+  core.style.transform = 'scale(0.88)';
+  setTimeout(() => core.style.transform = '', 150);
+
+  // Confetti burst on first tap
+  burst(30);
+
+  const messages = [
+    'Yes! Feel that.',
+    'There it is.',
+    'That is real and yours.',
+    'Carry that feeling with you.'
+  ];
+  label.textContent = messages[Math.min(tapCount - 1, messages.length - 1)];
+
+  if (tapCount >= 2) {
+    btn.style.display = 'inline-flex';
+    btn.style.animation = 'heartPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both';
+  }
+}
+
+// Confetti
+const CONF_COLS = ['#f48fb1','#ce93d8','#90caf9','#a5d6a7','#fff176','#ffcc80','#f8bbd0'];
+function burst(count) {
+  const box = document.getElementById('confBox');
+  for (let i = 0; i < count; i++) {
+    const c = document.createElement('div');
+    c.className = 'conf';
+    const size = Math.random() * 9 + 5;
+    c.style.cssText = `left:${Math.random()*100}%;top:-20px;width:${size}px;height:${size}px;background:${CONF_COLS[Math.floor(Math.random()*CONF_COLS.length)]};border-radius:${Math.random()>0.5?'50%':'3px'};animation-duration:${Math.random()*1.5+1}s;animation-delay:${Math.random()*0.4}s;`;
+    box.appendChild(c);
+    c.addEventListener('animationend', () => c.remove());
+  }
+}
+
+buildDots();
+</script>
+</body>
+</html>

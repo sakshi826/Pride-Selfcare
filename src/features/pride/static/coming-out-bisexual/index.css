@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Serif+Display:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 280 100% 99%;
+    --foreground: 270 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 270 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 20% 15%;
+
+    --primary: 280 56% 46%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 280 30% 94%;
+    --secondary-foreground: 270 20% 15%;
+
+    --muted: 280 20% 94%;
+    --muted-foreground: 270 10% 46%;
+
+    --accent: 280 30% 94%;
+    --accent-foreground: 270 20% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 280 20% 90%;
+    --input: 280 20% 90%;
+    --ring: 280 56% 46%;
+
+    --radius: 0.75rem;
+
+    --bi-pink: 338 100% 41%;
+    --bi-purple: 263 55% 46%;
+    --bi-blue: 210 100% 31%;
+
+    --card-bg: 0 0% 100% / 0.88;
+    --card-radius: 28px;
+    --card-shadow: 0 8px 40px -8px hsl(280 30% 30% / 0.12);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .font-body {
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes bubble-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-hint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-float-orb {
+  animation: float-orb 20s ease-in-out infinite;
+}
+
+.animate-float-orb-2 {
+  animation: float-orb 25s ease-in-out infinite reverse;
+}
+
+.animate-float-orb-3 {
+  animation: float-orb 30s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+.animate-bubble-pop {
+  animation: bubble-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pulse-hint {
+  animation: pulse-hint 2s ease-in-out infinite;
+}

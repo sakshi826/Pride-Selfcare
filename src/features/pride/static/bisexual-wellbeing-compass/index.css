@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 280 100% 99%;
+    --foreground: 260 20% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 260 20% 16%;
+    --card-glass: rgba(255, 255, 255, 0.88);
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 260 20% 16%;
+
+    --primary: 275 52% 46%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 280 40% 96%;
+    --secondary-foreground: 260 20% 16%;
+
+    --muted: 280 20% 94%;
+    --muted-foreground: 260 10% 50%;
+
+    --accent: 280 40% 96%;
+    --accent-foreground: 260 20% 16%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 280 20% 90%;
+    --input: 280 20% 90%;
+    --ring: 275 52% 46%;
+
+    --radius: 0.75rem;
+
+    /* Bisexual flag palette */
+    --bi-pink: 336 100% 41%;
+    --bi-purple: 264 55% 46%;
+    --bi-blue: 210 100% 31%;
+
+    /* Fonts */
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+/* Floating orbs */
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.05); }
+  66% { transform: translate(20px, -30px) scale(1.1); }
+}
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  33% { transform: translate(25px, 25px) scale(0.95); }
+  66% { transform: translate(-35px, -20px) scale(1.1); }
+}
+
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-pink {
+  background: hsl(var(--bi-pink));
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+.orb-purple {
+  background: hsl(var(--bi-purple));
+  animation: orb-drift-2 22s ease-in-out infinite;
+}
+.orb-blue {
+  background: hsl(var(--bi-blue));
+  animation: orb-drift-3 20s ease-in-out infinite;
+}
+
+/* Breathing orb */
+@keyframes breathe-in {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.4); opacity: 0.85; }
+}
+@keyframes breathe-out {
+  0% { transform: scale(1.4); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* Bubble pop */
+@keyframes bubble-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-bubble-pop {
+  animation: bubble-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Pulse hint */
+@keyframes pulse-hint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-hint {
+  animation: pulse-hint 1.8s ease-in-out infinite;
+}

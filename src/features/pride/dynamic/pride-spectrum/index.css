@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 270 20% 96%;
+    --foreground: 270 10% 25%;
+
+    --card: 264 30% 93%;
+    --card-foreground: 270 10% 25%;
+
+    --popover: 264 30% 93%;
+    --popover-foreground: 270 10% 25%;
+
+    --primary: 288 10% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 264 20% 90%;
+    --secondary-foreground: 270 10% 25%;
+
+    --muted: 264 15% 92%;
+    --muted-foreground: 280 6% 41%;
+
+    --accent: 264 20% 88%;
+    --accent-foreground: 270 10% 25%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 264 15% 86%;
+    --input: 264 15% 86%;
+    --ring: 288 10% 60%;
+
+    --radius: 1rem;
+
+    /* Pride palette - vibrant */
+    --pride-red: 0 72% 56%;
+    --pride-orange: 30 85% 58%;
+    --pride-yellow: 48 90% 58%;
+    --pride-green: 140 55% 46%;
+    --pride-blue: 220 65% 55%;
+    --pride-purple: 280 55% 55%;
+
+    --sidebar-background: 270 20% 96%;
+    --sidebar-foreground: 270 10% 25%;
+    --sidebar-primary: 288 10% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 264 20% 88%;
+    --sidebar-accent-foreground: 270 10% 25%;
+    --sidebar-border: 264 15% 86%;
+    --sidebar-ring: 288 10% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-justified {
+    text-align: justify;
+  }
+}

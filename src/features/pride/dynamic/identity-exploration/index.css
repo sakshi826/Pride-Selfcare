@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 98%;
+    --foreground: 215 15% 25%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 15% 25%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 15% 25%;
+
+    --primary: 240 60% 85%;
+    --primary-foreground: 215 15% 25%;
+
+    --secondary: 330 50% 90%;
+    --secondary-foreground: 215 15% 25%;
+
+    --muted: 30 15% 95%;
+    --muted-foreground: 215 10% 55%;
+
+    --accent: 160 50% 95%;
+    --accent-foreground: 215 15% 25%;
+
+    --destructive: 0 60% 70%;
+    --destructive-foreground: 30 20% 98%;
+
+    --border: 30 15% 92%;
+    --input: 30 15% 92%;
+    --ring: 240 60% 85%;
+
+    --radius: 1rem;
+
+    --pride-red: 0 75% 65%;
+    --pride-orange: 30 85% 60%;
+    --pride-yellow: 50 90% 65%;
+    --pride-green: 140 55% 50%;
+    --pride-blue: 210 70% 55%;
+    --pride-purple: 275 60% 60%;
+
+    --accent-mint: 160 50% 95%;
+    --accent-peach: 25 60% 94%;
+    --accent-lavender: 240 60% 92%;
+    --accent-pink: 330 50% 92%;
+    --accent-blue: 200 60% 92%;
+
+    --sidebar-background: 30 20% 97%;
+    --sidebar-foreground: 215 15% 25%;
+    --sidebar-primary: 240 60% 85%;
+    --sidebar-primary-foreground: 30 20% 98%;
+    --sidebar-accent: 160 50% 95%;
+    --sidebar-accent-foreground: 215 15% 25%;
+    --sidebar-border: 30 15% 92%;
+    --sidebar-ring: 240 60% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Hanken Grotesk', sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+}
+
+@layer utilities {
+  .justified-text {
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.6;
+  }
+}
+
+.soft-depth {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.01),
+              0 2px 4px rgba(0,0,0,0.02),
+              0 12px 24px rgba(0,0,0,0.03);
+}
+
+.cloud-shadow {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.02),
+              0 4px 12px rgba(0,0,0,0.03),
+              0 20px 40px rgba(0,0,0,0.04);
+}
+
+/* Custom range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: hsl(0 0% 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 0 0 2px rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: hsl(0 0% 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12), 0 0 0 2px rgba(0,0,0,0.04);
+  cursor: pointer;
+  border: none;
+}
+
+/* Hide scrollbar for swipe cards */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

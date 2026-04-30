@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+build
+
+# Version Control
+.git
+.gitignore
+
+# Env
+# .env.local
+# .env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+
+# Docker
+Dockerfile
+docker-compose.yml
+README.md

@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --bg-pride-1: 0 75% 95%;
+    --bg-pride-2: 30 80% 95%;
+    --bg-pride-3: 55 70% 94%;
+    --bg-pride-4: 120 45% 94%;
+    --bg-pride-5: 210 60% 94%;
+    --bg-pride-6: 275 55% 94%;
+    --foreground: 240 3% 23%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 3% 23%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 3% 23%;
+
+    --primary: 265 30% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 265 70% 94%;
+    --secondary-foreground: 265 30% 40%;
+
+    --muted: 40 10% 94%;
+    --muted-foreground: 240 3% 46%;
+
+    --accent: 265 70% 94%;
+    --accent-foreground: 265 30% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 10% 90%;
+    --input: 40 10% 90%;
+    --ring: 265 30% 40%;
+
+    --radius: 1rem;
+
+    /* Custom pastel palette */
+    --lavender: 265 70% 94%;
+    --pink: 350 80% 94%;
+    --blue: 200 70% 92%;
+    --peach: 25 80% 92%;
+    --mint: 150 50% 92%;
+
+    --shadow-soft: 0 8px 30px rgb(0 0 0 / 0.04);
+    --shadow-card: 0 4px 20px -4px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.02);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground font-sans antialiased;
+    font-family: 'Instrument Sans', sans-serif;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--bg-pride-1)) 0%,
+      hsl(var(--bg-pride-2)) 20%,
+      hsl(var(--bg-pride-3)) 40%,
+      hsl(var(--bg-pride-4)) 60%,
+      hsl(var(--bg-pride-5)) 80%,
+      hsl(var(--bg-pride-6)) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100svh;
+  }
+}

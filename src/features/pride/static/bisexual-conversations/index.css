@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Serif+Display:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 300 100% 99%;
+    --foreground: 270 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 270 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 30% 15%;
+
+    --primary: 324 100% 41%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 267 55% 46%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 280 20% 94%;
+    --muted-foreground: 270 10% 45%;
+
+    --accent: 212 100% 31%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 280 15% 88%;
+    --input: 280 15% 88%;
+    --ring: 267 55% 46%;
+
+    --radius: 1.75rem;
+
+    --bi-pink: 324 100% 41%;
+    --bi-purple: 267 55% 46%;
+    --bi-blue: 212 100% 31%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .card-glass {
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 28px;
+    box-shadow: 0 8px 32px rgba(107, 53, 184, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .progress-gradient {
+    background: linear-gradient(90deg, hsl(var(--bi-pink)), hsl(var(--bi-purple)), hsl(var(--bi-blue)));
+  }
+
+  .btn-pill {
+    @apply rounded-full px-8 py-3 font-semibold text-sm tracking-wide transition-opacity duration-200;
+    background: linear-gradient(135deg, hsl(var(--bi-pink)), hsl(var(--bi-purple)));
+    color: white;
+  }
+
+  .btn-pill:hover {
+    opacity: 0.85;
+  }
+
+  .btn-pill:active {
+    opacity: 0.75;
+  }
+}
