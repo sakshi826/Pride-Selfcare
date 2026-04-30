@@ -93,9 +93,9 @@ export function LGBTQMythDetail() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#FDF2F8] via-[#FDF4FF] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F5EBFF] via-[#F2F0FF] to-[#FFE8EC]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -210,10 +210,14 @@ export function LGBTQMythDetail() {
             <button
               onClick={handleNext}
               disabled={!hasNext}
-              className={`px-8 py-3 rounded-xl font-medium transition-all ${
+              style={{ 
+                background: hasNext ? 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)' : '#E2E8F0',
+                backgroundColor: hasNext ? '#8B5CF6' : '#E2E8F0' 
+              }}
+              className={`px-8 py-3 rounded-xl font-black transition-all ${
                 hasNext
-                  ? "bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02]"
-                  : "bg-gray-200 text-[#CBD5E1] cursor-not-allowed"
+                  ? "text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:scale-[1.02] border border-white/20"
+                  : "text-[#94A3B8] cursor-not-allowed"
               }`}
             >
               Next →
@@ -222,7 +226,6 @@ export function LGBTQMythDetail() {
         </main>
       </div>
 
-      {/* Decorative background elements */}
       <div className="fixed top-20 right-10 w-64 h-64 bg-gradient-to-br from-[#BE51F5]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="fixed bottom-20 left-10 w-80 h-80 bg-gradient-to-tr from-[#EE4F84]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
     </div>

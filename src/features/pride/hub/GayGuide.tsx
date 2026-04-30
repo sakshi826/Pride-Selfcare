@@ -12,12 +12,12 @@ interface InteractiveTool {
 }
 
 const interactiveTools: InteractiveTool[] = [
-  { id: "celebrate-identity", icon: Sparkles, label: "Celebrate your Identity", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "https://platform.mantracare.com/gay-and-proud/" },
-  { id: "confidence-mirror", icon: Smile, label: "Confidence Mirror", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "https://platform.mantracare.com/confidence-mirror/" },
-  { id: "masculinity", icon: User, label: "Masculinity on your own terms", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "https://platform.mantracare.com/masculinity-on-your-own-terms/" },
-  { id: "coming-out", icon: Users, label: "Coming out", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "https://platform.mantracare.com/gay-coming-out/" },
-  { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "https://platform.mantracare.com/when-they-react/" },
-  { id: "dealing-homophobia", icon: BookOpen, label: "Dealing with Homophobia", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "https://platform.mantracare.com/dealing-with-homophobia/" },
+  { id: "celebrate-identity", icon: Sparkles, label: "Celebrate your Identity", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/content/gay-and-proud" },
+  { id: "confidence-mirror", icon: Smile, label: "Confidence Mirror", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/content/confidence-mirror" },
+  { id: "masculinity", icon: User, label: "Masculinity on your own terms", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/content/gay-and-proud" },
+  { id: "coming-out", icon: Users, label: "Coming out", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/gay-coming-out-yourself" },
+  { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/content/family-friends-reactions" },
+  { id: "dealing-homophobia", icon: BookOpen, label: "Dealing with Homophobia", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/gay-dealing-homophobia" },
 ];
 
 interface Tip {
@@ -113,9 +113,9 @@ export function GayGuide() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#EFF6FF] via-[#F8FAFC] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-[#F9F6FE]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}

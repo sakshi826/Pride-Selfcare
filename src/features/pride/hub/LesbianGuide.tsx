@@ -17,7 +17,7 @@ const interactiveTools: InteractiveTool[] = [
   { id: "your-heritage", icon: User, label: "Your Heritage", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/content/lesbian-power-boost" },
   { id: "practice-coming-out", icon: Users, label: "Practice Coming out", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/coming-out-practice" },
   { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/content/family-friends-reactions" },
-  { id: "identity-acceptance", icon: Sparkles, label: "Identity Acceptance", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/identity-reflection" },
+  { id: "identity-acceptance", icon: Sparkles, label: "Identity Acceptance", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/lesbian-power-boost" },
 ];
 
 interface Tip {
@@ -113,7 +113,7 @@ export function LesbianGuide() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#FFF1F2] via-[#FFF5F6] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#FDF4FF] via-[#FCF7FF] to-[#FAF5FF]">
       <div className="flex-1 flex flex-col min-w-0">
         <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}

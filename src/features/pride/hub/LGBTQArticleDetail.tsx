@@ -541,9 +541,9 @@ export function LGBTQArticleDetail() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#F5F3FF] via-[#F8FAFC] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F5EBFF] via-[#F2F0FF] to-[#FFE8EC]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[800px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -563,17 +563,14 @@ export function LGBTQArticleDetail() {
             transition={{ delay: 0.1 }}
             className="mb-8"
           >
-            {/* Category Badge */}
             <span className={`inline-flex items-center px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border ${article.categoryColor} border-current/20 shadow-sm mb-6`}>
               {article.category}
             </span>
 
-            {/* Title */}
             <h1 className="text-4xl md:text-5xl font-bold text-[#020817] mb-6 leading-tight">
               {article.title}
             </h1>
 
-            {/* Meta Info */}
             <div className="flex flex-wrap items-center gap-6 text-[#64748B] text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] flex items-center justify-center text-white font-bold text-sm">
@@ -644,9 +641,7 @@ export function LGBTQArticleDetail() {
                     transition={{ delay: 0.5 + index * 0.05 }}
                     className="relative my-10 p-8 rounded-2xl bg-gradient-to-br from-[#F5F3FF] via-[#FBF8FF] to-[#FEF2F8] border-l-4 border-[#8B5CF6] shadow-lg"
                   >
-                    {/* Quote Mark */}
                     <div className="absolute top-4 left-4 text-6xl text-[#8B5CF6]/20 font-serif leading-none">"</div>
-                    
                     <p className="relative text-[#5B21B6] text-xl md:text-2xl italic leading-relaxed font-medium pl-8">
                       {block.text}
                     </p>
@@ -674,7 +669,6 @@ export function LGBTQArticleDetail() {
             transition={{ delay: 0.6 }}
             className="mt-16 pt-8 border-t-2 border-gray-200"
           >
-            {/* Tags */}
             <div className="flex flex-wrap items-center gap-2 mb-8">
               <span className="text-sm text-[#64748B] font-medium">Topics:</span>
               <span className="px-3 py-1.5 rounded-full bg-[#F5F3FF] text-[#8B5CF6] text-xs font-medium border border-[#8B5CF6]/20">
@@ -685,14 +679,20 @@ export function LGBTQArticleDetail() {
               </span>
             </div>
 
-            {/* Back to Articles CTA */}
-            <div className="bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-sm">
-              <p className="text-[#64748B] mb-4">
+            <div 
+              className="rounded-2xl p-6 border border-gray-100 shadow-sm"
+              style={{ background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)', backdropFilter: 'blur(8px)' }}
+            >
+              <p className="text-[#64748B] mb-4 font-medium">
                 Want to read more stories and insights from the community?
               </p>
               <button
                 onClick={() => navigate("/lgbtq-articles")}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white font-medium shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02] transition-all inline-flex items-center gap-2"
+                style={{ 
+                  background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+                  backgroundColor: '#8B5CF6' 
+                }}
+                className="px-6 py-3 rounded-xl text-white font-black shadow-lg shadow-purple-500/30 hover:shadow-xl hover:scale-[1.02] transition-all inline-flex items-center gap-2 border border-white/20"
               >
                 <ChevronLeft size={18} strokeWidth={2.5} />
                 Back to All Articles
@@ -702,7 +702,6 @@ export function LGBTQArticleDetail() {
         </main>
       </div>
 
-      {/* Decorative background elements */}
       <div className="fixed top-20 right-10 w-96 h-96 bg-gradient-to-br from-[#BE51F5]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="fixed bottom-20 left-10 w-96 h-96 bg-gradient-to-tr from-[#EE4F84]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
     </div>

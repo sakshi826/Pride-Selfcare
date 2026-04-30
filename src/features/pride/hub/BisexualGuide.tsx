@@ -12,12 +12,12 @@ interface InteractiveTool {
 }
 
 const interactiveTools: InteractiveTool[] = [
-  { id: "affirmations", icon: Sparkles, label: "Affirmations", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "https://platform.mantracare.com/bi-identity-affirmations/" },
-  { id: "mental-health", icon: BookOpen, label: "Bisexuality and Mental Health", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "https://platform.mantracare.com/bi-mental-health/" },
-  { id: "coming-out-practice", icon: Users, label: "Coming Out Practice", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "https://platform.mantracare.com/bi-coming-out/" },
-  { id: "talk-to-family", icon: User, label: "Talk to Your Family", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "https://platform.mantracare.com/bi-family-friends-convo/" },
-  { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "https://platform.mantracare.com/when-they-react/" },
-  { id: "confidence-mirror", icon: Smile, label: "Confidence Mirror", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "https://platform.mantracare.com/confidence-mirror/" },
+  { id: "affirmations", icon: Sparkles, label: "Affirmations", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/bi-identity-affirmations" },
+  { id: "mental-health", icon: BookOpen, label: "Bisexuality and Mental Health", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/bisexual-wellbeing-compass" },
+  { id: "coming-out-practice", icon: Users, label: "Coming Out Practice", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/coming-out-bisexual" },
+  { id: "talk-to-family", icon: User, label: "Talk to Your Family", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/bisexual-conversations" },
+  { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/content/family-friends-reactions" },
+  { id: "confidence-mirror", icon: Smile, label: "Confidence Mirror", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/confidence-mirror" },
 ];
 
 interface Tip {
@@ -113,9 +113,9 @@ export function BisexualGuide() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#FAF5FF] via-[#F3E8FF] to-[#FFF1F2]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#FDF4FF] via-[#FCF7FF] to-[#FAF5FF]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}

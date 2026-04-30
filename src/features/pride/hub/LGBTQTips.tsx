@@ -2,61 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Users, Shield, Leaf, Sparkles, Home, Moon } from "lucide-react";
 
-interface Tip {
-  id: string;
-  icon: any;
-  iconBg: string;
-  title: string;
-  description: string;
-}
-
-const tips: Tip[] = [
-  {
-    id: "community",
-    icon: Users,
-    iconBg: "from-[#A855F7] to-[#9333EA]",
-    title: "Find Your Community",
-    description: "Connection with people who get it can ease loneliness and fear.",
-  },
-  {
-    id: "boundaries",
-    icon: Shield,
-    iconBg: "from-[#3B82F6] to-[#2563EB]",
-    title: "Set Gentle Boundaries",
-    description: "Protecting your energy isn't selfish — it's survival.",
-  },
-  {
-    id: "identity",
-    icon: Leaf,
-    iconBg: "from-[#10B981] to-[#059669]",
-    title: "Honor Your Identity",
-    description: "Your identity is valid — even when the world questions it.",
-  },
-  {
-    id: "self-talk",
-    icon: Sparkles,
-    iconBg: "from-[#F59E0B] to-[#D97706]",
-    title: "Affirming Self-Talk",
-    description: "Replace internalized shame with words that actually fit you.",
-  },
-  {
-    id: "safe-spaces",
-    icon: Home,
-    iconBg: "from-[#EF4444] to-[#DC2626]",
-    title: "Create Safe Spaces",
-    description: "Build small pockets of safety — physical and emotional.",
-  },
-  {
-    id: "grief",
-    icon: Moon,
-    iconBg: "from-[#06B6D4] to-[#0891B2]",
-    title: "Process Grief & Loss",
-    description: "Rejection and coming-out losses are real grief. Tend to them.",
-  },
-];
-
 export function LGBTQTips() {
   const navigate = useNavigate();
+  const tips = [
+    { id: "community", icon: Users, iconBg: "from-[#A855F7] to-[#9333EA]", title: "Find Your Community", description: "Connection with people who get it can ease loneliness and fear.", link: "/find-your-community" },
+    { id: "boundaries", icon: Shield, iconBg: "from-[#3B82F6] to-[#2563EB]", title: "Set Gentle Boundaries", description: "Protecting your energy isn't selfish — it's survival.", link: "/set-gentle-boundaries" },
+    { id: "identity", icon: Leaf, iconBg: "from-[#10B981] to-[#059669]", title: "Honor Your Identity", description: "Your identity is valid — even when the world questions it.", link: "/honor-your-identity" },
+    { id: "self-talk", icon: Sparkles, iconBg: "from-[#F59E0B] to-[#D97706]", title: "Affirming Self-Talk", description: "Replace internalized shame with words that actually fit you.", link: "/affirming-self-talk" },
+    { id: "safe-spaces", icon: Home, iconBg: "from-[#EF4444] to-[#DC2626]", title: "Create Safe Spaces", description: "Build small pockets of safety — physical and emotional.", link: "/create-safe-spaces" },
+    { id: "grief", icon: Moon, iconBg: "from-[#06B6D4] to-[#0891B2]", title: "Process Grief & Loss", description: "Rejection and coming-out losses are real grief. Tend to them.", link: "/process-grief-loss" },
+  ];
 
   const container = {
     hidden: { opacity: 0 },
@@ -74,9 +29,9 @@ export function LGBTQTips() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F5EBFF] via-[#F2F0FF] to-[#FFE8EC]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -103,7 +58,6 @@ export function LGBTQTips() {
               </div>
             </div>
 
-            {/* Decorative element */}
             <div className="h-1.5 w-24 bg-gradient-to-r from-[#BE51F5] via-[#EE4F84] to-[#F472B6] rounded-full"></div>
           </motion.div>
 
@@ -114,7 +68,7 @@ export function LGBTQTips() {
             animate="show"
             className="space-y-4 mb-12"
           >
-            {tips.map((tip, index) => {
+            {tips.map((tip) => {
               const IconComponent = tip.icon;
               return (
                 <motion.button
@@ -122,34 +76,16 @@ export function LGBTQTips() {
                   variants={item}
                   whileHover={{ scale: 1.02, x: 8 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    if (tip.id === "community") {
-                      navigate("/find-your-community");
-                    } else if (tip.id === "boundaries") {
-                      navigate("/set-gentle-boundaries");
-                    } else if (tip.id === "identity") {
-                      navigate("/honor-your-identity");
-                    } else if (tip.id === "self-talk") {
-                      navigate("/affirming-self-talk");
-                    } else if (tip.id === "safe-spaces") {
-                      navigate("/create-safe-spaces");
-                    } else if (tip.id === "grief") {
-                      navigate("/process-grief-loss");
-                    }
-                  }}
+                  onClick={() => navigate(tip.link)}
                   className="w-full bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-7 flex items-center gap-5 shadow-sm hover:shadow-xl transition-all border border-gray-100/50 hover:border-[#BE51F5]/20 group relative overflow-hidden"
                 >
-                  {/* Hover gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-r from-[#BE51F5]/0 via-[#EE4F84]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  {/* Icon */}
                   <div className={`relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br ${tip.iconBg} rounded-2xl md:rounded-3xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:shadow-2xl transition-all group-hover:scale-110 duration-300`}>
                     <IconComponent className="text-white" size={32} strokeWidth={2} />
-                    {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl md:rounded-3xl"></div>
                   </div>
 
-                  {/* Content */}
                   <div className="flex-1 text-left relative z-10">
                     <h3 className="text-lg md:text-xl font-bold text-[#1E293B] mb-2 group-hover:text-[#BE51F5] transition-colors duration-300">
                       {tip.title}
@@ -159,7 +95,6 @@ export function LGBTQTips() {
                     </p>
                   </div>
 
-                  {/* Arrow with animated background */}
                   <div className="relative flex-shrink-0">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-br from-[#F3E1FD] to-[#FAE8FF] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
                       <ChevronRight 
@@ -174,7 +109,6 @@ export function LGBTQTips() {
             })}
           </motion.div>
 
-          {/* Enhanced Footer */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,12 +123,11 @@ export function LGBTQTips() {
               <Sparkles className="text-[#EE4F84]" size={20} />
             </div>
           </motion.div>
-
-          {/* Decorative background elements */}
-          <div className="fixed top-20 right-10 w-64 h-64 bg-gradient-to-br from-[#BE51F5]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
-          <div className="fixed bottom-20 left-10 w-80 h-80 bg-gradient-to-tr from-[#EE4F84]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
         </main>
       </div>
+
+      <div className="fixed top-20 right-10 w-64 h-64 bg-gradient-to-br from-[#BE51F5]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div className="fixed bottom-20 left-10 w-80 h-80 bg-gradient-to-tr from-[#EE4F84]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
     </div>
   );
 }

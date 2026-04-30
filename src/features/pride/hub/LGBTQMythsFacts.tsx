@@ -1,48 +1,41 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
-interface MythFact {
-  id: string;
-  myth: string;
-  fact: string;
-}
-
-const mythsFacts: MythFact[] = [
-  {
-    id: "phase",
-    myth: "Being LGBTQ+ is just a phase.",
-    fact: "Sexual orientation and gender identity are enduring, not temporary.",
-  },
-  {
-    id: "mental-illness",
-    myth: "Being gay is a mental illness.",
-    fact: "Major health bodies worldwide declassified this decades ago.",
-  },
-  {
-    id: "bisexual",
-    myth: "Bisexual people are just confused or going through a phase.",
-    fact: "Bisexuality is a real, stable, and well-documented orientation.",
-  },
-  {
-    id: "parenting",
-    myth: "Same-sex couples can't raise healthy, happy children.",
-    fact: "Decades of research show children thrive with loving parents regardless of gender.",
-  },
-  {
-    id: "trans-confusion",
-    myth: "Trans people are just confused about their gender.",
-    fact: "Gender identity is deeply held — trans identities are consistent over time.",
-  },
-  {
-    id: "western-import",
-    myth: "LGBTQ+ identities are a Western import.",
-    fact: "Diverse gender and sexuality expressions have existed across all cultures through history.",
-  },
-];
+import { ChevronLeft } from "lucide-react";
 
 export function LGBTQMythsFacts() {
   const navigate = useNavigate();
+  const mythsFacts = [
+    {
+      id: "phase",
+      myth: "Being LGBTQ+ is just a phase.",
+      fact: "Sexual orientation and gender identity are enduring, not temporary.",
+    },
+    {
+      id: "mental-illness",
+      myth: "Being gay is a mental illness.",
+      fact: "Major health bodies worldwide declassified this decades ago.",
+    },
+    {
+      id: "bisexual",
+      myth: "Bisexual people are just confused or going through a phase.",
+      fact: "Bisexuality is a real, stable, and well-documented orientation.",
+    },
+    {
+      id: "parenting",
+      myth: "Same-sex couples can't raise healthy, happy children.",
+      fact: "Decades of research show children thrive with loving parents regardless of gender.",
+    },
+    {
+      id: "trans-confusion",
+      myth: "Trans people are just confused about their gender.",
+      fact: "Gender identity is deeply held — trans identities are consistent over time.",
+    },
+    {
+      id: "western-import",
+      myth: "LGBTQ+ identities are a Western import.",
+      fact: "Diverse gender and sexuality expressions have existed across all cultures through history.",
+    },
+  ];
 
   const container = {
     hidden: { opacity: 0 },
@@ -60,10 +53,10 @@ export function LGBTQMythsFacts() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#FDF2F8] via-[#FDF4FF] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
-          {/* Header */}
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
+          {/* Back Button */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,7 +82,6 @@ export function LGBTQMythsFacts() {
               </div>
             </div>
 
-            {/* Decorative element */}
             <div className="h-1.5 w-24 bg-gradient-to-r from-[#BE51F5] via-[#EE4F84] to-[#F472B6] rounded-full"></div>
           </motion.div>
 
@@ -100,14 +92,13 @@ export function LGBTQMythsFacts() {
             animate="show"
             className="space-y-6 mb-12"
           >
-            {mythsFacts.map((mythFact, index) => (
+            {mythsFacts.map((mythFact) => (
               <motion.button
                 key={mythFact.id}
                 variants={item}
                 onClick={() => navigate(`/lgbtq-myth/${mythFact.id}`)}
                 className="w-full bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-100 hover:border-[#C4B5FD]/50 cursor-pointer group"
               >
-                {/* Myth Section */}
                 <div className="bg-gradient-to-br from-[#FEF2F2] to-[#FEE2E2] p-5 md:p-6 border-b border-[#FCA5A5]/30 group-hover:from-[#FEE2E2] group-hover:to-[#FECACA] transition-colors">
                   <div className="flex items-start gap-3">
                     <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#FCA5A5] to-[#F87171] text-[#7F1D1D] text-xs font-bold uppercase tracking-wide shadow-sm">
@@ -119,7 +110,6 @@ export function LGBTQMythsFacts() {
                   </div>
                 </div>
 
-                {/* Fact Section */}
                 <div className="p-5 md:p-6 flex items-start gap-4 group-hover:bg-gray-50/50 transition-colors">
                   <div className="flex-1">
                     <p className="text-[#334155] text-base md:text-lg leading-relaxed text-left">
@@ -134,7 +124,6 @@ export function LGBTQMythsFacts() {
             ))}
           </motion.div>
 
-          {/* Footer Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -150,7 +139,6 @@ export function LGBTQMythsFacts() {
         </main>
       </div>
 
-      {/* Decorative background elements */}
       <div className="fixed top-20 right-10 w-64 h-64 bg-gradient-to-br from-[#BE51F5]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="fixed bottom-20 left-10 w-80 h-80 bg-gradient-to-tr from-[#EE4F84]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
     </div>

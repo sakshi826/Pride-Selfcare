@@ -13,9 +13,9 @@ export function ProcessGriefLoss() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#CFFAFE] via-[#F8FAFC] to-[#FAF5FF]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
       <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1200px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-8 md:pt-12">
+        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}

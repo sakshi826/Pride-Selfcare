@@ -34,13 +34,13 @@ import { LesbianGuide } from "./features/pride/hub/LesbianGuide";
 import { GayGuide } from "./features/pride/hub/GayGuide";
 import { BisexualGuide } from "./features/pride/hub/BisexualGuide";
 import { TransGuide } from "./features/pride/hub/TransGuide";
-import { ServicePage } from "./features/pride/hub/ServicePage";
 import { FindYourCommunity } from "./features/pride/hub/FindYourCommunity";
 import { SetGentleBoundaries } from "./features/pride/hub/SetGentleBoundaries";
 import { HonorYourIdentity } from "./features/pride/hub/HonorYourIdentity";
 import { AffirmingSelfTalk } from "./features/pride/hub/AffirmingSelfTalk";
 import { CreateSafeSpaces } from "./features/pride/hub/CreateSafeSpaces";
 import { ProcessGriefLoss } from "./features/pride/hub/ProcessGriefLoss";
+import { LGBTQAssessments } from "./features/pride/hub/LGBTQAssessments";
 
 function Index() {
   return (
@@ -151,7 +151,7 @@ function App() {
               <Route path="/gay-guide" element={<GayGuide />} />
               <Route path="/bisexual-guide" element={<BisexualGuide />} />
               <Route path="/trans-guide" element={<TransGuide />} />
-              <Route path="/service/lgbtq" element={<ServicePage />} />
+              <Route path="/lgbtq-assessments" element={<LGBTQAssessments />} />
               <Route path="/find-your-community" element={<FindYourCommunity />} />
               <Route path="/set-gentle-boundaries" element={<SetGentleBoundaries />} />
               <Route path="/honor-your-identity" element={<HonorYourIdentity />} />
