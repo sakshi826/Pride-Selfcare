@@ -48,6 +48,7 @@ import MoodTracker from "./features/pride/trackers/MoodTracker";
 import SleepTracker from "./features/pride/trackers/SleepTracker";
 import GratitudeTracker from "./features/pride/trackers/GratitudeTracker";
 import VibeTracker from "./features/pride/trackers/VibeTracker";
+import DbSetup from "./features/pride/trackers/DbSetup";
 
 function Index() {
   return (
@@ -205,6 +206,7 @@ function App() {
               <Route path="/trackers/sleep" element={<SleepTracker />} />
               <Route path="/trackers/gratitude" element={<GratitudeTracker />} />
               <Route path="/trackers/vibe" element={<VibeTracker />} />
+              <Route path="/db-setup" element={<DbSetup />} />
             </Routes>
           </AuthGuard>
         } />
