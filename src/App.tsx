@@ -71,10 +71,10 @@ function Index() {
         <h2 className="text-xl font-semibold mb-4">Static Minis</h2>
         <div className="flex flex-col gap-2">
           <Link to="/bi-identity-affirmations" className="text-blue-500 hover:underline">Bi Identity Affirmations</Link>
-          <Link to="/bisexual-conversations" className="text-blue-500 hover:underline">Bisexual Conversations</Link>
+          <Link to="/bi-family-friends-convo" className="text-blue-500 hover:underline">Bisexual Conversations</Link>
           <Link to="/bisexual-stories" className="text-blue-500 hover:underline">Bisexual Stories</Link>
-          <Link to="/bisexual-wellbeing-compass" className="text-blue-500 hover:underline">Bisexual Wellbeing Compass</Link>
-          <Link to="/coming-out-bisexual" className="text-blue-500 hover:underline">Coming Out Bisexual</Link>
+          <Link to="/bi-mental-health" className="text-blue-500 hover:underline">Bisexual Wellbeing Compass</Link>
+          <Link to="/bi-coming-out" className="text-blue-500 hover:underline">Coming Out Bisexual</Link>
           <Link to="/dealing-with-dysphoria" className="text-blue-500 hover:underline">Dealing With Dysphoria</Link>
           <Link to="/joy-pride-trans" className="text-blue-500 hover:underline">Joy Pride Trans</Link>
           <Link to="/navigating-medical-transition" className="text-blue-500 hover:underline">Navigating Medical Transition</Link>
@@ -166,10 +166,10 @@ function App() {
 
               {/* PrideMantra — Static Minis */}
               <Route path="/bi-identity-affirmations/*" element={<BiIdentityAffirmations />} />
-              <Route path="/bisexual-conversations/*" element={<BisexualConversations />} />
+              <Route path="/bi-family-friends-convo/*" element={<BisexualConversations />} />
               <Route path="/bisexual-stories/*" element={<BisexualStories />} />
-              <Route path="/bisexual-wellbeing-compass/*" element={<BisexualWellbeingCompass />} />
-              <Route path="/coming-out-bisexual/*" element={<ComingOutBisexual />} />
+              <Route path="/bi-mental-health/*" element={<BisexualWellbeingCompass />} />
+              <Route path="/bi-coming-out/*" element={<ComingOutBisexual />} />
               <Route path="/dealing-with-dysphoria/*" element={<DealingWithDysphoria />} />
               <Route path="/joy-pride-trans/*" element={<JoyPrideTrans />} />
               <Route path="/navigating-medical-transition/*" element={<NavigatingMedicalTransition />} />
