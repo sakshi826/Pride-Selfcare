@@ -97,6 +97,7 @@ function Index() {
           <Link to="/content/lesbian-power-booster" className="text-blue-500 hover:underline">Lesbian Power Booster</Link>
           <Link to="/content/real-stories-of-lesbian-women" className="text-blue-500 hover:underline">Lesbian Real Stories</Link>
           <Link to="/content/masculinity-on-your-own-terms" className="text-blue-500 hover:underline">Masculinity on Your Own Terms</Link>
+          <Link to="/content/lgbtq-stories" className="text-blue-500 hover:underline font-bold">LGBTQ+ Stories (Main)</Link>
         </div>
       </section>
     </div>

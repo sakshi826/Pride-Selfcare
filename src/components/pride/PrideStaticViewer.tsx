@@ -1,28 +1,44 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ChevronLeft } from "lucide-react";
+import { PrideActivityHeader } from "../../features/pride/components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "../../features/pride/components/PrideFloatingOrbs";
+
+const slugMetadata: Record<string, { title: string; subtitle: string }> = {
+  "celebrate-wlw": { title: "Celebrate WLW", subtitle: "Honoring Women Loving Women" },
+  "coming-out-practice": { title: "Coming Out Practice", subtitle: "Prepare for your journey" },
+  "confidence-mirror": { title: "Confidence Mirror", subtitle: "Building self-assurance" },
+  "when-they-react": { title: "Handle Reactions", subtitle: "Navigating others' responses" },
+  "gay-and-proud": { title: "Gay And Proud", subtitle: "Embracing your identity" },
+  "gay-coming-out": { title: "Gay Coming Out", subtitle: "Resources for your path" },
+  "dealing-with-homophobia": { title: "Dealing with Homophobia", subtitle: "Support and strategies" },
+  "lesbian-power-booster": { title: "Lesbian Power Booster", subtitle: "Empowering your voice" },
+  "real-stories-of-lesbian-women": { title: "Lesbian Stories", subtitle: "Voices from the community" },
+  "masculinity-on-your-own-terms": { title: "Authentic Masculinity", subtitle: "Defining your own path" },
+  "lgbtq-stories": { title: "LGBTQ+ Stories", subtitle: "Real journeys of finding yourself" },
+};
 
 export function PrideStaticViewer() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const src = `/static/pride/${slug}/index.html`;
+  
+  const metadata = slug ? slugMetadata[slug] : null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Back Header */}
-      <div className="p-4 border-b border-gray-100 flex items-center bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <motion.button
-          whileHover={{ x: -4, scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/lgbtq-hub')}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-50 text-[#64748B] font-bold text-sm hover:text-[#A855F7] transition-all"
-        >
-          <ChevronLeft size={18} strokeWidth={2.5} />
-          Back to Hub
-        </motion.button>
+    <div className="flex flex-col min-h-screen bg-[#FDFCFE] relative overflow-hidden">
+      <PrideFloatingOrbs />
+      
+      {/* Consistent Header */}
+      <div className="relative z-50 bg-white/40 backdrop-blur-md border-b border-white/20">
+        <div className="activity-container-lg py-4">
+          <PrideActivityHeader 
+            title={metadata?.title || "Pride Resources"} 
+            subtitle={metadata?.subtitle || "Explore and grow"}
+            className="mb-0"
+          />
+        </div>
       </div>
 
-      <div className="flex-1 w-full h-full relative">
+      <div className="flex-1 w-full relative z-10">
         <iframe
           src={src}
           title={`PrideMantra ${slug}`}

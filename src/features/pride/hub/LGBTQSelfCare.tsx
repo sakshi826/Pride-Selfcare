@@ -28,7 +28,7 @@ interface GuideCard {
 
 const resources: ResourceCard[] = [
   { id: "assessments", icon: CheckSquare, label: "Assessments", bgColor: "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)", link: "/lgbtq-assessments" },
-  { id: "stories", icon: BookOpen, label: "Stories", bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/bisexual-stories" },
+  { id: "stories", icon: BookOpen, label: "Stories", bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/content/lgbtq-stories" },
   { id: "identity", icon: Compass, label: "Identity Exploration", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-exploration" },
   { id: "tips", icon: Lightbulb, label: "Tips", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/lgbtq-tips" },
   { id: "myths", icon: Info, label: "Myths & Facts", bgColor: "linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)", link: "/lgbtq-myths-facts" },
