@@ -36,12 +36,12 @@ const resources: ResourceCard[] = [
 ];
 
 const trackers: TrackerCard[] = [
-  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/find-your-right-time" },
-  { id: "daily-care", icon: HeartPulse, label: "Daily Care", bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/gentle-check-in" },
-  { id: "mood", icon: Smile, label: "Mood", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/pride-spectrum" },
-  { id: "sleep", icon: Moon, label: "Sleep", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/bisexual-wellbeing-compass" },
-  { id: "gratitude", icon: Sparkles, label: "Gratitude", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/gentle-check-in" },
-  { id: "vibe", icon: Activity, label: "Vibe", bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/pride-mirror-moments" },
+  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-reflection" },
+  { id: "daily-care", icon: HeartPulse, label: "Daily Care", bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
+  { id: "mood", icon: Smile, label: "Mood", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
+  { id: "sleep", icon: Moon, label: "Sleep", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
+  { id: "gratitude", icon: Sparkles, label: "Gratitude", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trackers/gratitude" },
+  { id: "vibe", icon: Activity, label: "Vibe", bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/trackers/vibe" },
 ];
 
 const guides: GuideCard[] = [

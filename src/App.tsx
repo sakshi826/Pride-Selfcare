@@ -42,6 +42,13 @@ import { CreateSafeSpaces } from "./features/pride/hub/CreateSafeSpaces";
 import { ProcessGriefLoss } from "./features/pride/hub/ProcessGriefLoss";
 import { LGBTQAssessments } from "./features/pride/hub/LGBTQAssessments";
 
+// Trackers
+import DailyCareTracker from "./features/pride/trackers/DailyCareTracker";
+import MoodTracker from "./features/pride/trackers/MoodTracker";
+import SleepTracker from "./features/pride/trackers/SleepTracker";
+import GratitudeTracker from "./features/pride/trackers/GratitudeTracker";
+import VibeTracker from "./features/pride/trackers/VibeTracker";
+
 function Index() {
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-8">
@@ -190,6 +197,13 @@ function App() {
               <Route path="/affirming-self-talk" element={<AffirmingSelfTalk />} />
               <Route path="/create-safe-spaces" element={<CreateSafeSpaces />} />
               <Route path="/process-grief-loss" element={<ProcessGriefLoss />} />
+
+              {/* Trackers */}
+              <Route path="/trackers/daily-care" element={<DailyCareTracker />} />
+              <Route path="/trackers/mood" element={<MoodTracker />} />
+              <Route path="/trackers/sleep" element={<SleepTracker />} />
+              <Route path="/trackers/gratitude" element={<GratitudeTracker />} />
+              <Route path="/trackers/vibe" element={<VibeTracker />} />
             </Routes>
           </AuthGuard>
         } />
