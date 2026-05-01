@@ -21,22 +21,17 @@
     --pride-green: 140 55% 50%;
     --pride-blue: 210 70% 55%;
     --pride-purple: 275 60% 60%;
-    --foreground: 240 3% 23%;
-
+    --foreground: 240 5% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 240 3% 23%;
-
+    --card-foreground: 240 5% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 3% 23%;
-
+    --popover-foreground: 240 5% 15%;
     --primary: 265 30% 40%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 265 70% 94%;
     --secondary-foreground: 265 30% 40%;
-
     --muted: 40 10% 94%;
-    --muted-foreground: 240 3% 46%;
+    --muted-foreground: 240 5% 35%;
 
     --accent: 265 70% 94%;
     --accent-foreground: 265 30% 40%;
@@ -129,7 +124,7 @@
   }
   /* Premium Card Styles */
   .premium-card {
-    @apply bg-white/80 backdrop-blur-md rounded-3xl border border-white/50 shadow-soft;
+    @apply bg-white/90 backdrop-blur-xl rounded-[32px] border border-black/5 shadow-soft;
   }
 
   .premium-card-interactive {
@@ -143,7 +138,7 @@
   }
 
   .btn-secondary {
-    @apply py-4 px-6 rounded-2xl font-bold text-foreground bg-white/50 backdrop-blur-sm border border-white shadow-soft transition-all duration-300 hover:bg-white active:scale-95;
+    @apply py-4 px-6 rounded-2xl font-bold text-foreground bg-white/80 backdrop-blur-md border border-black/5 shadow-md transition-all duration-300 hover:bg-white hover:shadow-lg active:scale-95;
   }
 
   .btn-ghost {

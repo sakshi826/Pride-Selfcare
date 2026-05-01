@@ -12,8 +12,6 @@ import { sql } from "@/lib/db";
 type Screen = "intro" | "mirror" | "reflection" | "completion" | "saved";
 
 import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
-
-import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
 import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
 const Index = () => {
@@ -74,12 +72,8 @@ const Index = () => {
   }, [notes, userId, fetchNotes]);
 
   const handleViewSaved = useCallback(() => {
-    setNotes((prev) => {
-      const merged = [...new Set([...dbNotes, ...prev])];
-      return merged;
-    });
     setScreen("saved");
-  }, [dbNotes]);
+  }, []);
 
   const handleAddMore = useCallback(() => {
     setScreen("mirror");
@@ -102,7 +96,8 @@ const Index = () => {
         <PrideActivityHeader 
           title="Mirror Moments" 
           subtitle="Reflections of Pride"
-          onBack={screen !== "intro" ? handleBack : undefined}
+          showHistory={true}
+          onHistory={handleViewSaved}
           className="mb-8"
         />
 

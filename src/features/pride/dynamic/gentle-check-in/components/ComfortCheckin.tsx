@@ -127,6 +127,8 @@ const ComfortCheckin = () => {
           title="Gentle Check-in" 
           subtitle="How are you feeling?"
           onBack={step > 0 ? handleBack : undefined}
+          showHistory={true}
+          onHistory={() => setShowHistory(true)}
           className="mb-8"
         />
 

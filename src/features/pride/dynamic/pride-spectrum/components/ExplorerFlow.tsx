@@ -419,7 +419,8 @@ const ExplorerFlow = () => {
         <PrideActivityHeader 
           title="Pride Spectrum" 
           subtitle="Explore your attraction"
-          onBack={screen > 0 ? prev : undefined}
+          showHistory={true}
+          onHistory={() => setShowHistory(true)}
           className="mb-8"
         />
         

@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, X } from "lucide-react";
+import { ChevronLeft, History } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PrideActivityHeaderProps {
   title: string;
   subtitle?: string;
   onBack?: () => void;
+  onHistory?: () => void;
+  showHistory?: boolean;
   className?: string;
 }
 
@@ -14,11 +16,13 @@ export const PrideActivityHeader: React.FC<PrideActivityHeaderProps> = ({
   title, 
   subtitle, 
   onBack,
+  onHistory,
+  showHistory = false,
   className 
 }) => {
   const navigate = useNavigate();
 
-  const handleBack = () => {
+  const handleExit = () => {
     if (onBack) {
       onBack();
     } else {
@@ -26,33 +30,37 @@ export const PrideActivityHeader: React.FC<PrideActivityHeaderProps> = ({
     }
   };
 
-  const handleExit = () => {
-    navigate("/lgbtq-hub");
+  const handleHistory = () => {
+    if (onHistory) {
+      onHistory();
+    }
   };
 
   return (
-    <div className={cn("flex items-center justify-between mb-12 relative z-50", className)}>
+    <div className={cn("flex items-center justify-between mb-8 relative z-50", className)}>
       <div className="flex items-center gap-6">
         <button
-          onClick={handleBack}
-          className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md text-foreground hover:text-pride-purple hover:bg-white/20 transition-all shadow-lg border border-white/10 group"
-          aria-label="Go back"
+          onClick={handleExit}
+          className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white text-foreground hover:text-pride-purple hover:scale-110 active:scale-95 transition-all shadow-xl border border-black/5 group"
+          aria-label="Exit activity"
         >
-          <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+          <ChevronLeft size={24} strokeWidth={3} className="group-hover:-translate-x-0.5 transition-transform" />
         </button>
         <div className="space-y-1">
           <h1 className="text-3xl font-black text-foreground tracking-tight leading-none">{title}</h1>
-          {subtitle && <p className="text-base text-muted-foreground font-medium">{subtitle}</p>}
+          {subtitle && <p className="text-base text-muted-foreground font-semibold">{subtitle}</p>}
         </div>
       </div>
 
-      <button
-        onClick={handleExit}
-        className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md text-foreground hover:text-pride-red hover:bg-white/20 transition-all shadow-lg border border-white/10 group"
-        aria-label="Exit activity"
-      >
-        <X size={24} className="group-hover:rotate-90 transition-transform duration-500" />
-      </button>
+      {showHistory && (
+        <button
+          onClick={handleHistory}
+          className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white text-foreground hover:text-pride-blue hover:scale-110 active:scale-95 transition-all shadow-xl border border-black/5 group"
+          aria-label="View history"
+        >
+          <History size={24} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform duration-300" />
+        </button>
+      )}
     </div>
   );
 };

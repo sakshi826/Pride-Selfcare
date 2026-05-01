@@ -3,6 +3,8 @@ import HeroSection from "../components/HeroSection";
 import StoriesList from "../components/StoriesList";
 import StoryDetail from "../components/StoryDetail";
 import { stories } from "../data/stories";
+import { PrideActivityHeader } from "../../../components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "../../../components/PrideFloatingOrbs";
 
 type View = "hero" | "list" | "detail";
 
@@ -30,17 +32,32 @@ const Index = () => {
 
   return (
     <div
-      className="min-h-screen transition-opacity duration-300"
-      style={{
-        backgroundColor: "#fdf8ff",
-        opacity: transitioning ? 0 : 1,
-      }}
+      className="min-h-screen bg-[#FDFCFE] relative overflow-hidden"
     >
-      {view === "hero" && <HeroSection onReadStories={goToList} />}
-      {view === "list" && <StoriesList onSelectStory={goToDetail} onBack={goBackToHero} />}
-      {view === "detail" && (
-        <StoryDetail story={stories[selectedIndex]} onBack={goToList} />
-      )}
+      <PrideFloatingOrbs />
+      
+      <div className="relative z-50 pt-6 pb-2">
+        <div className="activity-container-lg">
+          <PrideActivityHeader 
+            title="Bisexual Stories" 
+            subtitle="Voices from the bisexual community"
+            className="mb-0"
+          />
+        </div>
+      </div>
+
+      <div
+        className="transition-opacity duration-300 relative z-10"
+        style={{
+          opacity: transitioning ? 0 : 1,
+        }}
+      >
+        {view === "hero" && <HeroSection onReadStories={goToList} />}
+        {view === "list" && <StoriesList onSelectStory={goToDetail} onBack={goBackToHero} />}
+        {view === "detail" && (
+          <StoryDetail story={stories[selectedIndex]} onBack={goToList} />
+        )}
+      </div>
     </div>
   );
 };

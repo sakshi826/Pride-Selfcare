@@ -126,7 +126,8 @@ const Index = () => {
         <PrideActivityHeader 
           title="Identity Reflection" 
           subtitle="Map your inner constellation"
-          onBack={screen !== "welcome" ? handleBack : undefined}
+          showHistory={true}
+          onHistory={handleHistory}
           className="mb-8"
         />
 

@@ -63,18 +63,23 @@ export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
         ))}
       </div>
 
-      <div className="flex flex-col gap-3 pt-4">
+      <div className="flex flex-col gap-4 pt-4">
         {onRestart && (
           <button
             onClick={onRestart}
-            className="w-full py-4 bg-gray-50 text-gray-600 font-bold rounded-2xl hover:bg-gray-100 transition-all active:scale-95 border border-gray-100"
+            className="btn-secondary w-full"
           >
             Start Over
           </button>
         )}
         <button
           onClick={() => navigate('/lgbtq-hub')}
-          className={`w-full py-4 bg-gradient-to-r ${gradientClass} text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 active:scale-95`}
+          className={`btn-primary w-full py-5 text-lg`}
+          style={{ 
+            background: variant === "trans" 
+              ? "linear-gradient(135deg, #55cdfc 0%, #f7a8b8 100%)" 
+              : undefined 
+          }}
         >
           Back to Hub
         </button>

@@ -186,7 +186,8 @@ const Index = () => {
         <PrideActivityHeader 
           title="Pride Journal" 
           subtitle="Gratitude & Reflection"
-          onBack={screen !== "intro" || promptIndex > 0 ? handleBack : undefined}
+          showHistory={true}
+          onHistory={handleViewHistory}
           className="mb-8"
         />
         <div className="flex-1 flex flex-col">

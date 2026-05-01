@@ -19,7 +19,8 @@ const slugMetadata: Record<string, { title: string; subtitle: string }> = {
 export function PrideStaticViewer() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const src = `/static/pride/${slug}/index.html`;
+  // Ensure we use a path relative to the public root, considering the basename
+  const src = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/static/pride/${slug}/index.html`;
   
   const metadata = slug ? slugMetadata[slug] : null;
 

@@ -21,15 +21,6 @@ const HeroSection = ({ onReadStories }: HeroSectionProps) => {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 transition-opacity duration-700 opacity-0"
     >
-      <div className="absolute top-8 left-8 z-50">
-        <button
-          onClick={() => navigate('/lgbtq-hub')}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-purple-600 transition-all"
-        >
-          <ChevronLeft size={18} strokeWidth={2.5} />
-          Back to Hub
-        </button>
-      </div>
       {/* Bi flag bar */}
       <div className="absolute top-0 left-0 right-0 flex h-2">
         <div className="h-full" style={{ width: "38%", backgroundColor: "#d1006c" }} />

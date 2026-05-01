@@ -358,39 +358,12 @@
 
   .back-to-stories-btn:hover { opacity: 0.87; transform: translateY(-1px); }
 
-  .top-nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.1rem 2rem;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
+  body {
+    padding-top: 80px; /* Space for the parent header */
   }
-
-  .nav-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.05rem;
-    color: var(--ink);
-    pointer-events: all;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s;
-    background: rgba(253,248,240,0.9);
-    padding: 6px 16px;
-    border-radius: 100px;
-    border: 1.5px solid #ddd;
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-logo.visible { opacity: 1; }
 </style>
 </head>
 <body>
-
-<nav class="top-nav">
-  <button class="nav-logo" id="navLogo" onclick="showHero()">🏳️‍🌈 Our Stories</button>
-</nav>
 
 <!-- HERO -->
 <section id="hero">
