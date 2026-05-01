@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
-import { PrideFloatingOrbs } from "../../components/PrideFloatingOrbs";
-import { PrideActivityHeader } from "../../components/PrideActivityHeader";
-import { PrideSuccessState } from "../../components/PrideSuccessState";
+import { PrideFloatingOrbs } from "../../../components/PrideFloatingOrbs";
+import { PrideActivityHeader } from "../../../components/PrideActivityHeader";
+import { PrideSuccessState } from "../../../components/PrideSuccessState";
 
 interface RevealBubble {
   icon: string;

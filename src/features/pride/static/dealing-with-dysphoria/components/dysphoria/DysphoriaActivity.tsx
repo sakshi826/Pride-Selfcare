@@ -7,9 +7,9 @@ import Card2Scale from "./Card2Scale";
 import Card3Breathing from "./Card3Breathing";
 import Card4Strategies from "./Card4Strategies";
 import Card5Closing from "./Card5Closing";
-import { PrideFloatingOrbs } from "../../../components/PrideFloatingOrbs";
-import { PrideActivityHeader } from "../../../components/PrideActivityHeader";
-import { PrideSuccessState } from "../../../components/PrideSuccessState";
+import { PrideFloatingOrbs } from "../../../../components/PrideFloatingOrbs";
+import { PrideActivityHeader } from "../../../../components/PrideActivityHeader";
+import { PrideSuccessState } from "../../../../components/PrideSuccessState";
 
 const cards = [
   { eye: "What Is This", title: "Dysphoria Is Not Your Fault", band: "blue" as const, Content: Card1Split },
