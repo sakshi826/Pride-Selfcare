@@ -132,13 +132,15 @@ const DysphoriaActivity = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative overflow-hidden">
+    <div className="activity-root bg-[#FDFCFE]">
       {/* Floating orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[15%] left-[10%] w-48 h-48 rounded-full bg-trans-blue/20 blur-3xl animate-float-orb" />
         <div className="absolute bottom-[20%] right-[5%] w-56 h-56 rounded-full bg-trans-pink/20 blur-3xl animate-float-orb-reverse" />
         <div className="absolute top-[60%] left-[50%] w-40 h-40 rounded-full bg-trans-blue/15 blur-3xl animate-float-orb" style={{ animationDelay: "3s" }} />
       </div>
+
+      <div className="activity-container-sm py-8 flex flex-col items-center">
 
       <div className="absolute top-6 left-6 z-50">
         <button
