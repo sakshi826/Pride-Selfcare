@@ -77,7 +77,7 @@ function Index() {
           <Link to="/bi-coming-out" className="text-blue-500 hover:underline">Coming Out Bisexual</Link>
           <Link to="/dealing-with-dysphoria" className="text-blue-500 hover:underline">Dealing With Dysphoria</Link>
           <Link to="/joy-pride-trans" className="text-blue-500 hover:underline">Joy Pride Trans</Link>
-          <Link to="/navigating-medical-transition" className="text-blue-500 hover:underline">Navigating Medical Transition</Link>
+          <Link to="/medical-transition" className="text-blue-500 hover:underline">Navigating Medical Transition</Link>
           <Link to="/trans-and-mental-health" className="text-blue-500 hover:underline">Trans And Mental Health</Link>
           <Link to="/trans-coming-out" className="text-blue-500 hover:underline">Trans Coming Out</Link>
         </div>
@@ -172,7 +172,7 @@ function App() {
               <Route path="/bi-coming-out/*" element={<ComingOutBisexual />} />
               <Route path="/dealing-with-dysphoria/*" element={<DealingWithDysphoria />} />
               <Route path="/joy-pride-trans/*" element={<JoyPrideTrans />} />
-              <Route path="/navigating-medical-transition/*" element={<NavigatingMedicalTransition />} />
+              <Route path="/medical-transition/*" element={<NavigatingMedicalTransition />} />
               <Route path="/trans-and-mental-health/*" element={<TransAndMentalHealth />} />
               <Route path="/trans-coming-out/*" element={<TransComingOut />} />
 
