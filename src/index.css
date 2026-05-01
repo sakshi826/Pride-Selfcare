@@ -127,8 +127,6 @@
   button, a, .card, input, textarea {
     @apply transition-all duration-300 ease-in-out;
   }
-}
-
   /* Premium Card Styles */
   .premium-card {
     @apply bg-white/80 backdrop-blur-md rounded-3xl border border-white/50 shadow-soft;
