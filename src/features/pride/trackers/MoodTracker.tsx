@@ -56,7 +56,7 @@ export default function MoodTracker() {
           </div>
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="w-full py-4 bg-gray-900 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all active:scale-95"
+            className="w-full py-4 bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
           >
             Return to Hub
           </button>
@@ -66,15 +66,23 @@ export default function MoodTracker() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6">
-      <div className="max-w-xl mx-auto">
+  return (
+    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6 relative overflow-hidden">
+      {/* Floating orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-purple-200/30 blur-3xl animate-float-orb" />
+        <div className="absolute bottom-[15%] right-[5%] w-80 h-80 rounded-full bg-pink-100/30 blur-3xl animate-float-orb-reverse" />
+        <div className="absolute top-[40%] right-[15%] w-48 h-48 rounded-full bg-blue-100/20 blur-3xl animate-float-orb" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="max-w-xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center gap-4 mb-10">
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-gray-500 hover:text-orange-600 transition-colors"
+            className="flex items-center justify-center w-11 h-11 rounded-xl bg-white backdrop-blur-sm text-[#64748B] hover:text-[#A855F7] hover:bg-white transition-all shadow-md hover:shadow-xl border border-gray-100"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">How are you?</h1>
@@ -89,10 +97,10 @@ export default function MoodTracker() {
               <button
                 key={m.value}
                 onClick={() => setSelectedMood(m.value)}
-                className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
+                className={`flex flex-col items-center gap-2 p-4 rounded-[28px] transition-all shadow-sm hover:shadow-xl border-2 ${
                   selectedMood === m.value
-                    ? `${m.color} ring-4 ring-orange-50`
-                    : "bg-white border border-gray-100 grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
+                    ? "border-[#EC4899] bg-white/90 backdrop-blur-md scale-105"
+                    : "border-white bg-white/60 backdrop-blur-sm grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:border-[#EC4899]/30"
                 }`}
               >
                 <span className="text-3xl">{m.emoji}</span>
@@ -108,7 +116,7 @@ export default function MoodTracker() {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="What's on your mind today?"
-              className="w-full h-40 p-5 rounded-3xl border-2 border-gray-100 bg-white focus:border-orange-200 focus:ring-0 transition-all resize-none text-gray-700"
+              className="w-full h-40 p-5 rounded-[32px] border-2 border-white bg-white/60 backdrop-blur-sm focus:border-[#EC4899]/50 focus:ring-0 transition-all resize-none text-gray-700 shadow-sm focus:bg-white/90"
             />
           </div>
 
@@ -116,7 +124,7 @@ export default function MoodTracker() {
           <button
             disabled={selectedMood === null || isSubmitting}
             onClick={handleSubmit}
-            className="w-full py-5 rounded-3xl bg-gradient-to-r from-orange-400 to-red-500 text-white font-bold text-lg shadow-xl shadow-orange-100 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            className="w-full py-5 rounded-3xl bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold text-lg shadow-xl shadow-purple-100 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2 hover:opacity-90"
           >
             {isSubmitting ? (
               <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />

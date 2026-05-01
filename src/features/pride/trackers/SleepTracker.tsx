@@ -57,7 +57,7 @@ export default function SleepTracker() {
           </div>
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="w-full py-4 bg-gray-900 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all active:scale-95"
+            className="w-full py-4 bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
           >
             Back to Hub
           </button>
@@ -67,15 +67,23 @@ export default function SleepTracker() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6">
-      <div className="max-w-xl mx-auto">
+  return (
+    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6 relative overflow-hidden">
+      {/* Floating orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-purple-200/30 blur-3xl animate-float-orb" />
+        <div className="absolute bottom-[15%] right-[5%] w-80 h-80 rounded-full bg-pink-100/30 blur-3xl animate-float-orb-reverse" />
+        <div className="absolute top-[40%] right-[15%] w-48 h-48 rounded-full bg-blue-100/20 blur-3xl animate-float-orb" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="max-w-xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center gap-4 mb-10">
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-gray-500 hover:text-blue-600 transition-colors"
+            className="flex items-center justify-center w-11 h-11 rounded-xl bg-white backdrop-blur-sm text-[#64748B] hover:text-[#A855F7] hover:bg-white transition-all shadow-md hover:shadow-xl border border-gray-100"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Sleep Log</h1>
@@ -83,7 +91,7 @@ export default function SleepTracker() {
           </div>
         </div>
 
-        <div className="bg-white rounded-[32px] p-8 shadow-xl shadow-blue-50 border border-blue-50 space-y-10">
+        <div className="bg-white/80 backdrop-blur-md rounded-[32px] p-8 shadow-xl border border-white/50 space-y-10">
           {/* Time Selection */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
@@ -95,7 +103,7 @@ export default function SleepTracker() {
                 type="time"
                 value={bedtime}
                 onChange={(e) => setBedtime(e.target.value)}
-                className="w-full p-4 rounded-2xl border-2 border-gray-100 focus:border-blue-300 transition-all text-2xl font-bold text-gray-800"
+                className="w-full p-4 rounded-2xl border-2 border-white bg-white/50 focus:bg-white focus:border-[#A855F7]/50 transition-all text-2xl font-bold text-gray-800 shadow-inner"
               />
             </div>
             <div className="space-y-4">
@@ -107,7 +115,7 @@ export default function SleepTracker() {
                 type="time"
                 value={wakeTime}
                 onChange={(e) => setWakeTime(e.target.value)}
-                className="w-full p-4 rounded-2xl border-2 border-gray-100 focus:border-orange-300 transition-all text-2xl font-bold text-gray-800"
+                className="w-full p-4 rounded-2xl border-2 border-white bg-white/50 focus:bg-white focus:border-[#EC4899]/50 transition-all text-2xl font-bold text-gray-800 shadow-inner"
               />
             </div>
           </div>
@@ -123,10 +131,10 @@ export default function SleepTracker() {
                 <button
                   key={q.value}
                   onClick={() => setQuality(q.value)}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
+                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all shadow-sm ${
                     quality === q.value
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100 scale-105"
-                      : "bg-gray-50 text-gray-500 hover:bg-indigo-50"
+                      ? "bg-gradient-to-br from-[#A855F7] to-[#3B82F6] text-white shadow-lg scale-105"
+                      : "bg-white/50 text-gray-500 hover:bg-white hover:shadow-md"
                   }`}
                 >
                   <span className="text-2xl">{q.emoji}</span>
@@ -139,7 +147,7 @@ export default function SleepTracker() {
           <button
             disabled={quality === null || isSubmitting}
             onClick={handleSubmit}
-            className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold text-lg shadow-xl shadow-blue-100 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold text-lg shadow-xl shadow-purple-100 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2 hover:opacity-90"
           >
             {isSubmitting ? (
               <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />

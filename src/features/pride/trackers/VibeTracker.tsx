@@ -71,7 +71,7 @@ export default function VibeTracker() {
           </div>
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="w-full py-4 bg-gray-900 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all active:scale-95"
+            className="w-full py-4 bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold rounded-2xl shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 active:scale-95"
           >
             Back to Hub
           </button>
@@ -81,15 +81,23 @@ export default function VibeTracker() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6">
-      <div className="max-w-xl mx-auto">
+  return (
+    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6 relative overflow-hidden">
+      {/* Floating orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-purple-200/30 blur-3xl animate-float-orb" />
+        <div className="absolute bottom-[15%] right-[5%] w-80 h-80 rounded-full bg-pink-100/30 blur-3xl animate-float-orb-reverse" />
+        <div className="absolute top-[40%] right-[15%] w-48 h-48 rounded-full bg-blue-100/20 blur-3xl animate-float-orb" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="max-w-xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center gap-4 mb-10">
           <button
             onClick={() => navigate('/lgbtq-hub')}
-            className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-gray-500 hover:text-orange-600 transition-colors"
+            className="flex items-center justify-center w-11 h-11 rounded-xl bg-white backdrop-blur-sm text-[#64748B] hover:text-[#A855F7] hover:bg-white transition-all shadow-md hover:shadow-xl border border-gray-100"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Vibe Check</h1>
@@ -106,14 +114,14 @@ export default function VibeTracker() {
                 <button
                   key={v.id}
                   onClick={() => setSelectedVibe(v.id)}
-                  className={`relative h-32 rounded-3xl overflow-hidden transition-all group ${
-                    selectedVibe === v.id ? "scale-[1.02] shadow-xl" : "opacity-60 grayscale hover:grayscale-0 hover:opacity-100"
+                  className={`relative h-32 rounded-[32px] overflow-hidden transition-all group shadow-md hover:shadow-xl ${
+                    selectedVibe === v.id ? "scale-[1.02] ring-4 ring-[#EC4899]/30" : "opacity-60 grayscale hover:grayscale-0 hover:opacity-100"
                   }`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${v.color}`} />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                  <div className="relative h-full flex flex-col items-center justify-center gap-2 text-white">
-                    <div className="text-3xl">{v.icon}</div>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${v.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                  <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] group-hover:backdrop-blur-none transition-all" />
+                  <div className="relative h-full flex flex-col items-center justify-center gap-2 text-white drop-shadow-md">
+                    <div className="text-3xl filter drop-shadow-sm">{v.icon}</div>
                     <span className="font-bold text-sm uppercase tracking-wider">{v.label}</span>
                   </div>
                   {selectedVibe === v.id && (
@@ -134,10 +142,10 @@ export default function VibeTracker() {
                 <button
                   key={r}
                   onClick={() => toggleReflection(r)}
-                  className={`px-5 py-3 rounded-full border-2 font-medium transition-all ${
+                  className={`px-5 py-3 rounded-full border-2 font-medium transition-all shadow-sm ${
                     selectedReflections.includes(r)
-                      ? "border-orange-500 bg-orange-50 text-orange-700 shadow-sm"
-                      : "border-gray-100 bg-white text-gray-500 hover:border-orange-200"
+                      ? "border-[#EC4899] bg-white/90 backdrop-blur-md text-[#EC4899] shadow-md"
+                      : "border-white bg-white/60 backdrop-blur-sm text-gray-500 hover:border-[#EC4899]/30"
                   }`}
                 >
                   {r}
@@ -149,7 +157,7 @@ export default function VibeTracker() {
           <button
             disabled={!selectedVibe || isSubmitting}
             onClick={handleSubmit}
-            className="w-full py-5 rounded-3xl bg-gray-900 text-white font-bold text-lg shadow-xl hover:bg-gray-800 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            className="w-full py-5 rounded-3xl bg-gradient-to-r from-[#EC4899] via-[#A855F7] to-[#3B82F6] text-white font-bold text-lg shadow-xl shadow-purple-100 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2 hover:opacity-90"
           >
             {isSubmitting ? (
               <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
