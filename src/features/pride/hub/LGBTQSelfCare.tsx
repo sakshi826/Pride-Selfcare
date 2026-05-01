@@ -66,7 +66,7 @@ export function LGBTQSelfCare() {
 
   return (
     <div 
-      className="flex min-h-screen relative overflow-hidden" 
+      className="activity-root" 
       style={{ background: 'linear-gradient(135deg, #FDFCFE 0%, #F8F7FF 50%, #FFF5F7 100%)' }}
     >
       {/* Decorative Background Blobs */}
@@ -74,8 +74,8 @@ export function LGBTQSelfCare() {
       <div className="fixed -bottom-32 -left-32 w-[500px] h-[500px] bg-pink-100/30 rounded-full blur-[140px] pointer-events-none z-0"></div>
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-50/10 pointer-events-none z-0"></div>
 
-      <div className="flex-1 flex flex-col min-w-0 relative z-10">
-        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8 relative">
+      <div className="flex-1 flex flex-col min-w-0 relative z-10 w-full">
+        <main className="activity-container-lg py-4 md:py-8 pt-[72px] md:pt-8 relative">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

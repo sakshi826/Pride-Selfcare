@@ -67,7 +67,7 @@ export default function GratitudeTracker() {
 
   return (
   return (
-    <div className="min-h-screen bg-[#FDFCFE] py-8 px-4 md:px-6 relative overflow-hidden">
+    <div className="activity-root bg-[#FDFCFE] py-8">
       {/* Floating orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-purple-200/30 blur-3xl animate-float-orb" />
@@ -75,7 +75,7 @@ export default function GratitudeTracker() {
         <div className="absolute top-[40%] right-[15%] w-48 h-48 rounded-full bg-blue-100/20 blur-3xl animate-float-orb" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="max-w-xl mx-auto relative z-10">
+      <div className="activity-container-sm">
         {/* Header */}
         <div className="flex items-center gap-4 mb-10">
           <button

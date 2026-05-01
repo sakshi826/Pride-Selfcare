@@ -113,9 +113,9 @@ export function TransGuide() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F9F6FE]">
-      <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
+    <div className="activity-root bg-gradient-to-br from-[#F0F9FF] via-[#F8FAFC] to-[#F1F5F9]">
+      <div className="flex-1 flex flex-col min-w-0 w-full">
+        <main className="activity-container-lg py-4 md:py-8 pt-[72px] md:pt-8">
           {/* Back Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}

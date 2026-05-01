@@ -82,5 +82,59 @@
     );
     background-attachment: fixed;
     min-height: 100svh;
+    /* Ensure content is always accessible and centered if the parent allows */
+    display: flex;
+    flex-direction: column;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    width: 100%;
+  }
+}
+
+@layer components {
+  /* Global Activity Container Standard */
+  .activity-root {
+    @apply min-h-screen w-full flex flex-col items-center relative overflow-x-hidden;
+    background-attachment: fixed !important;
+  }
+
+  .activity-container-sm {
+    @apply w-full max-w-xl mx-auto px-4 md:px-6 relative z-10;
+  }
+
+  .activity-container-lg {
+    @apply w-full max-w-[1000px] mx-auto px-4 md:px-6 relative z-10;
+  }
+
+  /* Universal Centering Utility */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  /* Smooth Transitions for all interactive elements */
+  button, a, .card, input, textarea {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Scrollbar Customization for a premium feel */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.4);
 }

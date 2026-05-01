@@ -43,9 +43,8 @@ export function LGBTQAssessments() {
   };
 
   return (
-    <div className="flex min-h-screen bg-white">
-      <div className="flex-1 flex flex-col min-w-0">
-        <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-6 md:py-10 pt-[80px] md:pt-10">
+    <div className="activity-root bg-gradient-to-br from-[#F0FDFA] via-[#F8FAFC] to-[#F1F5F9]">
+      <main className="activity-container-lg py-4 md:py-8 pt-[72px] md:pt-8 relative">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}

@@ -287,19 +287,12 @@ export default function TransJoyActivity() {
 
   if (finished) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center px-4 py-6 relative overflow-hidden"
-        style={{ backgroundColor: "#f8fff8" }}
-      >
+      <div className="activity-root" style={{ backgroundColor: "#f8fff8" }}>
         {/* Floating orbs */}
-        <div
-          className="absolute rounded-full blur-3xl opacity-30"
-          style={{ width: 260, height: 260, background: "#55cdfc", top: "10%", left: "-8%", animation: "float-orb 18s ease-in-out infinite" }}
-        />
-        <div
-          className="absolute rounded-full blur-3xl opacity-25"
-          style={{ width: 220, height: 220, background: "#f7a8b8", top: "50%", right: "-10%", animation: "float-orb 22s ease-in-out infinite 4s" }}
-        />
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-[#55cdfc]/20 blur-3xl animate-float-orb" />
+          <div className="absolute bottom-[15%] right-[5%] w-80 h-80 rounded-full bg-[#f7a8b8]/20 blur-3xl animate-float-orb-reverse" />
+        </div>
 
         <div className="absolute top-6 left-6 z-50">
           <button
@@ -311,7 +304,7 @@ export default function TransJoyActivity() {
           </button>
         </div>
 
-        <div className="relative z-10 text-center space-y-6 max-w-[440px] animate-fade-in">
+        <div className="activity-container-sm text-center space-y-6">
           <div className="text-6xl mb-2">🎉</div>
           <h1 className="font-display text-4xl leading-tight text-foreground">
             You Did It!
@@ -355,10 +348,7 @@ export default function TransJoyActivity() {
   }
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-start px-4 py-6 relative overflow-hidden"
-      style={{ backgroundColor: "#f8fff8" }}
-    >
+    <div className="activity-root" style={{ backgroundColor: "#f8fff8" }}>
       <div className="absolute top-6 left-6 z-50">
         <button
           onClick={() => navigate('/lgbtq-hub')}
@@ -369,33 +359,14 @@ export default function TransJoyActivity() {
         </button>
       </div>
       {/* Floating orbs */}
-      <div
-        className="absolute rounded-full blur-3xl opacity-30"
-        style={{
-          width: 260, height: 260, background: "#55cdfc",
-          top: "10%", left: "-8%",
-          animation: "float-orb 18s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute rounded-full blur-3xl opacity-25"
-        style={{
-          width: 220, height: 220, background: "#f7a8b8",
-          top: "50%", right: "-10%",
-          animation: "float-orb 22s ease-in-out infinite 4s",
-        }}
-      />
-      <div
-        className="absolute rounded-full blur-3xl opacity-15"
-        style={{
-          width: 180, height: 180, background: "#f5f5f5",
-          bottom: "15%", left: "20%",
-          animation: "float-orb 20s ease-in-out infinite 8s",
-        }}
-      />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-[#55cdfc]/20 blur-3xl animate-float-orb" />
+        <div className="absolute bottom-[15%] right-[5%] w-80 h-80 rounded-full bg-[#f7a8b8]/20 blur-3xl animate-float-orb-reverse" />
+        <div className="absolute bottom-[15%] left-[20%] w-48 h-48 rounded-full bg-gray-100/10 blur-3xl animate-float-orb" style={{ animationDelay: '8s' }} />
+      </div>
 
       {/* Progress bar */}
-      <div className="w-full max-w-[440px] mb-6 relative z-10">
+      <div className="activity-container-sm mb-6">
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.06)" }}>
           <div
             className="h-full rounded-full transition-all duration-500 ease-out"

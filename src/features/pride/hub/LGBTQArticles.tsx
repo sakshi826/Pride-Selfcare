@@ -81,8 +81,8 @@ export function LGBTQArticles() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5EBFF] via-[#F2F0FF] to-[#FFE8EC]">
-      <main className="max-w-[1000px] w-full mx-auto px-4 md:px-6 py-4 md:py-8 pt-[72px] md:pt-8">
+    <div className="activity-root bg-gradient-to-br from-[#F5EBFF] via-[#F2F0FF] to-[#FFE8EC]">
+      <main className="activity-container-lg py-4 md:py-8 pt-[72px] md:pt-8">
         {/* Back Button */}
         <motion.button
           initial={{ opacity: 0, x: -20 }}
