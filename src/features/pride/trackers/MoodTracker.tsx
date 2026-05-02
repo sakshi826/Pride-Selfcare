@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Send } from "lucide-react";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
@@ -16,6 +17,7 @@ const MOOD_OPTIONS = [
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 export default function MoodTracker() {
+  const navigate = useNavigate();
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const [note, setNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,7 +73,7 @@ export default function MoodTracker() {
           subtitle={showHistory ? "Reflecting on your emotional path" : "Check in with your emotions"}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
-          onBack={() => showHistory ? setShowHistory(false) : undefined}
+          onBack={() => showHistory ? setShowHistory(false) : navigate('/lgbtq-hub')}
         />
 
         {showHistory ? (

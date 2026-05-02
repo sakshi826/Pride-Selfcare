@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Moon, Sun, Save, Star } from "lucide-react";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
@@ -16,6 +17,7 @@ const QUALITY_OPTIONS = [
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 export default function SleepTracker() {
+  const navigate = useNavigate();
   const [bedtime, setBedtime] = useState("22:00");
   const [wakeTime, setWakeTime] = useState("07:00");
   const [quality, setQuality] = useState<number | null>(null);
@@ -71,7 +73,7 @@ export default function SleepTracker() {
           subtitle={showHistory ? "Analyzing your rest patterns" : "Track your rest and recovery"}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
-          onBack={() => showHistory ? setShowHistory(false) : undefined}
+          onBack={() => showHistory ? setShowHistory(false) : navigate('/lgbtq-hub')}
         />
 
         {showHistory ? (

@@ -86,7 +86,7 @@ export default function VibeTracker() {
           subtitle={showHistory ? "Look back at your energy journey" : "Tune in to your internal frequency."}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
-          onBack={() => showHistory ? setShowHistory(false) : undefined}
+          onBack={() => showHistory ? setShowHistory(false) : navigate('/lgbtq-hub')}
         />
 
         {showHistory ? (
