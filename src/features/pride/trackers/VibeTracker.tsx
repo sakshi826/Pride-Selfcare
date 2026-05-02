@@ -92,8 +92,8 @@ export default function VibeTracker() {
             if (showHistory) {
               setShowHistory(false);
             } else {
-              window.parent.postMessage({ action: 'exit' }, 'https://web.mantracare.com');
-              navigate('/lgbtq-hub');
+              window.parent.postMessage("exit_activity", "*");
+              navigate(-1);
             }
           }}
         />
