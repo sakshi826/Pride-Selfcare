@@ -15,13 +15,6 @@ const MOODS = [
 
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
-const MOODS = [
-  { label: "Radiant", emoji: "✨" },
-  { label: "Peaceful", emoji: "🧘" },
-  { label: "Content", emoji: "🙂" },
-  { label: "Soft", emoji: "🌸" },
-];
-
 export default function GratitudeTracker() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);

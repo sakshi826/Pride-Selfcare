@@ -7,24 +7,6 @@ import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 import { PrideSuccessState } from "../components/PrideSuccessState";
 
-const ACTIVITIES = [
-  { id: "meditation", label: "Meditation", icon: "🧘" },
-  { id: "exercise", label: "Exercise", icon: "🏃" },
-  { id: "journaling", label: "Journaling", icon: "✍️" },
-  { id: "reading", label: "Reading", icon: "📚" },
-  { id: "hydration", label: "Hydration", icon: "💧" },
-  { id: "nature", label: "Time in Nature", icon: "🌳" },
-];
-
-const DURATIONS = ["< 15 mins", "15-30 mins", "30-60 mins", "1 hr+"];
-
-const MOODS = [
-  { value: "great", label: "Great", emoji: "✨" },
-  { value: "good", label: "Good", emoji: "🙂" },
-  { value: "okay", label: "Okay", emoji: "😐" },
-  { value: "low", label: "Low", emoji: "😔" },
-];
-
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 const ACTIVITIES = [

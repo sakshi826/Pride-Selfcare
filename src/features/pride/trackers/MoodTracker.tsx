@@ -15,14 +15,6 @@ const MOOD_OPTIONS = [
 
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
-const MOOD_OPTIONS = [
-  { value: 1, label: "Awful", emoji: "😫" },
-  { value: 2, label: "Not Great", emoji: "😔" },
-  { value: 3, label: "Okay", emoji: "😐" },
-  { value: 4, label: "Good", emoji: "🙂" },
-  { value: 5, label: "Amazing", emoji: "✨" },
-];
-
 export default function MoodTracker() {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const [note, setNote] = useState("");

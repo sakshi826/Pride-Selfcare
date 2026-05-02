@@ -15,14 +15,6 @@ const QUALITY_OPTIONS = [
 
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
-const QUALITY_OPTIONS = [
-  { value: 0, label: "Poor", emoji: "😫" },
-  { value: 1, label: "Restless", emoji: "🥱" },
-  { value: 2, label: "Okay", emoji: "😐" },
-  { value: 3, label: "Good", emoji: "🙂" },
-  { value: 4, label: "Excellent", emoji: "✨" },
-];
-
 export default function SleepTracker() {
   const [bedtime, setBedtime] = useState("22:00");
   const [wakeTime, setWakeTime] = useState("07:00");
