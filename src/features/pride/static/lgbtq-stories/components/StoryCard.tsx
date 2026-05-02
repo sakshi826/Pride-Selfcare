@@ -1,21 +1,6 @@
 import { motion } from "framer-motion";
 
-interface Story {
-  name: string;
-  age: number;
-  color: {
-    stripe: string;
-    tagBg: string;
-    tagText: string;
-    hlBg: string;
-    takeBg: string;
-    border: string;
-  };
-  identity: string;
-  quote: string;
-  avatar: string;
-  portrait: string;
-}
+import { Story } from "../data/stories";
 
 interface StoryCardProps {
   story: Story;

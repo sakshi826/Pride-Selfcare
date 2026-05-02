@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import HeroSection from "../components/HeroSection";
-import StoriesList from "../components/StoriesList";
-import StoryDetail from "../components/StoryDetail";
+import HeroSection from "./components/HeroSection";
+import StoriesList from "./components/StoriesList";
+import StoryDetail from "./components/StoryDetail";
 import { stories as storiesData } from "./data/stories";
 import { PrideActivityHeader } from "../../components/PrideActivityHeader";
 import { PrideFloatingOrbs } from "../../components/PrideFloatingOrbs";
