@@ -7,6 +7,7 @@ import FindYourRightTime from "./features/pride/dynamic/find-your-right-time";
 import GentleCheckIn from "./features/pride/dynamic/gentle-check-in";
 import IdentityExploration from "./features/pride/dynamic/identity-exploration";
 import IdentityReflection from "./features/pride/dynamic/identity-reflection";
+import IdentityJourney from "./features/pride/dynamic/identity-journey";
 import PrideJournal from "./features/pride/dynamic/pride-journal";
 import PrideMirrorMoments from "./features/pride/dynamic/pride-mirror-moments";
 import PrideSpectrum from "./features/pride/dynamic/pride-spectrum";
@@ -63,6 +64,7 @@ function Index() {
           <Link to="/gentle-check-in" className="text-blue-500 hover:underline">Gentle Check-In</Link>
           <Link to="/identity-exploration" className="text-blue-500 hover:underline">Identity Exploration</Link>
           <Link to="/identity-reflection" className="text-blue-500 hover:underline">Identity Reflection</Link>
+          <Link to="/identity-journey" className="text-blue-500 hover:underline">Identity Journey</Link>
           <Link to="/pride-journal" className="text-blue-500 hover:underline">Pride Journal</Link>
           <Link to="/pride-mirror-moments" className="text-blue-500 hover:underline">Pride Mirror Moments</Link>
           <Link to="/pride-spectrum" className="text-blue-500 hover:underline">Pride Spectrum</Link>
@@ -164,6 +166,7 @@ function App() {
               <Route path="/gentle-check-in/*" element={<GentleCheckIn />} />
               <Route path="/identity-exploration/*" element={<IdentityExploration />} />
               <Route path="/identity-reflection/*" element={<IdentityReflection />} />
+              <Route path="/identity-journey/*" element={<IdentityJourney />} />
               <Route path="/pride-journal/*" element={<PrideJournal />} />
               <Route path="/pride-mirror-moments/*" element={<PrideMirrorMoments />} />
               <Route path="/pride-spectrum/*" element={<PrideSpectrum />} />

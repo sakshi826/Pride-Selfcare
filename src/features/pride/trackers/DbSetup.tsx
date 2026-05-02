@@ -79,6 +79,7 @@ export const initTables = async () => {
       'gentle_check_in_entries',
       'identity_exploration_entries',
       'identity_reflection_entries',
+      'identity_journey_entries',
       'pride_journal_entries',
       'pride_mirror_moments_entries',
       'pride_spectrum_entries'

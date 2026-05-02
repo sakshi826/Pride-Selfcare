@@ -37,7 +37,7 @@ const resources: ResourceCard[] = [
 ];
 
 const trackers: TrackerCard[] = [
-  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-reflection" },
+  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-journey" },
   { id: "daily-care", icon: HeartPulse, label: "Daily Care", bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
   { id: "mood", icon: Smile, label: "Mood", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
   { id: "sleep", icon: Moon, label: "Sleep", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
