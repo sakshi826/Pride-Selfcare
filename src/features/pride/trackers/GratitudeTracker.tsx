@@ -82,6 +82,7 @@ export default function GratitudeTracker() {
             } else if (step > 1) {
               setStep(step - 1);
             } else {
+              window.parent.postMessage({ action: 'exit' }, 'https://web.mantracare.com');
               navigate('/lgbtq-hub');
             }
           }}

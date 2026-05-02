@@ -73,7 +73,14 @@ export default function SleepTracker() {
           subtitle={showHistory ? "Analyzing your rest patterns" : "Track your rest and recovery"}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
-          onBack={() => showHistory ? setShowHistory(false) : navigate('/lgbtq-hub')}
+          onBack={() => {
+            if (showHistory) {
+              setShowHistory(false);
+            } else {
+              window.parent.postMessage({ action: 'exit' }, 'https://web.mantracare.com');
+              navigate('/lgbtq-hub');
+            }
+          }}
         />
 
         {showHistory ? (
