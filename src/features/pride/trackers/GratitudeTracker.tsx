@@ -69,8 +69,8 @@ export default function GratitudeTracker() {
       <div className="activity-container-sm">
         <PrideActivityHeader 
           title="Gratitude Garden" 
-          subtitle="Cultivate your inner peace"
-          onBack={() => step > 1 ? setStep(step - 1) : undefined}
+          subtitle="Plant a seed of thankfulness"
+          onBack={step > 1 ? () => setStep(step - 1) : undefined}
         />
 
         <AnimatePresence mode="wait">

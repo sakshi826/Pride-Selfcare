@@ -85,7 +85,7 @@ export const initTables = async () => {
     ];
 
     for (const table of planTables) {
-      await sql(`
+      await sql.query(`
         CREATE TABLE IF NOT EXISTS ${table} (
           id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
           user_id BIGINT NOT NULL,

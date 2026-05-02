@@ -47,7 +47,7 @@ const HistoryScreen = ({ constellations, onBack, onDelete, onView }: HistoryScre
           );
         })}
         {normalized.map((star) => (
-          <circle key={star.id} cx={star.nx} cy={star.ny} r="3" className="fill-star-selected" />
+          <circle key={star.id} cx={star.nx} cy={star.ny} r="3" className="fill-[hsl(var(--pride-purple))]" />
         ))}
       </svg>
     );
@@ -101,7 +101,7 @@ const HistoryScreen = ({ constellations, onBack, onDelete, onView }: HistoryScre
                   {c.stars.map((s) => s.label).join(" · ")}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {new Date(c.createdAt).toLocaleDateString()}
+                  {new Date(c.createdAt || (c as any).date).toLocaleDateString()}
                 </p>
               </div>
               <motion.button

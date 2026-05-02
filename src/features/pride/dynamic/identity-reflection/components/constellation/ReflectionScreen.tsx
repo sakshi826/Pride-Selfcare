@@ -84,13 +84,13 @@ const ReflectionScreen = ({ stars, onSave, onCreateAnother }: ReflectionScreenPr
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={onCreateAnother}
-          className="btn-secondary w-full h-14 text-white/80 border-white/5 hover:bg-white/5"
+          className="btn-secondary w-full h-14"
         >
           New Map
         </button>
         <button
           onClick={() => navigate('/lgbtq-hub')}
-          className="btn-secondary w-full h-14 text-white/80 border-white/5 hover:bg-white/5"
+          className="btn-secondary w-full h-14"
         >
           To Hub
         </button>

@@ -1,4 +1,5 @@
 import { useState, useCallback, ReactNode } from "react";
+import { ChevronLeft } from "lucide-react";
 import confetti from "canvas-confetti";
 import FloatingOrbs from "../components/FloatingOrbs";
 import ProgressBar from "../components/ProgressBar";
