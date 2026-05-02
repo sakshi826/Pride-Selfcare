@@ -7,6 +7,8 @@ import HistoryScreen from "../components/constellation/HistoryScreen";
 import type { SavedConstellation } from "../components/constellation/HistoryScreen";
 import BackgroundStars from "../components/constellation/BackgroundStars";
 import { sql } from "@/lib/db";
+import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
 export interface StarData {
   id: number;
@@ -14,9 +16,6 @@ export interface StarData {
   y: number;
   label: string;
 }
-
-import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
-import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
 const Index = () => {
   const [screen, setScreen] = useState<"welcome" | "selection" | "reflection" | "history">("welcome");

@@ -1,5 +1,6 @@
 import { useEffect, useState, ReactNode } from 'react';
 import { sql } from '@/lib/db';
+import { initTables } from '@/features/pride/trackers/DbSetup';
 
 export function AuthGuard({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -10,7 +11,14 @@ export function AuthGuard({ children }: { children: ReactNode }) {
       let token = url.searchParams.get('token');
       const existingUserId = sessionStorage.getItem('user_id');
 
-      // 1. If we have a token in the URL, validate it (takes priority)
+      // 1. Ensure DB is ready
+      try {
+        await initTables();
+      } catch (err) {
+        console.error('Database init failed:', err);
+      }
+
+      // 2. If we have a token in the URL, validate it (takes priority)
       if (token) {
         try {
           const res = await fetch('https://api.mantracare.com/user/user-info', {

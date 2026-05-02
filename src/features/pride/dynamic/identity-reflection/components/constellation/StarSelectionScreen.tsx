@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import type { StarData } from "../../pages/Index";
 import { useTranslation } from "react-i18next";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface StarSelectionScreenProps {
   onComplete: (stars: StarData[]) => void;

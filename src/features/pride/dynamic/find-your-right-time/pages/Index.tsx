@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { sql } from "@/lib/db";
+import { useNavigate } from "react-router-dom";
+import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 import WelcomeScreen from "../components/reflection/WelcomeScreen";
 import SafetyNoteScreen from "../components/reflection/SafetyNoteScreen";
 import AssessmentScreen from "../components/reflection/AssessmentScreen";
@@ -33,9 +36,6 @@ const slideVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
 };
 
-import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
-import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
-import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();

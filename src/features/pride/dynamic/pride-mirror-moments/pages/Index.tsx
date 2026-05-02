@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 import IntroScreen from "../components/mirror-notes/IntroScreen";
 import MirrorScreen from "../components/mirror-notes/MirrorScreen";
 import ReflectionScreen from "../components/mirror-notes/ReflectionScreen";
@@ -10,9 +12,6 @@ import { toast } from "sonner";
 import { sql } from "@/lib/db";
 
 type Screen = "intro" | "mirror" | "reflection" | "completion" | "saved";
-
-import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
-import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
 const Index = () => {
   const navigate = useNavigate();

@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
+import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 import IntroScreen from "../components/journal/IntroScreen";
 import PromptScreen from "../components/journal/PromptScreen";
 import ReflectionScreen from "../components/journal/ReflectionScreen";
@@ -47,8 +49,6 @@ interface SavedJournal {
 
 type Screen = "intro" | "prompt" | "reflection" | "completion" | "history";
 
-import { PrideActivityHeader } from "@/features/pride/components/PrideActivityHeader";
-import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
 const Index = () => {
   const navigate = useNavigate();
