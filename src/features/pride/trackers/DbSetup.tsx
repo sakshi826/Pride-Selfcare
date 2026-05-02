@@ -3,10 +3,6 @@ import { sql } from "@/lib/db";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 
-export default function DbSetup() {
-  const [status, setStatus] = useState<string>("Ready to initialize tables...");
-  const [loading, setLoading] = useState(false);
-
 export const initTables = async () => {
   try {
     // 0. Users Table (Identity source of truth)
