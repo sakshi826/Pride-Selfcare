@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Send } from "lucide-react";
 import { sql } from "@/lib/db";
@@ -17,7 +16,6 @@ const MOODS = [
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 export default function GratitudeTracker() {
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [gratitude1, setGratitude1] = useState("");
   const [gratitude2, setGratitude2] = useState("");
@@ -83,7 +81,7 @@ export default function GratitudeTracker() {
               setStep(step - 1);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              navigate(-1);
+              window.location.href = "/pride/lgbtq-hub";
             }
           }}
         />

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Check, Zap, Flame, Cloud, Wind } from "lucide-react";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
@@ -27,7 +26,6 @@ const REFLECTIONS = [
 ];
 
 export default function VibeTracker() {
-  const navigate = useNavigate();
   const [selectedVibe, setSelectedVibe] = useState("");
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -93,7 +91,7 @@ export default function VibeTracker() {
               setShowHistory(false);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              navigate(-1);
+              window.location.href = "/pride/lgbtq-hub";
             }
           }}
         />

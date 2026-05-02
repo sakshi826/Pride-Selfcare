@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { Check } from "lucide-react";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
@@ -28,7 +27,6 @@ const MOODS = [
 ];
 
 export default function DailyCareTracker() {
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
   const [duration, setDuration] = useState("");
@@ -76,7 +74,7 @@ export default function DailyCareTracker() {
               setStep(step - 1);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              navigate(-1);
+              window.location.href = "/pride/lgbtq-hub";
             }
           }}
         />
