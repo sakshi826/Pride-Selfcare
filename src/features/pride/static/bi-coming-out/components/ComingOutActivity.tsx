@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 import confetti from "canvas-confetti";
 import TapToRevealBubble from "./TapToRevealBubble";
 
@@ -220,6 +222,7 @@ function useCards(): CardData[] {
 }
 
 export default function ComingOutActivity() {
+  const navigate = useNavigate();
   const [currentCard, setCurrentCard] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right" | null>(null);

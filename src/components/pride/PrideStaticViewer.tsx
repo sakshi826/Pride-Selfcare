@@ -47,7 +47,7 @@ export function PrideStaticViewer() {
           style={{
             border: "none",
           }}
-          sandbox="allow-scripts allow-same-origin"
+          sandbox="allow-scripts"
         />
       </div>
     </div>

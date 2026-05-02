@@ -1,5 +1,7 @@
+import { useState, useCallback, useRef } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import confetti from 'canvas-confetti';
 import { cards } from '../../data/cardContent';
 import FloatingOrbs from '../../components/activity/FloatingOrbs';
 import ProgressBar from '../../components/activity/ProgressBar';
