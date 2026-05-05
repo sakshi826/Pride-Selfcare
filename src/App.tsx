@@ -182,15 +182,26 @@ function App() {
         return;
       }
 
-      // 3. Token Extraction & API Exchange
-      if (token) {
+      // 3. Token Extraction (URL or Cookie)
+      let activeToken = token;
+      if (!activeToken) {
+        // Try extracting from cookie (if not HttpOnly)
+        const cookies = document.cookie.split('; ');
+        const authCookie = cookies.find(row => row.startsWith('x-auth-token='));
+        if (authCookie) {
+          activeToken = authCookie.split('=')[1];
+          console.log('Handshake: Found token in cookies');
+        }
+      }
+
+      if (activeToken) {
         console.log('Handshake: Exchanging token for identity...');
         try {
           const res = await fetch('https://api.mantracare.com/user/user-info', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ token })
+            body: JSON.stringify({ token: activeToken })
           });
 
           if (res.ok) {
@@ -198,26 +209,19 @@ function App() {
             const userId = data.user_id || data.userId;
             if (userId) {
               sessionStorage.setItem('user_id', userId.toString());
+              await sql`INSERT INTO users (id, updated_at) VALUES (${userId}, NOW()) ON CONFLICT (id) DO NOTHING`;
               
-              // Identity & Database Sync
-              await sql`
-                INSERT INTO users (id, updated_at) 
-                VALUES (${userId}, NOW()) 
-                ON CONFLICT (id) DO NOTHING
-              `;
-
-              // Deep-Link Restoration
               const savedPath = localStorage.getItem("APP_REDIRECT_PATH");
               if (savedPath) {
-                console.log('Handshake: Restoring deep link:', savedPath);
                 localStorage.removeItem("APP_REDIRECT_PATH");
                 window.location.replace(savedPath);
                 return;
               }
 
-              // URL Sanitization
-              url.searchParams.delete('token');
-              window.history.replaceState({}, document.title, url.toString());
+              if (token) { // Only sanitize if it was in the URL
+                url.searchParams.delete('token');
+                window.history.replaceState({}, document.title, url.toString());
+              }
               setIsAuthorized(true);
               return;
             }
@@ -227,13 +231,13 @@ function App() {
         }
       }
 
-      // 4. Silent Persistence: Try direct session check via cookies
-      console.log('Handshake: Attempting silent session check...');
+      // 4. Silent Persistence: Try direct session check via alternative patterns
+      console.log('Handshake: Attempting silent session fallback...');
       try {
         const silentEndpoints = [
-          { url: 'https://api.mantracare.com/user/user-info', method: 'GET' },
-          { url: 'https://api.mantracare.com/user/user-info', method: 'POST', body: { token: null } },
-          { url: 'https://api.mantracare.com/user/get-token/', method: 'GET' } // Trailing slash fallback
+          { url: 'https://api.mantracare.com/user/user-info', method: 'POST', body: { token: "" } },
+          { url: 'https://api.mantracare.com/user/get-token', method: 'POST', body: {} },
+          { url: 'https://api.mantracare.com/user/get-token', method: 'GET' }
         ];
 
         for (const ep of silentEndpoints) {
@@ -248,7 +252,6 @@ function App() {
             const checkData = await checkRes.json();
             const userId = checkData.user_id || checkData.userId;
             if (userId) {
-              console.log('Handshake: Silent check success for user:', userId);
               sessionStorage.setItem('user_id', userId.toString());
               await sql`INSERT INTO users (id) VALUES (${userId}) ON CONFLICT DO NOTHING`;
               setIsAuthorized(true);
