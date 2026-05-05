@@ -89,44 +89,56 @@ export function AuthGuard({ children }: { children: ReactNode }) {
       }
 
       // 5. Silent Auth (Hit the Auth API)
-      console.log('Attempting silent auth via get-token...');
+      console.log('Attempting silent auth...');
       try {
-        const authRes = await fetch('https://api.mantracare.com/user/get-token', {
-          method: 'GET',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          credentials: 'include'
-        });
+        // Try common silent auth endpoints or direct session check
+        const endpoints = [
+          'https://api.mantracare.com/user/get-token',
+          'https://api.mantracare.com/user/get_token',
+          'https://api.mantracare.com/user/user-info' // Direct cookie check
+        ];
 
-        if (authRes.ok) {
-          const authData = await authRes.json();
-          const userId = authData.user_id || authData.userId;
-          const newToken = authData.token;
+        for (const endpoint of endpoints) {
+          console.log(`Checking endpoint: ${endpoint}`);
+          const isUserInfo = endpoint.includes('user-info');
           
-          console.log('Silent auth response:', { hasUserId: !!userId, hasToken: !!newToken });
+          const authRes = await fetch(endpoint, {
+            method: isUserInfo ? 'POST' : 'GET',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            credentials: 'include',
+            // If user-info, send empty object to trigger cookie-based check
+            body: isUserInfo ? JSON.stringify({}) : undefined
+          });
 
-          if (userId && newToken) {
-            // Success: We got both!
-            sessionStorage.setItem('user_id', userId.toString());
-            try {
-              await sql`
-                INSERT INTO users (id, updated_at) 
-                VALUES (${userId}, NOW()) 
-                ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
-              `;
-            } catch (dbErr) {
-              console.error('User upsert failed:', dbErr);
+          if (authRes.ok) {
+            const authData = await authRes.json();
+            const userId = authData.user_id || authData.userId;
+            const newToken = authData.token;
+            
+            console.log(`Response from ${endpoint}:`, { hasUserId: !!userId, hasToken: !!newToken });
+
+            if (userId) {
+              sessionStorage.setItem('user_id', userId.toString());
+              try {
+                await sql`
+                  INSERT INTO users (id, updated_at) 
+                  VALUES (${userId}, NOW()) 
+                  ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
+                `;
+              } catch (dbErr) {
+                console.error('User upsert failed:', dbErr);
+              }
+              setIsAuthenticated(true);
+              return;
+            } else if (newToken) {
+              if (await validateToken(newToken)) return;
             }
-            setIsAuthenticated(true);
-            return;
-          } else if (newToken) {
-            // Only token, must validate
-            if (await validateToken(newToken)) return;
+          } else {
+            console.warn(`${endpoint} returned status:`, authRes.status);
           }
-        } else {
-          console.warn('Silent auth API returned status:', authRes.status);
         }
       } catch (err) {
         console.error('Silent auth attempt failed:', err);
