@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AuthGuard } from "./components/pride/AuthGuard";
 import { PrideStaticViewer } from "./components/pride/PrideStaticViewer";
+import { sql } from "@/lib/db";
+import { initTables } from "@/features/pride/trackers/DbSetup";
 
 // Dynamic Minis
 import FindYourRightTime from "./features/pride/dynamic/find-your-right-time";
@@ -109,10 +112,12 @@ function Index() {
 
 function TokenFallback() {
   const handleLogin = () => {
-    // Construct the redirect URL back to the current pride path if possible
+    // Save current path for restoration after auth
+    const currentPath = window.location.pathname + window.location.search;
+    localStorage.setItem("APP_REDIRECT_PATH", currentPath);
+    
     const platformOrigin = window.location.origin;
-    const storedPath = sessionStorage.getItem('auth_redirect_path') || '/pride';
-    const redirectUrl = encodeURIComponent(`${platformOrigin}${storedPath}`);
+    const redirectUrl = encodeURIComponent(`${platformOrigin}/pride/`);
     window.location.href = `${platformOrigin}/login?redirect_url=${redirectUrl}`;
   };
 
@@ -151,6 +156,118 @@ function TokenFallback() {
 }
 
 function App() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
+  useEffect(() => {
+    async function handshake() {
+      // 1. Developer Bypass
+      const devUserId = import.meta.env.VITE_DEV_USER_ID;
+      if (devUserId) {
+        console.log('Dev Bypass: Setting test user ID');
+        sessionStorage.setItem('user_id', devUserId);
+        setIsAuthorized(true);
+        return;
+      }
+
+      // Ensure DB is ready
+      try { await initTables(); } catch (e) { console.error('DB init failed', e); }
+
+      const url = new URL(window.location.href);
+      const token = url.searchParams.get('token');
+      const sessionUserId = sessionStorage.getItem('user_id');
+
+      // 2. Session Check
+      if (sessionUserId) {
+        setIsAuthorized(true);
+        return;
+      }
+
+      // 3. Token Extraction & API Exchange
+      if (token) {
+        console.log('Handshake: Exchanging token for identity...');
+        try {
+          const res = await fetch('https://api.mantracare.com/user/user-info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ token })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            const userId = data.user_id || data.userId;
+            if (userId) {
+              sessionStorage.setItem('user_id', userId.toString());
+              
+              // Identity & Database Sync
+              await sql`
+                INSERT INTO users (id, updated_at) 
+                VALUES (${userId}, NOW()) 
+                ON CONFLICT (id) DO NOTHING
+              `;
+
+              // Deep-Link Restoration
+              const savedPath = localStorage.getItem("APP_REDIRECT_PATH");
+              if (savedPath) {
+                console.log('Handshake: Restoring deep link:', savedPath);
+                localStorage.removeItem("APP_REDIRECT_PATH");
+                window.location.replace(savedPath);
+                return;
+              }
+
+              // URL Sanitization
+              url.searchParams.delete('token');
+              window.history.replaceState({}, document.title, url.toString());
+              setIsAuthorized(true);
+              return;
+            }
+          }
+        } catch (err) {
+          console.error('Handshake API error:', err);
+        }
+      }
+
+      // 4. Silent Persistence: Try direct cookie handshake
+      console.log('Handshake: Attempting silent cookie check...');
+      try {
+        const checkRes = await fetch('https://api.mantracare.com/user/user-info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({})
+        });
+        if (checkRes.ok) {
+          const checkData = await checkRes.json();
+          const userId = checkData.user_id || checkData.userId;
+          if (userId) {
+            sessionStorage.setItem('user_id', userId.toString());
+            await sql`INSERT INTO users (id) VALUES (${userId}) ON CONFLICT DO NOTHING`;
+            setIsAuthorized(true);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // 5. Final Fail: Redirect to Fallback
+      if (!window.location.pathname.includes('/token')) {
+        const currentPath = window.location.pathname + window.location.search;
+        localStorage.setItem("APP_REDIRECT_PATH", currentPath);
+        window.location.href = '/pride/token';
+      }
+    }
+
+    handshake();
+  }, []);
+
+  if (!isAuthorized && !window.location.pathname.includes('/token')) {
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#F9F6FE]">
+        <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+        <p className="mt-6 text-purple-900 font-medium animate-pulse">Securing your session...</p>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter basename="/pride">
       <Routes>
@@ -221,5 +338,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
