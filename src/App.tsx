@@ -110,9 +110,10 @@ function Index() {
 function TokenFallback() {
   const handleLogin = () => {
     // Construct the redirect URL back to the current pride path if possible
+    const platformOrigin = window.location.origin;
     const storedPath = sessionStorage.getItem('auth_redirect_path') || '/pride';
-    const redirectUrl = encodeURIComponent(`https://platform.mantracare.com${storedPath}`);
-    window.location.href = `https://platform.mantracare.com/login?redirect_url=${redirectUrl}`;
+    const redirectUrl = encodeURIComponent(`${platformOrigin}${storedPath}`);
+    window.location.href = `${platformOrigin}/login?redirect_url=${redirectUrl}`;
   };
 
   return (

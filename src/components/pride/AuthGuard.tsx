@@ -120,9 +120,10 @@ export function AuthGuard({ children }: { children: ReactNode }) {
       }
 
       // 6. Everything failed: Automatic Redirect to Login (Maintain Path)
+      const platformOrigin = window.location.origin;
       const finalStoredPath = sessionStorage.getItem('auth_redirect_path') || '/pride';
-      const redirectUrl = encodeURIComponent(`https://platform.mantracare.com${finalStoredPath}`);
-      window.location.href = `https://platform.mantracare.com/login?redirect_url=${redirectUrl}`;
+      const redirectUrl = encodeURIComponent(`${platformOrigin}${finalStoredPath}`);
+      window.location.href = `${platformOrigin}/login?redirect_url=${redirectUrl}`;
     }
 
     handshake();
