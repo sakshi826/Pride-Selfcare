@@ -108,9 +108,6 @@ export function AuthGuard({ children }: { children: ReactNode }) {
     handshake();
   }, []);
 
-    handshake();
-  }, []);
-
   if (!isAuthenticated) {
     return (
       <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#F9F6FE]">
