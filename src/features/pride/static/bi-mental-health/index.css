@@ -1,4 +1,3 @@
-@layer base {
   .bi-mental-health-theme {
     --background: 300 100% 99%;
     --foreground: 270 20% 18%;
@@ -60,16 +59,13 @@
   .bi-mental-health-theme * {
     border-color: hsl(var(--border));
   }
-}
 
-@layer utilities {
   .bi-mental-health-theme .font-display {
     font-family: 'DM Serif Display', serif;
   }
   .bi-mental-health-theme .font-body {
     font-family: 'DM Sans', sans-serif;
   }
-}
 
 /* Floating orbs */
 @keyframes orb-drift-1 {

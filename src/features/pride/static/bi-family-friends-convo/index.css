@@ -55,7 +55,6 @@
 
 /* Base styles moved to wrapper */
 
-@layer utilities {
   .font-display {
     font-family: 'DM Serif Display', serif;
   }
@@ -83,4 +82,3 @@
   .btn-pill:active {
     opacity: 0.75;
   }
-}
