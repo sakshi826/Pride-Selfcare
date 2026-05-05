@@ -30,7 +30,7 @@ const QuoteScreen = ({ selectedIndex, onClose }: QuoteScreenProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="min-h-screen bg-background flex flex-col items-center justify-center px-8 text-center"
+      className="min-h-screen bg-transparent flex flex-col items-center justify-center px-8 text-center"
     >
       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
         {sentences[selectedIndex]}

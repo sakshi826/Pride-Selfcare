@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, Clock, Heart, Share2 } from "lucide-react";
+import { ChevronLeft, Clock } from "lucide-react";
 
 interface ArticleDetail {
   id: string;
@@ -594,22 +594,7 @@ export function LGBTQArticleDetail() {
             className="h-1 bg-gradient-to-r from-[#8B5CF6] via-[#EC4899] to-[#F59E0B] rounded-full mb-10 shadow-lg"
           ></motion.div>
 
-          {/* Engagement Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center gap-3 mb-10"
-          >
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 backdrop-blur-sm hover:bg-gradient-to-r hover:from-[#EF4444] hover:to-[#DC2626] text-[#64748B] hover:text-white transition-all shadow-sm hover:shadow-lg border border-gray-100 hover:border-transparent group">
-              <Heart size={18} className="group-hover:fill-current" strokeWidth={2.5} />
-              <span className="text-sm font-medium">Save</span>
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 backdrop-blur-sm hover:bg-[#8B5CF6] text-[#64748B] hover:text-white transition-all shadow-sm hover:shadow-lg border border-gray-100 hover:border-transparent">
-              <Share2 size={18} strokeWidth={2.5} />
-              <span className="text-sm font-medium">Share</span>
-            </button>
-          </motion.div>
+
 
           {/* Article Content */}
           <motion.article
