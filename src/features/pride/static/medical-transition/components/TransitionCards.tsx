@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ArrowRight, ArrowLeft, RefreshCcw } from "lucide-react";
 import confetti from "canvas-confetti";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CardData {
   eye: string;
@@ -152,19 +153,13 @@ const TransitionCards = () => {
   const goNext = useCallback(() => {
     if (current >= cards.length - 1) return;
     setDirection("left");
-    setTimeout(() => {
-      setCurrent((c) => c + 1);
-      setDirection(null);
-    }, 280);
+    setCurrent((c) => c + 1);
   }, [current]);
 
   const goPrev = useCallback(() => {
     if (current <= 0) return;
     setDirection("right");
-    setTimeout(() => {
-      setCurrent((c) => c - 1);
-      setDirection(null);
-    }, 280);
+    setCurrent((c) => c - 1);
   }, [current]);
 
   const handleFinish = () => {
@@ -200,13 +195,6 @@ const TransitionCards = () => {
 
   const card = cards[current];
   const progress = ((current + 1) / cards.length) * 100;
-
-  const animClass =
-    direction === "left"
-      ? "animate-slide-out-left"
-      : direction === "right"
-        ? "animate-slide-out-right"
-        : "animate-slide-in";
 
   if (finished) {
     return (
@@ -257,19 +245,19 @@ const TransitionCards = () => {
             <p className="text-foreground font-display italic text-lg mb-6">
               "The world is better with you in it, exactly as you are." 💛
             </p>
-            <div className="flex gap-3 justify-center">
+            <div className="flex gap-4 justify-center mt-4">
               <button
                 onClick={handleStartOver}
-                className="px-6 py-2.5 rounded-full text-sm font-sans font-medium text-foreground bg-secondary transition-opacity hover:opacity-80"
+                className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 active:scale-95 transition-all duration-200"
               >
-                Start Over 🔄
+                <RefreshCcw size={16} />
+                Start Over
               </button>
               <button
                 onClick={() => navigate('/lgbtq-hub')}
-                className="px-6 py-2.5 rounded-full text-sm font-sans font-medium transition-opacity hover:opacity-80"
+                className="flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold text-white shadow-lg shadow-cyan-200/50 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
                 style={{
-                  background: "linear-gradient(135deg, #55cdfc, #f7a8b8)",
-                  color: "#fff",
+                  background: "linear-gradient(135deg, #06b6d4, #3b82f6)",
                 }}
               >
                 Back to Hub
@@ -340,152 +328,179 @@ const TransitionCards = () => {
           </>
         )}
 
-        {/* Main card */}
-        <div
-          key={current}
-          className={`relative rounded-[28px] shadow-lg overflow-hidden ${animClass}`}
-          style={{ backgroundColor: "rgba(255,255,255,0.88)" }}
-        >
-          {/* Top band */}
-          <div
-            className="h-1.5 w-full"
-            style={{
-              backgroundColor: card.band === "blue" ? "#55cdfc" : "#f7a8b8",
+        {/* Main card with AnimatePresence */}
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={{
+              enter: (dir) => ({
+                x: dir === "left" ? 40 : -40,
+                opacity: 0,
+                scale: 0.98
+              }),
+              center: {
+                x: 0,
+                opacity: 1,
+                scale: 1
+              },
+              exit: (dir) => ({
+                x: dir === "left" ? -40 : 40,
+                opacity: 0,
+                scale: 0.98
+              })
             }}
-          />
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              duration: 0.25,
+              ease: "easeInOut"
+            }}
+            className="relative rounded-[28px] shadow-xl overflow-hidden border border-white/50"
+            style={{ backgroundColor: "rgba(255,255,255,0.92)", backdropFilter: "blur(10px)" }}
+          >
+            {/* Top band */}
+            <div
+              className="h-2 w-full"
+              style={{
+                backgroundColor: card.band === "blue" ? "#55cdfc" : "#f7a8b8",
+              }}
+            />
 
-          <div className="p-6 pb-8">
-            {/* Eye label */}
-            <p className="text-sm font-medium tracking-wide uppercase text-foreground mb-1 font-sans">
-              {card.eye}
-            </p>
+            <div className="p-7 pb-8">
+              {/* Eye label */}
+              <p className="text-[11px] font-bold tracking-[0.1em] uppercase text-slate-400 mb-2 font-sans">
+                {card.eye}
+              </p>
 
-            {/* Title */}
-            <h1 className="text-2xl font-display leading-snug mb-4 text-foreground">
-              {card.title}
-            </h1>
+              {/* Title */}
+              <h1 className="text-2xl font-display leading-tight mb-5 text-slate-900">
+                {card.title}
+              </h1>
 
-            {/* Body */}
-            {card.body && (
-              <div className="text-foreground leading-relaxed mb-4 font-sans text-[15px] space-y-3">
-                {card.body.split("\n\n").map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-            )}
+              {/* Body */}
+              {card.body && (
+                <div className="text-slate-600 leading-relaxed mb-6 font-sans text-[15px] space-y-4">
+                  {card.body.split("\n\n").map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              )}
 
-            {/* Steps */}
-            {card.steps && (
-              <ul className="space-y-2.5 mb-4">
-                {card.steps.map((step, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-foreground text-[15px] font-sans"
-                  >
-                    <span
-                      className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
-                      style={{
-                        backgroundColor:
-                          card.band === "blue" ? "#55cdfc" : "#f7a8b8",
-                      }}
-                    />
-                    {step}
-                  </li>
-                ))}
-              </ul>
-            )}
+              {/* Steps */}
+              {card.steps && (
+                <ul className="space-y-3 mb-6">
+                  {card.steps.map((step, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-slate-600 text-[15px] font-sans"
+                    >
+                      <span
+                        className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0 shadow-sm"
+                        style={{
+                          backgroundColor:
+                            card.band === "blue" ? "#55cdfc" : "#f7a8b8",
+                        }}
+                      />
+                      {step}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-            {/* Scenarios */}
-            {card.scenarios && (
-              <div className="space-y-3 mb-4">
-                {card.scenarios.map((s, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl px-4 py-3 text-foreground text-[15px] font-sans leading-relaxed bg-muted/60"
-                  >
-                    {s}
-                  </div>
-                ))}
-              </div>
-            )}
+              {/* Scenarios */}
+              {card.scenarios && (
+                <div className="space-y-3 mb-6">
+                  {card.scenarios.map((s, i) => (
+                    <div
+                      key={i}
+                      className="rounded-2xl px-5 py-4 text-slate-600 text-[15px] font-sans leading-relaxed bg-slate-50/80 border border-slate-100 shadow-sm"
+                    >
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {/* Notice */}
-            {card.notice && (
-              <div
-                className="rounded-2xl px-4 py-3 text-foreground text-[14px] font-sans leading-relaxed mb-4 border"
-                style={{
-                  borderColor:
-                    card.band === "blue"
-                      ? "rgba(85,205,252,0.3)"
-                      : "rgba(247,168,184,0.3)",
-                  backgroundColor:
-                    card.band === "blue"
-                      ? "rgba(85,205,252,0.08)"
-                      : "rgba(247,168,184,0.08)",
-                }}
-              >
-                {card.notice}
-              </div>
-            )}
+              {/* Notice */}
+              {card.notice && (
+                <div
+                  className="rounded-2xl px-5 py-4 text-slate-700 text-[14px] font-sans leading-relaxed mb-6 border"
+                  style={{
+                    borderColor:
+                      card.band === "blue"
+                        ? "rgba(85,205,252,0.4)"
+                        : "rgba(247,168,184,0.4)",
+                    backgroundColor:
+                      card.band === "blue"
+                        ? "rgba(85,205,252,0.12)"
+                        : "rgba(247,168,184,0.12)",
+                  }}
+                >
+                  <span className="font-bold mr-2">Note:</span>
+                  {card.notice}
+                </div>
+              )}
 
-            {/* Affirmations */}
-            {card.affirmations && (
-              <div className="space-y-2 mb-4">
-                {card.affirmations.map((a, i) => (
-                  <p
-                    key={i}
-                    className="text-[15px] font-display italic text-foreground pl-3"
+              {/* Affirmations */}
+              {card.affirmations && (
+                <div className="space-y-3 mb-6">
+                  {card.affirmations.map((a, i) => (
+                    <p
+                      key={i}
+                      className="text-[16px] font-display italic text-slate-800 pl-4 relative"
+                    >
+                      <span 
+                        className="absolute left-0 top-0 bottom-0 w-1 rounded-full"
+                        style={{ backgroundColor: card.band === "blue" ? "#55cdfc" : "#f7a8b8" }}
+                      />
+                      "{a}"
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {/* Navigation */}
+              <div className="flex items-center justify-between mt-8 gap-4">
+                <div className="w-24">
+                  {current > 0 && (
+                    <button
+                      onClick={goPrev}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-bold text-slate-400 hover:text-slate-600 hover:bg-slate-50 active:scale-95 transition-all duration-200 group"
+                    >
+                      <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+                      Back
+                    </button>
+                  )}
+                </div>
+
+                {card.isFinal ? (
+                  <button
+                    onClick={handleFinish}
+                    className="px-8 py-3 rounded-full text-sm font-bold text-white shadow-lg shadow-cyan-200/50 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
                     style={{
-                      borderLeft: `3px solid ${card.band === "blue" ? "#55cdfc" : "#f7a8b8"}`,
+                      background: "linear-gradient(135deg, #06b6d4, #3b82f6)",
                     }}
                   >
-                    "{a}"
-                  </p>
-                ))}
+                    Finish ✨
+                  </button>
+                ) : (
+                  <button
+                    onClick={goNext}
+                    className="flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold text-white shadow-lg shadow-cyan-200/50 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200 group"
+                    style={{
+                      background: "linear-gradient(135deg, #06b6d4, #3b82f6)",
+                    }}
+                  >
+                    Next
+                    <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                  </button>
+                )}
               </div>
-            )}
-
-            {/* Navigation */}
-            <div className="flex items-center justify-between mt-6 gap-3">
-              {current > 0 ? (
-                <button
-                  onClick={goPrev}
-                  className="px-5 py-2.5 rounded-full text-sm font-sans font-medium text-muted-foreground hover:opacity-70 transition-opacity"
-                >
-                  ← Back
-                </button>
-              ) : (
-                <div />
-              )}
-
-              {card.isFinal ? (
-                <button
-                  onClick={handleFinish}
-                  className="px-6 py-2.5 rounded-full text-sm font-sans font-medium transition-opacity hover:opacity-80"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #55cdfc, #f7a8b8)",
-                    color: "#fff",
-                  }}
-                >
-                  Finish ✨
-                </button>
-              ) : (
-                <button
-                  onClick={goNext}
-                  className="px-5 py-2.5 rounded-full text-sm font-sans font-medium transition-opacity hover:opacity-70"
-                  style={{
-                    backgroundColor:
-                      card.band === "blue" ? "#55cdfc" : "#f7a8b8",
-                    color: "#fff",
-                  }}
-                >
-                  Next →
-                </button>
-              )}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

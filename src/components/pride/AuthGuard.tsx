@@ -8,7 +8,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function handshake() {
       const url = new URL(window.location.href);
-      let token = url.searchParams.get('token');
+      const token = url.searchParams.get('token');
       const existingUserId = sessionStorage.getItem('user_id');
 
       // 1. Ensure DB is ready
@@ -18,7 +18,13 @@ export function AuthGuard({ children }: { children: ReactNode }) {
         console.error('Database init failed:', err);
       }
 
-      // 2. If we have a token in the URL, validate it (takes priority)
+      // 2. Capture current path for persistence (if not already in token flow)
+      const currentPath = window.location.pathname + window.location.search;
+      if (!token && !currentPath.includes('/token') && !existingUserId) {
+        sessionStorage.setItem('auth_redirect_path', currentPath);
+      }
+
+      // 3. Handle Token in URL (Priority Flow)
       if (token) {
         try {
           const res = await fetch('https://api.mantracare.com/user/user-info', {
@@ -45,45 +51,34 @@ export function AuthGuard({ children }: { children: ReactNode }) {
                 console.error('User upsert failed:', dbErr);
               }
 
-              // Clean URL
-              url.searchParams.delete('token');
-              window.history.replaceState({}, document.title, url.toString());
-
-              // If we have a stored path, redirect to it
+              // Clean URL and handle persistence
               const storedPath = sessionStorage.getItem('auth_redirect_path');
               if (storedPath && !storedPath.includes('/token')) {
                 sessionStorage.removeItem('auth_redirect_path');
+                // Construct clean URL at the original path
                 window.location.href = storedPath;
                 return;
               }
 
+              // If no stored path, just clean the current URL
+              url.searchParams.delete('token');
+              window.history.replaceState({}, document.title, url.toString());
               setIsAuthenticated(true);
               return;
             }
           }
-          throw new Error('Token validation failed');
         } catch (err) {
           console.error('Handshake error:', err);
-          sessionStorage.removeItem('user_id');
-          if (!window.location.pathname.includes('/token')) {
-            window.location.href = '/pride/token';
-          }
-          return;
         }
       }
 
-      // 2. If no token in URL, check if we already have a session
+      // 4. Use Existing Session if available
       if (existingUserId) {
         setIsAuthenticated(true);
         return;
       }
 
-      // 3. No token in URL and no session: Save path and try "Auth API" (silent auth)
-      const currentPath = window.location.pathname + window.location.search;
-      if (!currentPath.includes('/token')) {
-        sessionStorage.setItem('auth_redirect_path', currentPath);
-      }
-
+      // 5. Try Silent Auth (hit Auth API)
       try {
         const authRes = await fetch('https://api.mantracare.com/user/get-token', {
           method: 'GET',
@@ -96,7 +91,6 @@ export function AuthGuard({ children }: { children: ReactNode }) {
           const newToken = authData.token;
 
           if (newToken) {
-            // Validate the new token
             const res = await fetch('https://api.mantracare.com/user/user-info', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -109,20 +103,11 @@ export function AuthGuard({ children }: { children: ReactNode }) {
               const userId = data.user_id;
               if (userId) {
                 sessionStorage.setItem('user_id', userId);
-                
                 await sql`
                   INSERT INTO users (id, updated_at) 
                   VALUES (${userId}, NOW()) 
                   ON CONFLICT (id) DO UPDATE SET updated_at = NOW()
                 `;
-
-                // Success! Redirect to original path
-                const storedPath = sessionStorage.getItem('auth_redirect_path');
-                if (storedPath && !storedPath.includes('/token')) {
-                  sessionStorage.removeItem('auth_redirect_path');
-                  window.location.href = storedPath;
-                  return;
-                }
                 
                 setIsAuthenticated(true);
                 return;
@@ -134,10 +119,10 @@ export function AuthGuard({ children }: { children: ReactNode }) {
         console.error('Silent auth failed:', err);
       }
 
-      // 4. Everything failed: Redirect to /token
-      if (!window.location.pathname.includes('/token')) {
-        window.location.href = '/pride/token';
-      }
+      // 6. Everything failed: Automatic Redirect to Login (Maintain Path)
+      const finalStoredPath = sessionStorage.getItem('auth_redirect_path') || '/pride';
+      const redirectUrl = encodeURIComponent(`https://platform.mantracare.com${finalStoredPath}`);
+      window.location.href = `https://platform.mantracare.com/login?redirect_url=${redirectUrl}`;
     }
 
     handshake();

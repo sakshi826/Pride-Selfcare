@@ -378,27 +378,6 @@ export default function ComingOutActivity() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Behind cards (stack effect) */}
-        {currentCard < total - 1 && (
-          <div
-            className="absolute top-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] h-full rounded-[28px] opacity-40"
-            style={{
-              backgroundColor: "rgba(255,255,255,0.6)",
-              boxShadow: "var(--card-shadow)",
-              transform: "translateX(-50%) scale(0.95)",
-            }}
-          />
-        )}
-        {currentCard < total - 2 && (
-          <div
-            className="absolute top-6 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] h-full rounded-[28px] opacity-20"
-            style={{
-              backgroundColor: "rgba(255,255,255,0.4)",
-              boxShadow: "var(--card-shadow)",
-              transform: "translateX(-50%) scale(0.9)",
-            }}
-          />
-        )}
 
         {/* Active card */}
         <div
