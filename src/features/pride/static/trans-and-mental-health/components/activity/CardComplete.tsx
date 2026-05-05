@@ -104,7 +104,8 @@ const CardComplete = ({ onRestart, onBackToHub }: CardCompleteProps) => {
       onClose={() => setIsShareOpen(false)} 
       title="Share This Resource"
     />
-  </div>
-);
+    </div>
+  );
+};
 
 export default CardComplete;
