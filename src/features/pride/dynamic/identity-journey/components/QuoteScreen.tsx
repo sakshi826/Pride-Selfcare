@@ -60,18 +60,30 @@ const QuoteScreen = ({ selectedIndex, onClose }: QuoteScreenProps) => {
         <span>Share</span>
       </motion.button>
 
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.8 }}
-        onClick={() => {
-          window.parent.postMessage("exit_activity", "*");
-          window.location.href = "/pride/lgbtq-hub";
-        }}
-        className="mt-4 px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-xl shadow-md hover:bg-primary/90 transition-all w-full max-w-[200px]"
-      >
-        {t('back_home')}
-      </motion.button>
+      <div className="flex flex-col gap-3 w-full max-w-[240px] mt-8">
+        <motion.button
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.8 }}
+          onClick={onClose}
+          className="px-8 py-3.5 bg-primary text-primary-foreground font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all w-full"
+        >
+          {t('view_history')}
+        </motion.button>
+
+        <motion.button
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.9 }}
+          onClick={() => {
+            window.parent.postMessage("exit_activity", "*");
+            window.location.href = "/pride/lgbtq-hub";
+          }}
+          className="px-8 py-3.5 bg-white/50 backdrop-blur-sm border border-primary/10 text-primary font-bold rounded-2xl hover:bg-primary/5 hover:scale-[1.02] active:scale-[0.98] transition-all w-full"
+        >
+          {t('return_home')}
+        </motion.button>
+      </div>
 
       <ShareModal 
         isOpen={isShareOpen} 
