@@ -8,7 +8,7 @@ export const initTables = async () => {
     // 0. Users Table (Identity source of truth)
     await sql`
       CREATE TABLE IF NOT EXISTS users (
-        id BIGINT PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         created_at TIMESTAMP DEFAULT NOW(),
         updated_at TIMESTAMP DEFAULT NOW()
       );
@@ -18,7 +18,7 @@ export const initTables = async () => {
     await sql`
       CREATE TABLE IF NOT EXISTS daily_care_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id BIGINT NOT NULL,
+        user_id TEXT NOT NULL,
         activities TEXT[] NOT NULL,
         duration TEXT NOT NULL,
         mood TEXT NOT NULL,
@@ -30,7 +30,7 @@ export const initTables = async () => {
     await sql`
       CREATE TABLE IF NOT EXISTS mood_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id BIGINT NOT NULL,
+        user_id TEXT NOT NULL,
         value INTEGER NOT NULL,
         label TEXT NOT NULL,
         note TEXT,
@@ -42,7 +42,7 @@ export const initTables = async () => {
     await sql`
       CREATE TABLE IF NOT EXISTS sleep_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id BIGINT NOT NULL,
+        user_id TEXT NOT NULL,
         bedtime TEXT NOT NULL,
         waketime TEXT NOT NULL,
         quality INTEGER NOT NULL,
@@ -55,7 +55,7 @@ export const initTables = async () => {
     await sql`
       CREATE TABLE IF NOT EXISTS gratitude_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id BIGINT NOT NULL,
+        user_id TEXT NOT NULL,
         items TEXT[] NOT NULL,
         mood_emoji TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT NOW()
@@ -66,7 +66,7 @@ export const initTables = async () => {
     await sql`
       CREATE TABLE IF NOT EXISTS vibe_entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        user_id BIGINT NOT NULL,
+        user_id TEXT NOT NULL,
         vibe TEXT NOT NULL,
         reflections JSONB NOT NULL DEFAULT '[]'::jsonb,
         created_at TIMESTAMP DEFAULT NOW()
@@ -89,7 +89,7 @@ export const initTables = async () => {
       await sql.query(`
         CREATE TABLE IF NOT EXISTS ${table} (
           id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-          user_id BIGINT NOT NULL,
+          user_id TEXT NOT NULL,
           data JSONB NOT NULL DEFAULT '{}'::jsonb,
           created_at TIMESTAMP DEFAULT NOW(),
           updated_at TIMESTAMP DEFAULT NOW()
