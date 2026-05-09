@@ -155,7 +155,9 @@ function TokenFallback() {
 }
 
 function App() {
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(() => {
+    return !!(import.meta.env.VITE_DEV_USER_ID || sessionStorage.getItem('user_id'));
+  });
 
   useEffect(() => {
     console.log('BUILD_VERSION: 1.2 - AUTH_REDIRECT_ACTIVE');
@@ -241,14 +243,6 @@ function App() {
     handshake();
   }, []);
 
-  if (!isAuthorized && !window.location.pathname.includes('/token')) {
-    return (
-      <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#F9F6FE]">
-        <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
-        <p className="mt-6 text-purple-900 font-medium animate-pulse">Securing your session...</p>
-      </div>
-    );
-  }
 
   return (
     <BrowserRouter basename="/pride">

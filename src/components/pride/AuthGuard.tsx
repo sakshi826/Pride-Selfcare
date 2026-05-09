@@ -20,7 +20,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
     return (
       <div className="flex h-screen w-screen flex-col items-center justify-center bg-[#F9F6FE]">
         <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
-        <p className="mt-6 text-purple-900 font-medium">Loading session...</p>
+        <p className="mt-6 text-purple-900 font-medium">Loading</p>
       </div>
     );
   }
