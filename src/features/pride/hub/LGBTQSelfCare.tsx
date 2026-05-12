@@ -6,7 +6,7 @@ import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs
 
 interface ResourceCard {
   id: string;
-  icon: any;
+  icon: React.ElementType;
   label: string;
   bgColor: string;
   link: string | null;
@@ -14,7 +14,7 @@ interface ResourceCard {
 
 interface TrackerCard {
   id: string;
-  icon: any;
+  icon: React.ElementType;
   label: string;
   bgColor: string;
   link: string | null;
@@ -22,7 +22,7 @@ interface TrackerCard {
 
 interface GuideCard {
   id: string;
-  icon: any;
+  icon: React.ElementType;
   label: string;
   bgColor: string;
   link: string | null;
