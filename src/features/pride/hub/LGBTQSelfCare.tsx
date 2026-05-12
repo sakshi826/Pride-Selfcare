@@ -97,7 +97,7 @@ export function LGBTQSelfCare() {
 
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-                {t("LGBTQ+")} <span className="text-pride-purple text-glow">{t("Self-Care")}</span> (v2)
+                {t("LGBTQ+")} <span className="text-pride-purple text-glow">{t("Self-Care")}</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
                 {t("Explore resources, track your journey, and embrace your authentic self in a safe space.")}
@@ -106,122 +106,93 @@ export function LGBTQSelfCare() {
           </motion.div>
 
           {/* Resources Section */}
-          <section className="mb-12">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-1.5 h-8 rounded-full bg-pride-green shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
+          <section className="mb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1.5 h-8 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Resources")}</h2>
-                <p className="text-sm text-muted-foreground font-medium">{t("Essential tools and information")}</p>
+                <p className="text-sm text-muted-foreground">{t("Essential tools and information")}</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {resources.map((resource, index) => {
-                const IconComponent = resource.icon;
-                return (
-                  <motion.button
-                    key={resource.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ y: -8 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleCardClick(resource.link)}
-                    className="premium-card p-6 flex flex-col items-center gap-4 group transition-all duration-300 hover:border-pride-purple/20"
-                  >
-                    <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500"
-                      style={{ background: resource.bgColor }}
-                    >
-                      <IconComponent className="text-white" size={28} />
-                    </div>
-                    <span className="text-sm font-black text-foreground text-center leading-tight">
-                      {t(resource.label)}
-                    </span>
-                  </motion.button>
-                );
-              })}
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+              {resources.map((resource) => (
+                <motion.button
+                  key={resource.id}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleCardClick(resource.link)}
+                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-6 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-4 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className={`w-14 h-14 rounded-2xl ${resource.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
+                    <resource.icon size={28} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground relative z-10">{t(resource.label)}</span>
+                </motion.button>
+              ))}
             </div>
           </section>
 
           {/* Trackers Section */}
-          <section className="mb-12">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-1.5 h-8 rounded-full bg-pride-purple shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
+          <section className="mb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1.5 h-8 rounded-full bg-pride-purple shadow-[0_0_15px_rgba(168,85,247,0.5)]" />
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Trackers")}</h2>
-                <p className="text-sm text-muted-foreground font-medium">{t("Monitor your wellness journey")}</p>
+                <p className="text-sm text-muted-foreground">{t("Monitor your wellness journey")}</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {trackers.map((tracker, index) => {
-                const IconComponent = tracker.icon;
-                return (
-                  <motion.button
-                    key={tracker.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ y: -8 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleCardClick(tracker.link)}
-                    className="premium-card p-6 flex flex-col items-center gap-4 group transition-all duration-300 hover:border-pride-blue/20"
-                  >
-                    <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500"
-                      style={{ background: tracker.bgColor }}
-                    >
-                      <IconComponent className="text-white" size={28} />
-                    </div>
-                    <span className="text-sm font-black text-foreground text-center leading-tight">
-                      {t(tracker.label)}
-                    </span>
-                  </motion.button>
-                );
-              })}
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+              {trackers.map((tracker) => (
+                <motion.button
+                  key={tracker.id}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleCardClick(tracker.link)}
+                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-6 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-4 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className={`w-14 h-14 rounded-2xl ${tracker.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
+                    <tracker.icon size={28} />
+                  </div>
+                  <span className="text-sm font-bold text-foreground relative z-10">{t(tracker.label)}</span>
+                </motion.button>
+              ))}
             </div>
           </section>
 
           {/* Wellness Guides Section */}
-          <section className="mb-12">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-1.5 h-8 rounded-full bg-pride-red shadow-[0_0_15px_rgba(239,68,68,0.5)]"></div>
+          <section>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1.5 h-8 rounded-full bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]" />
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Wellness Guides")}</h2>
-                <p className="text-sm text-muted-foreground font-medium">{t("Identity-specific support and resources")}</p>
+                <p className="text-sm text-muted-foreground">{t("Identity-specific support and resources")}</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {guides.map((guide, index) => {
-                const IconComponent = guide.icon;
-                return (
-                  <motion.button
-                    key={guide.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    whileHover={{ y: -8 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleCardClick(guide.link)}
-                    className="premium-card p-8 flex flex-col items-center gap-6 group transition-all duration-300 hover:border-pride-red/20"
-                  >
-                    <div
-                      className="w-20 h-20 rounded-[2rem] flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
-                      style={{ background: guide.bgColor }}
-                    >
-                      <IconComponent className="text-white" size={36} />
-                    </div>
-                    <span className="text-lg font-black text-foreground text-center leading-tight">
-                      {t("{{label}} Guide", { label: t(guide.label) })}
-                    </span>
-                  </motion.button>
-                );
-              })}
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {guides.map((guide) => (
+                <motion.button
+                  key={guide.id}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleCardClick(guide.link)}
+                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-8 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-6 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className={`w-16 h-16 rounded-3xl ${guide.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
+                    <guide.icon size={32} />
+                  </div>
+                  <span className="text-lg font-bold text-foreground relative z-10">
+                    {t("{{label}} Guide", { label: t(guide.label) })}
+                  </span>
+                </motion.button>
+              ))}
             </div>
           </section>
-          {/* Debug Indicator */}
-          <div className="mt-12 text-[10px] text-muted-foreground/30 text-center opacity-0 hover:opacity-100 transition-opacity">
-            i18n: {i18n.language} | ns: hub | status: {i18n.isInitialized ? 'ready' : 'loading'}
-          </div>
         </main>
       </div>
     </div>

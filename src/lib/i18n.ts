@@ -19,31 +19,32 @@ const locales = import.meta.glob('../features/pride/*/i18n/*.json');
 i18n
   .use(LanguageDetector)
   .use(resourcesToBackend((language, namespace) => {
-    // Vite glob keys are relative to this file. 
-    // We search for a match in the glob keys to be safe across different build environments.
     const globKeys = Object.keys(locales);
-    const targetPathPart = `${namespace}/i18n/${language}.json`;
-    const match = globKeys.find(key => key.endsWith(targetPathPart));
+    
+    // Look for a key that contains BOTH the namespace and the language
+    // This works in dev (../features/pride/hub/i18n/en.json) 
+    // and production (assets/hub-i18n-en-XXXX.js)
+    const match = globKeys.find(key => 
+      key.includes(`/${namespace}/`) && key.includes(`/${language}.`)
+    );
     
     if (match) {
       return locales[match]();
     }
     
-    // Fallback for English
+    // Fallback to English if the specific language isn't found
     if (language !== 'en') {
-      const fallbackPart = `${namespace}/i18n/en.json`;
-      const fallbackMatch = globKeys.find(key => key.endsWith(fallbackPart));
-      if (fallbackMatch) {
-        return locales[fallbackMatch]();
-      }
+      const fallbackMatch = globKeys.find(key => 
+        key.includes(`/${namespace}/`) && key.includes(`/en.`)
+      );
+      if (fallbackMatch) return fallbackMatch();
     }
 
-    console.warn(`[i18n] No match found for namespace: ${namespace}, language: ${language}`);
-    return Promise.reject(`Locale file not found: ${targetPathPart}`);
+    return Promise.reject(`Locale not found for ${namespace}/${language}`);
   }))
   .use(initReactI18next)
   .init({
-    debug: true, // Enable debug for console logs
+    debug: true, 
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGUAGES,
     interpolation: {
