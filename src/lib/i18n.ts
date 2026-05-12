@@ -19,25 +19,31 @@ const locales = import.meta.glob('../features/pride/*/i18n/*.json');
 i18n
   .use(LanguageDetector)
   .use(resourcesToBackend((language, namespace) => {
-    // Standardize namespace/language path
-    const path = `../features/pride/${namespace}/i18n/${language}.json`;
+    // Vite glob keys are relative to this file. 
+    // We search for a match in the glob keys to be safe across different build environments.
+    const globKeys = Object.keys(locales);
+    const targetPathPart = `${namespace}/i18n/${language}.json`;
+    const match = globKeys.find(key => key.endsWith(targetPathPart));
     
-    if (locales[path]) {
-      return locales[path]();
+    if (match) {
+      return locales[match]();
     }
     
-    // Fallback for en if language not found
+    // Fallback for English
     if (language !== 'en') {
-      const fallbackPath = `../features/pride/${namespace}/i18n/en.json`;
-      if (locales[fallbackPath]) {
-        return locales[fallbackPath]();
+      const fallbackPart = `${namespace}/i18n/en.json`;
+      const fallbackMatch = globKeys.find(key => key.endsWith(fallbackPart));
+      if (fallbackMatch) {
+        return locales[fallbackMatch]();
       }
     }
 
-    return Promise.reject(`Locale file not found: ${path}`);
+    console.warn(`[i18n] No match found for namespace: ${namespace}, language: ${language}`);
+    return Promise.reject(`Locale file not found: ${targetPathPart}`);
   }))
   .use(initReactI18next)
   .init({
+    debug: true, // Enable debug for console logs
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGUAGES,
     interpolation: {

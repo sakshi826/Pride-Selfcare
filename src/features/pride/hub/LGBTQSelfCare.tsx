@@ -59,7 +59,7 @@ const guides: GuideCard[] = [
 
 export function LGBTQSelfCare() {
   const navigate = useNavigate();
-  const { t } = useTranslation("hub");
+  const { t, i18n } = useTranslation("hub");
 
   const handleCardClick = (link: string | null) => {
     if (link) {
@@ -218,6 +218,10 @@ export function LGBTQSelfCare() {
               })}
             </div>
           </section>
+          {/* Debug Indicator */}
+          <div className="mt-12 text-[10px] text-muted-foreground/30 text-center opacity-0 hover:opacity-100 transition-opacity">
+            i18n: {i18n.language} | ns: hub | status: {i18n.isInitialized ? 'ready' : 'loading'}
+          </div>
         </main>
       </div>
     </div>
