@@ -1,7 +1,8 @@
 // i18n configuration - Modular internationalization for PrideMantra platform
+// API key (VITE_GOOGLE_TRANSLATION_API_KEY) is used ONLY in scripts/translate.mjs at build time.
+// It is never bundled into this file or exposed to the browser.
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpBackend from 'i18next-http-backend';
 
 export const SUPPORTED_LANGUAGES = [
@@ -13,12 +14,25 @@ export const SUPPORTED_LANGUAGES = [
   'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'
 ];
 
+// Always read the `lang` URL param directly — this is the most reliable method.
+// It avoids stale caches in localStorage or cookies overriding the URL intent.
+function getLanguageFromUrl(): string {
+  if (typeof window === 'undefined') return 'en';
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get('lang');
+  if (lang && SUPPORTED_LANGUAGES.includes(lang)) {
+    return lang;
+  }
+  return 'en';
+}
+
+const detectedLang = getLanguageFromUrl();
+
 i18n
-  .use(LanguageDetector)
   .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    debug: true,
+    lng: detectedLang,            // Explicitly set language from URL — no detector ambiguity
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGUAGES,
     interpolation: {
@@ -26,11 +40,6 @@ i18n
     },
     backend: {
       loadPath: '/pride/locales/{{lng}}/{{ns}}.json',
-    },
-    detection: {
-      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'path', 'subdomain'],
-      lookupQuerystring: 'lang',
-      caches: ['localStorage', 'cookie'],
     },
     ns: ['hub', 'common'],
     defaultNS: 'common',
