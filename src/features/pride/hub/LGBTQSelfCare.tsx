@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield, Languages, Check } from "lucide-react";
 import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
+import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
 
 interface ResourceCard {
   id: string;
@@ -57,7 +59,16 @@ const guides: GuideCard[] = [
 
 export function LGBTQSelfCare() {
   const navigate = useNavigate();
-  const { t } = useTranslation("hub");
+  const { t, i18n } = useTranslation("hub");
+  const [showLangSelector, setShowLangSelector] = useState(false);
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setShowLangSelector(false);
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lng);
+    window.history.pushState({}, '', url.toString());
+  };
 
   const handleCardClick = (link: string | null) => {
     if (link) {
@@ -81,17 +92,57 @@ export function LGBTQSelfCare() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => {
-                window.parent.postMessage("exit_activity", "*");
-                navigate(-1);
-              }}
-              className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-foreground border border-white/10 shadow-lg mb-8"
-            >
-              <ChevronLeft size={24} />
-            </motion.button>
+            <div className="flex items-center justify-between mb-8">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  window.parent.postMessage("exit_activity", "*");
+                  navigate(-1);
+                }}
+                className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-foreground border border-white/10 shadow-lg"
+              >
+                <ChevronLeft size={24} />
+              </motion.button>
+
+              <div className="relative">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowLangSelector(!showLangSelector)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md text-foreground border border-white/10 shadow-lg text-sm font-bold"
+                >
+                  <Languages size={18} />
+                  <span className="uppercase">{i18n.language}</span>
+                </motion.button>
+
+                <AnimatePresence>
+                  {showLangSelector && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute right-0 mt-2 w-48 max-h-64 overflow-y-auto rounded-2xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 shadow-2xl z-50 p-2 scrollbar-thin"
+                    >
+                      {SUPPORTED_LANGUAGES.map((lng) => (
+                        <button
+                          key={lng}
+                          onClick={() => changeLanguage(lng)}
+                          className={`w-full flex items-center justify-between px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                            i18n.language === lng 
+                              ? "bg-pride-purple text-white" 
+                              : "hover:bg-black/5 dark:hover:bg-white/5"
+                          }`}
+                        >
+                          <span className="uppercase">{lng}</span>
+                          {i18n.language === lng && <Check size={14} />}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
 
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
