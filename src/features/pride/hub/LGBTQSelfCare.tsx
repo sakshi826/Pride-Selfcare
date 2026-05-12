@@ -97,7 +97,7 @@ export function LGBTQSelfCare() {
 
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-                {t("LGBTQ+")} <span className="text-pride-purple text-glow">{t("Self-Care")}</span>
+                {t("LGBTQ+")} <span className="text-pride-purple text-glow">{t("Self-Care")}</span> (v2)
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
                 {t("Explore resources, track your journey, and embrace your authentic self in a safe space.")}
