@@ -13,38 +13,22 @@ export const SUPPORTED_LANGUAGES = [
   'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'
 ];
 
-// Dynamically discover all i18n JSON files in the features directory
-const locales = import.meta.glob('../features/pride/*/i18n/*.json');
-
 i18n
   .use(LanguageDetector)
   .use(resourcesToBackend((language, namespace) => {
-    const globKeys = Object.keys(locales);
-    
-    // Look for a key that contains BOTH the namespace and the language
-    // This works in dev (../features/pride/hub/i18n/en.json) 
-    // and production (assets/hub-i18n-en-XXXX.js)
-    const match = globKeys.find(key => 
-      key.includes(`/${namespace}/`) && key.includes(`/${language}.`)
-    );
-    
-    if (match) {
-      return locales[match]();
-    }
-    
-    // Fallback to English if the specific language isn't found
-    if (language !== 'en') {
-      const fallbackMatch = globKeys.find(key => 
-        key.includes(`/${namespace}/`) && key.includes(`/en.`)
-      );
-      if (fallbackMatch) return fallbackMatch();
-    }
-
-    return Promise.reject(`Locale not found for ${namespace}/${language}`);
+    // Vite's built-in dynamic import support for variable paths
+    return import(`../features/pride/${namespace}/i18n/${language}.json`)
+      .catch(err => {
+        console.error(`[i18n] Failed to load ${namespace}/${language}:`, err);
+        // Fallback to English if the specific language fails
+        if (language !== 'en') {
+          return import(`../features/pride/${namespace}/i18n/en.json`);
+        }
+        throw err;
+      });
   }))
   .use(initReactI18next)
   .init({
-    debug: true, 
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGUAGES,
     interpolation: {
