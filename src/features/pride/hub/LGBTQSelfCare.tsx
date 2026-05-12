@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield, Languages, Check } from "lucide-react";
+import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield } from "lucide-react";
 import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
-import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
 
 interface ResourceCard {
   id: string;
@@ -30,36 +28,34 @@ interface GuideCard {
   link: string | null;
 }
 
-const t = (s: string) => s;
-
 const resources: ResourceCard[] = [
-  { id: "assessments", icon: CheckSquare, label: t("Assessments"), bgColor: "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)", link: "/lgbtq-assessments" },
-  { id: "stories", icon: BookOpen, label: t("Stories"), bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/content/lgbtq-stories" },
-  { id: "identity", icon: Compass, label: t("Identity Exploration"), bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-exploration" },
-  { id: "tips", icon: Lightbulb, label: t("Tips"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/lgbtq-tips" },
-  { id: "myths", icon: Info, label: t("Myths & Facts"), bgColor: "linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)", link: "/lgbtq-myths-facts" },
-  { id: "articles", icon: FileText, label: t("Articles"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/lgbtq-articles" },
+  { id: "assessments", icon: CheckSquare, label: "Assessments", bgColor: "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)", link: "/lgbtq-assessments" },
+  { id: "stories", icon: BookOpen, label: "Stories", bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/content/lgbtq-stories" },
+  { id: "identity", icon: Compass, label: "Identity Exploration", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-exploration" },
+  { id: "tips", icon: Lightbulb, label: "Tips", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/lgbtq-tips" },
+  { id: "myths", icon: Info, label: "Myths & Facts", bgColor: "linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)", link: "/lgbtq-myths-facts" },
+  { id: "articles", icon: FileText, label: "Articles", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/lgbtq-articles" },
 ];
 
 const trackers: TrackerCard[] = [
-  { id: "identity-journey", icon: Target, label: t("Identity Journey"), bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-journey" },
-  { id: "daily-care", icon: HeartPulse, label: t("Daily Care"), bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
-  { id: "mood", icon: Smile, label: t("Mood"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
-  { id: "sleep", icon: Moon, label: t("Sleep"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
-  { id: "gratitude", icon: Sparkles, label: t("Gratitude"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trackers/gratitude" },
-  { id: "vibe", icon: Activity, label: t("Vibe"), bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/trackers/vibe" },
+  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-journey" },
+  { id: "daily-care", icon: HeartPulse, label: "Daily Care", bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
+  { id: "mood", icon: Smile, label: "Mood", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
+  { id: "sleep", icon: Moon, label: "Sleep", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
+  { id: "gratitude", icon: Sparkles, label: "Gratitude", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trackers/gratitude" },
+  { id: "vibe", icon: Activity, label: "Vibe", bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/trackers/vibe" },
 ];
 
 const guides: GuideCard[] = [
-  { id: "lesbian", icon: Heart, label: t("Lesbian"), bgColor: "linear-gradient(135deg, #FF3D00 0%, #FF9100 100%)", link: "/lesbian-guide" },
-  { id: "gay", icon: Users2, label: t("Gay"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/gay-guide" },
-  { id: "bisexual", icon: Star, label: t("Bi-sexual"), bgColor: "linear-gradient(135deg, #D946EF 0%, #8B5CF6 50%, #3B82F6 100%)", link: "/bisexual-guide" },
-  { id: "trans", icon: Shield, label: t("Trans"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-guide" },
+  { id: "lesbian", icon: Heart, label: "Lesbian", bgColor: "linear-gradient(135deg, #FF3D00 0%, #FF9100 100%)", link: "/lesbian-guide" },
+  { id: "gay", icon: Users2, label: "Gay", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/gay-guide" },
+  { id: "bisexual", icon: Star, label: "Bi-sexual", bgColor: "linear-gradient(135deg, #D946EF 0%, #8B5CF6 50%, #3B82F6 100%)", link: "/bisexual-guide" },
+  { id: "trans", icon: Shield, label: "Trans", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-guide" },
 ];
 
 export function LGBTQSelfCare() {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation("hub");
+  const { t } = useTranslation("hub");
 
   const handleCardClick = (link: string | null) => {
     if (link) {
@@ -106,91 +102,116 @@ export function LGBTQSelfCare() {
           </motion.div>
 
           {/* Resources Section */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-1.5 h-8 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]" />
+          <section className="mb-12">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="w-1.5 h-8 rounded-full bg-pride-green shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Resources")}</h2>
-                <p className="text-sm text-muted-foreground">{t("Essential tools and information")}</p>
+                <p className="text-sm text-muted-foreground font-medium">{t("Essential tools and information")}</p>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-              {resources.map((resource) => (
-                <motion.button
-                  key={resource.id}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleCardClick(resource.link)}
-                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-6 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-4 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className={`w-14 h-14 rounded-2xl ${resource.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
-                    <resource.icon size={28} />
-                  </div>
-                  <span className="text-sm font-bold text-foreground relative z-10">{t(resource.label)}</span>
-                </motion.button>
-              ))}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {resources.map((resource, index) => {
+                const IconComponent = resource.icon;
+                return (
+                  <motion.button
+                    key={resource.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ y: -8 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleCardClick(resource.link)}
+                    className="premium-card p-6 flex flex-col items-center gap-4 group transition-all duration-300 hover:border-pride-purple/20"
+                  >
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500"
+                      style={{ background: resource.bgColor }}
+                    >
+                      <IconComponent className="text-white" size={28} />
+                    </div>
+                    <span className="text-sm font-black text-foreground text-center leading-tight">
+                      {t(resource.label)}
+                    </span>
+                  </motion.button>
+                );
+              })}
             </div>
           </section>
 
           {/* Trackers Section */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-1.5 h-8 rounded-full bg-pride-purple shadow-[0_0_15px_rgba(168,85,247,0.5)]" />
+          <section className="mb-12">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="w-1.5 h-8 rounded-full bg-pride-purple shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Trackers")}</h2>
-                <p className="text-sm text-muted-foreground">{t("Monitor your wellness journey")}</p>
+                <p className="text-sm text-muted-foreground font-medium">{t("Monitor your wellness journey")}</p>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-              {trackers.map((tracker) => (
-                <motion.button
-                  key={tracker.id}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleCardClick(tracker.link)}
-                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-6 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-4 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className={`w-14 h-14 rounded-2xl ${tracker.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
-                    <tracker.icon size={28} />
-                  </div>
-                  <span className="text-sm font-bold text-foreground relative z-10">{t(tracker.label)}</span>
-                </motion.button>
-              ))}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {trackers.map((tracker, index) => {
+                const IconComponent = tracker.icon;
+                return (
+                  <motion.button
+                    key={tracker.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ y: -8 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleCardClick(tracker.link)}
+                    className="premium-card p-6 flex flex-col items-center gap-4 group transition-all duration-300 hover:border-pride-blue/20"
+                  >
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500"
+                      style={{ background: tracker.bgColor }}
+                    >
+                      <IconComponent className="text-white" size={28} />
+                    </div>
+                    <span className="text-sm font-black text-foreground text-center leading-tight">
+                      {t(tracker.label)}
+                    </span>
+                  </motion.button>
+                );
+              })}
             </div>
           </section>
 
           {/* Wellness Guides Section */}
-          <section>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-1.5 h-8 rounded-full bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]" />
+          <section className="mb-12">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="w-1.5 h-8 rounded-full bg-pride-red shadow-[0_0_15px_rgba(239,68,68,0.5)]"></div>
               <div>
                 <h2 className="text-2xl font-bold text-foreground">{t("Wellness Guides")}</h2>
-                <p className="text-sm text-muted-foreground">{t("Identity-specific support and resources")}</p>
+                <p className="text-sm text-muted-foreground font-medium">{t("Identity-specific support and resources")}</p>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {guides.map((guide) => (
-                <motion.button
-                  key={guide.id}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleCardClick(guide.link)}
-                  className="group relative bg-white dark:bg-gray-900 rounded-[32px] p-8 shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center text-center gap-6 transition-all hover:shadow-2xl hover:border-pride-purple/30 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className={`w-16 h-16 rounded-3xl ${guide.bgColor} flex items-center justify-center text-white shadow-lg relative z-10`}>
-                    <guide.icon size={32} />
-                  </div>
-                  <span className="text-lg font-bold text-foreground relative z-10">
-                    {t("{{label}} Guide", { label: t(guide.label) })}
-                  </span>
-                </motion.button>
-              ))}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {guides.map((guide, index) => {
+                const IconComponent = guide.icon;
+                return (
+                  <motion.button
+                    key={guide.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    whileHover={{ y: -8 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleCardClick(guide.link)}
+                    className="premium-card p-8 flex flex-col items-center gap-6 group transition-all duration-300 hover:border-pride-red/20"
+                  >
+                    <div
+                      className="w-20 h-20 rounded-[2rem] flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
+                      style={{ background: guide.bgColor }}
+                    >
+                      <IconComponent className="text-white" size={36} />
+                    </div>
+                    <span className="text-lg font-black text-foreground text-center leading-tight">
+                      {t("{{label}} Guide", { label: t(guide.label) })}
+                    </span>
+                  </motion.button>
+                );
+              })}
             </div>
           </section>
         </main>
