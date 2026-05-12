@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AuthGuard } from "./components/pride/AuthGuard";
 import { PrideStaticViewer } from "./components/pride/PrideStaticViewer";
@@ -246,71 +246,73 @@ function App() {
 
   return (
     <BrowserRouter basename="/pride">
-      <Routes>
-        <Route path="/token" element={<TokenFallback />} />
-        
-        <Route path="*" element={
-          <AuthGuard>
-            <Routes>
-              <Route path="/" element={<LGBTQSelfCare />} />
-              <Route path="/menu" element={<Index />} />
-              
-              {/* PrideMantra — Dynamic Minis */}
-              <Route path="/find-your-right-time/*" element={<FindYourRightTime />} />
-              <Route path="/gentle-check-in/*" element={<GentleCheckIn />} />
-              <Route path="/identity-exploration/*" element={<IdentityExploration />} />
-              <Route path="/identity-reflection/*" element={<IdentityReflection />} />
-              <Route path="/identity-journey/*" element={<IdentityJourney />} />
-              <Route path="/pride-journal/*" element={<PrideJournal />} />
-              <Route path="/pride-mirror-moments/*" element={<PrideMirrorMoments />} />
-              <Route path="/pride-spectrum/*" element={<PrideSpectrum />} />
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#F9F6FE]">Loading...</div>}>
+        <Routes>
+          <Route path="/token" element={<TokenFallback />} />
+          
+          <Route path="*" element={
+            <AuthGuard>
+              <Routes>
+                <Route path="/" element={<LGBTQSelfCare />} />
+                <Route path="/menu" element={<Index />} />
+                
+                {/* PrideMantra — Dynamic Minis */}
+                <Route path="/find-your-right-time/*" element={<FindYourRightTime />} />
+                <Route path="/gentle-check-in/*" element={<GentleCheckIn />} />
+                <Route path="/identity-exploration/*" element={<IdentityExploration />} />
+                <Route path="/identity-reflection/*" element={<IdentityReflection />} />
+                <Route path="/identity-journey/*" element={<IdentityJourney />} />
+                <Route path="/pride-journal/*" element={<PrideJournal />} />
+                <Route path="/pride-mirror-moments/*" element={<PrideMirrorMoments />} />
+                <Route path="/pride-spectrum/*" element={<PrideSpectrum />} />
 
-              {/* PrideMantra — Static Minis */}
-              <Route path="/bi-identity-affirmations/*" element={<BiIdentityAffirmations />} />
-              <Route path="/bi-family-friends-convo/*" element={<BisexualConversations />} />
-              <Route path="/bisexual-stories/*" element={<BisexualStories />} />
-              <Route path="/bi-mental-health/*" element={<BisexualWellbeingCompass />} />
-              <Route path="/bi-coming-out/*" element={<ComingOutBisexual />} />
-              <Route path="/dealing-with-dysphoria/*" element={<DealingWithDysphoria />} />
-              <Route path="/joy-pride-trans/*" element={<JoyPrideTrans />} />
-              <Route path="/medical-transition/*" element={<NavigatingMedicalTransition />} />
-              <Route path="/trans-and-mental-health/*" element={<TransAndMentalHealth />} />
-              <Route path="/trans-coming-out/*" element={<TransComingOut />} />
+                {/* PrideMantra — Static Minis */}
+                <Route path="/bi-identity-affirmations/*" element={<BiIdentityAffirmations />} />
+                <Route path="/bi-family-friends-convo/*" element={<BisexualConversations />} />
+                <Route path="/bisexual-stories/*" element={<BisexualStories />} />
+                <Route path="/bi-mental-health/*" element={<BisexualWellbeingCompass />} />
+                <Route path="/bi-coming-out/*" element={<ComingOutBisexual />} />
+                <Route path="/dealing-with-dysphoria/*" element={<DealingWithDysphoria />} />
+                <Route path="/joy-pride-trans/*" element={<JoyPrideTrans />} />
+                <Route path="/medical-transition/*" element={<NavigatingMedicalTransition />} />
+                <Route path="/trans-and-mental-health/*" element={<TransAndMentalHealth />} />
+                <Route path="/trans-coming-out/*" element={<TransComingOut />} />
 
-              {/* PrideMantra — Claude HTML Minis */}
-              <Route path="/content/lgbtq-stories/*" element={<LGBTQStories />} />
-              <Route path="/content/:slug" element={<PrideStaticViewer />} />
+                {/* PrideMantra — Claude HTML Minis */}
+                <Route path="/content/lgbtq-stories/*" element={<LGBTQStories />} />
+                <Route path="/content/:slug" element={<PrideStaticViewer />} />
 
-              {/* LGBTQ+ Self-Care Hub */}
-              <Route path="/lgbtq-hub" element={<LGBTQSelfCare />} />
-              <Route path="/lgbtq-tips" element={<LGBTQTips />} />
-              <Route path="/lgbtq-myths-facts" element={<LGBTQMythsFacts />} />
-              <Route path="/lgbtq-myth/:mythId" element={<LGBTQMythDetail />} />
-              <Route path="/lgbtq-articles" element={<LGBTQArticles />} />
-              <Route path="/lgbtq-article/:articleId" element={<LGBTQArticleDetail />} />
-              <Route path="/lesbian-guide" element={<LesbianGuide />} />
-              <Route path="/gay-guide" element={<GayGuide />} />
-              <Route path="/bisexual-guide" element={<BisexualGuide />} />
-              <Route path="/trans-guide" element={<TransGuide />} />
-              <Route path="/lgbtq-assessments" element={<LGBTQAssessments />} />
-              <Route path="/find-your-community" element={<FindYourCommunity />} />
-              <Route path="/set-gentle-boundaries" element={<SetGentleBoundaries />} />
-              <Route path="/honor-your-identity" element={<HonorYourIdentity />} />
-              <Route path="/affirming-self-talk" element={<AffirmingSelfTalk />} />
-              <Route path="/create-safe-spaces" element={<CreateSafeSpaces />} />
-              <Route path="/process-grief-loss" element={<ProcessGriefLoss />} />
+                {/* LGBTQ+ Self-Care Hub */}
+                <Route path="/lgbtq-hub" element={<LGBTQSelfCare />} />
+                <Route path="/lgbtq-tips" element={<LGBTQTips />} />
+                <Route path="/lgbtq-myths-facts" element={<LGBTQMythsFacts />} />
+                <Route path="/lgbtq-myth/:mythId" element={<LGBTQMythDetail />} />
+                <Route path="/lgbtq-articles" element={<LGBTQArticles />} />
+                <Route path="/lgbtq-article/:articleId" element={<LGBTQArticleDetail />} />
+                <Route path="/lesbian-guide" element={<LesbianGuide />} />
+                <Route path="/gay-guide" element={<GayGuide />} />
+                <Route path="/bisexual-guide" element={<BisexualGuide />} />
+                <Route path="/trans-guide" element={<TransGuide />} />
+                <Route path="/lgbtq-assessments" element={<LGBTQAssessments />} />
+                <Route path="/find-your-community" element={<FindYourCommunity />} />
+                <Route path="/set-gentle-boundaries" element={<SetGentleBoundaries />} />
+                <Route path="/honor-your-identity" element={<HonorYourIdentity />} />
+                <Route path="/affirming-self-talk" element={<AffirmingSelfTalk />} />
+                <Route path="/create-safe-spaces" element={<CreateSafeSpaces />} />
+                <Route path="/process-grief-loss" element={<ProcessGriefLoss />} />
 
-              {/* Trackers */}
-              <Route path="/trackers/daily-care" element={<DailyCareTracker />} />
-              <Route path="/trackers/mood" element={<MoodTracker />} />
-              <Route path="/trackers/sleep" element={<SleepTracker />} />
-              <Route path="/trackers/gratitude" element={<GratitudeTracker />} />
-              <Route path="/trackers/vibe" element={<VibeTracker />} />
-              <Route path="/db-setup" element={<DbSetup />} />
-            </Routes>
-          </AuthGuard>
-        } />
-      </Routes>
+                {/* Trackers */}
+                <Route path="/trackers/daily-care" element={<DailyCareTracker />} />
+                <Route path="/trackers/mood" element={<MoodTracker />} />
+                <Route path="/trackers/sleep" element={<SleepTracker />} />
+                <Route path="/trackers/gratitude" element={<GratitudeTracker />} />
+                <Route path="/trackers/vibe" element={<VibeTracker />} />
+                <Route path="/db-setup" element={<DbSetup />} />
+              </Routes>
+            </AuthGuard>
+          } />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

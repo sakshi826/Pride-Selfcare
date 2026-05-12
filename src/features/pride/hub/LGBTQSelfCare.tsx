@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield } from "lucide-react";
 import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
@@ -27,33 +28,36 @@ interface GuideCard {
   link: string | null;
 }
 
+const t = (s: string) => s;
+
 const resources: ResourceCard[] = [
-  { id: "assessments", icon: CheckSquare, label: "Assessments", bgColor: "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)", link: "/lgbtq-assessments" },
-  { id: "stories", icon: BookOpen, label: "Stories", bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/content/lgbtq-stories" },
-  { id: "identity", icon: Compass, label: "Identity Exploration", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-exploration" },
-  { id: "tips", icon: Lightbulb, label: "Tips", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/lgbtq-tips" },
-  { id: "myths", icon: Info, label: "Myths & Facts", bgColor: "linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)", link: "/lgbtq-myths-facts" },
-  { id: "articles", icon: FileText, label: "Articles", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/lgbtq-articles" },
+  { id: "assessments", icon: CheckSquare, label: t("Assessments"), bgColor: "linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)", link: "/lgbtq-assessments" },
+  { id: "stories", icon: BookOpen, label: t("Stories"), bgColor: "linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)", link: "/content/lgbtq-stories" },
+  { id: "identity", icon: Compass, label: t("Identity Exploration"), bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-exploration" },
+  { id: "tips", icon: Lightbulb, label: t("Tips"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/lgbtq-tips" },
+  { id: "myths", icon: Info, label: t("Myths & Facts"), bgColor: "linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)", link: "/lgbtq-myths-facts" },
+  { id: "articles", icon: FileText, label: t("Articles"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/lgbtq-articles" },
 ];
 
 const trackers: TrackerCard[] = [
-  { id: "identity-journey", icon: Target, label: "Identity Journey", bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-journey" },
-  { id: "daily-care", icon: HeartPulse, label: "Daily Care", bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
-  { id: "mood", icon: Smile, label: "Mood", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
-  { id: "sleep", icon: Moon, label: "Sleep", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
-  { id: "gratitude", icon: Sparkles, label: "Gratitude", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trackers/gratitude" },
-  { id: "vibe", icon: Activity, label: "Vibe", bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/trackers/vibe" },
+  { id: "identity-journey", icon: Target, label: t("Identity Journey"), bgColor: "linear-gradient(135deg, #A855F7 0%, #9333EA 100%)", link: "/identity-journey" },
+  { id: "daily-care", icon: HeartPulse, label: t("Daily Care"), bgColor: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)", link: "/trackers/daily-care" },
+  { id: "mood", icon: Smile, label: t("Mood"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/trackers/mood" },
+  { id: "sleep", icon: Moon, label: t("Sleep"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trackers/sleep" },
+  { id: "gratitude", icon: Sparkles, label: t("Gratitude"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trackers/gratitude" },
+  { id: "vibe", icon: Activity, label: t("Vibe"), bgColor: "linear-gradient(135deg, #F97316 0%, #EA580C 100%)", link: "/trackers/vibe" },
 ];
 
 const guides: GuideCard[] = [
-  { id: "lesbian", icon: Heart, label: "Lesbian", bgColor: "linear-gradient(135deg, #FF3D00 0%, #FF9100 100%)", link: "/lesbian-guide" },
-  { id: "gay", icon: Users2, label: "Gay", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/gay-guide" },
-  { id: "bisexual", icon: Star, label: "Bi-sexual", bgColor: "linear-gradient(135deg, #D946EF 0%, #8B5CF6 50%, #3B82F6 100%)", link: "/bisexual-guide" },
-  { id: "trans", icon: Shield, label: "Trans", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-guide" },
+  { id: "lesbian", icon: Heart, label: t("Lesbian"), bgColor: "linear-gradient(135deg, #FF3D00 0%, #FF9100 100%)", link: "/lesbian-guide" },
+  { id: "gay", icon: Users2, label: t("Gay"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/gay-guide" },
+  { id: "bisexual", icon: Star, label: t("Bi-sexual"), bgColor: "linear-gradient(135deg, #D946EF 0%, #8B5CF6 50%, #3B82F6 100%)", link: "/bisexual-guide" },
+  { id: "trans", icon: Shield, label: t("Trans"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-guide" },
 ];
 
 export function LGBTQSelfCare() {
   const navigate = useNavigate();
+  const { t } = useTranslation("hub");
 
   const handleCardClick = (link: string | null) => {
     if (link) {
@@ -91,10 +95,10 @@ export function LGBTQSelfCare() {
 
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-                LGBTQ+ <span className="text-pride-purple text-glow">Self-Care</span>
+                {t("LGBTQ+")} <span className="text-pride-purple text-glow">{t("Self-Care")}</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                Explore resources, track your journey, and embrace your authentic self in a safe space.
+                {t("Explore resources, track your journey, and embrace your authentic self in a safe space.")}
               </p>
             </div>
           </motion.div>
@@ -104,8 +108,8 @@ export function LGBTQSelfCare() {
             <div className="mb-6 flex items-center gap-3">
               <div className="w-1.5 h-8 rounded-full bg-pride-green shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground">Resources</h2>
-                <p className="text-sm text-muted-foreground font-medium">Essential tools and information</p>
+                <h2 className="text-2xl font-bold text-foreground">{t("Resources")}</h2>
+                <p className="text-sm text-muted-foreground font-medium">{t("Essential tools and information")}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -129,7 +133,7 @@ export function LGBTQSelfCare() {
                       <IconComponent className="text-white" size={28} />
                     </div>
                     <span className="text-sm font-black text-foreground text-center leading-tight">
-                      {resource.label}
+                      {t(resource.label)}
                     </span>
                   </motion.button>
                 );
@@ -142,8 +146,8 @@ export function LGBTQSelfCare() {
             <div className="mb-6 flex items-center gap-3">
               <div className="w-1.5 h-8 rounded-full bg-pride-purple shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground">Trackers</h2>
-                <p className="text-sm text-muted-foreground font-medium">Monitor your wellness journey</p>
+                <h2 className="text-2xl font-bold text-foreground">{t("Trackers")}</h2>
+                <p className="text-sm text-muted-foreground font-medium">{t("Monitor your wellness journey")}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -167,7 +171,7 @@ export function LGBTQSelfCare() {
                       <IconComponent className="text-white" size={28} />
                     </div>
                     <span className="text-sm font-black text-foreground text-center leading-tight">
-                      {tracker.label}
+                      {t(tracker.label)}
                     </span>
                   </motion.button>
                 );
@@ -180,8 +184,8 @@ export function LGBTQSelfCare() {
             <div className="mb-6 flex items-center gap-3">
               <div className="w-1.5 h-8 rounded-full bg-pride-red shadow-[0_0_15px_rgba(239,68,68,0.5)]"></div>
               <div>
-                <h2 className="text-2xl font-bold text-foreground">Wellness Guides</h2>
-                <p className="text-sm text-muted-foreground font-medium">Identity-specific support and resources</p>
+                <h2 className="text-2xl font-bold text-foreground">{t("Wellness Guides")}</h2>
+                <p className="text-sm text-muted-foreground font-medium">{t("Identity-specific support and resources")}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -205,7 +209,7 @@ export function LGBTQSelfCare() {
                       <IconComponent className="text-white" size={36} />
                     </div>
                     <span className="text-lg font-black text-foreground text-center leading-tight">
-                      {guide.label} Guide
+                      {t("{{label}} Guide", { label: t(guide.label) })}
                     </span>
                   </motion.button>
                 );
