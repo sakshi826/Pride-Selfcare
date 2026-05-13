@@ -8,8 +8,9 @@ async function test() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            q: ["Hello world"],
-            target: "fr",
+            q: ["Hello"],
+            source: "en",
+            target: "es",
             format: 'text'
         })
     });

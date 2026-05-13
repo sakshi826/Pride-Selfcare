@@ -31,7 +31,7 @@ async function sleep(ms) {
 async function translateBatch(texts, targetLanguage) {
   const url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
   
-  const CHUNK_SIZE = 5; 
+  const CHUNK_SIZE = 100; // Efficient for paid keys
   const results = [];
   
   for (let i = 0; i < texts.length; i += CHUNK_SIZE) {
@@ -53,10 +53,10 @@ async function translateBatch(texts, targetLanguage) {
 
         const data = await response.json();
         if (data.error) {
-          console.error(`  ⚠️ API Error: ${data.error.message}`);
-          if (data.error.message.includes('Rate Limit') || data.error.code === 429 || data.error.code === 403) {
+          console.error(`  ⚠️ API Error: ${data.error.message} (${data.error.code})`);
+          if (data.error.code === 429 || data.error.code === 403) {
             const waitTime = Math.pow(2, attempt) * 10000;
-            console.log(`  ⏳ Waiting ${waitTime}ms...`);
+            console.log(`  ⏳ Rate limit hit. Waiting ${waitTime/1000}s...`);
             await sleep(waitTime);
             attempt++;
             continue;
@@ -75,7 +75,7 @@ async function translateBatch(texts, targetLanguage) {
         }
       }
     }
-    await sleep(5000); 
+    await sleep(2000); 
   }
   return results;
 }
