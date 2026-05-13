@@ -4,6 +4,11 @@ import { useTranslation } from "react-i18next";
 import { ChevronLeft, CheckSquare, BookOpen, Compass, Lightbulb, Info, FileText, Target, HeartPulse, Smile, Moon, Sparkles, Activity, Heart, Users2, Star, Shield } from "lucide-react";
 import { PrideFloatingOrbs } from "@/features/pride/components/PrideFloatingOrbs";
 
+// Translation Hints for Extractor:
+// t("Assessments") t("Stories") t("Identity Exploration") t("Tips") t("Myths & Facts") t("Articles")
+// t("Identity Journey") t("Daily Care") t("Mood") t("Sleep") t("Gratitude") t("Vibe")
+// t("Lesbian") t("Gay") t("Bi-sexual") t("Trans")
+
 interface ResourceCard {
   id: string;
   icon: React.ElementType;
