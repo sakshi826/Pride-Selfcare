@@ -1,84 +1,87 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 
 export function LGBTQArticles() {
   const navigate = useNavigate();
+  const { t } = useTranslation("hub");
+  
   const featuredArticle = {
     id: "come-into-identity",
-    category: "IDENTITY",
+    category: t("IDENTITY"),
     categoryColor: "text-[#8B5CF6] bg-[#F5F3FF]",
-    title: 'What Does It Actually Mean to "Come Into" Your Identity?',
-    description: "Identity isn't a destination — it's a living, shifting thing. This piece explores why so many LGBTQ+ people feel pressure to have it all figured out, and why that pressure is worth letting go.",
-    readTime: "6 min read",
+    title: t('What Does It Actually Mean to "Come Into" Your Identity?'),
+    description: t("Identity isn't a destination — it's a living, shifting thing. This piece explores why so many LGBTQ+ people feel pressure to have it all figured out, and why that pressure is worth letting go."),
+    readTime: t("6 min read"),
   };
 
   const articles = [
     {
       id: "anxiety-rates",
-      category: "MENTAL",
+      category: t("MENTAL"),
       categoryColor: "text-[#10B981] bg-[#ECFDF5]",
-      title: "Why LGBTQ+ People Experience Higher Rates of Anxiety",
-      description: "Minority stress, social rejection, and hiding — how chronic pressure shapes LGBTQ+ mental health and what helps.",
-      readTime: "5 min read",
+      title: t("Why LGBTQ+ People Experience Higher Rates of Anxiety"),
+      description: t("Minority stress, social rejection, and hiding — how chronic pressure shapes LGBTQ+ mental health and what helps."),
+      readTime: t("5 min read"),
     },
     {
       id: "coming-out-later",
-      category: "COMING OUT",
+      category: t("COMING OUT"),
       categoryColor: "text-[#F59E0B] bg-[#FFFBEB]",
-      title: "Coming Out Later in Life: You're Not Behind",
-      description: "Many LGBTQ+ people discover or accept their identity in their 30s, 40s, or beyond. This is their story.",
-      readTime: "7 min read",
+      title: t("Coming Out Later in Life: You're Not Behind"),
+      description: t("Many LGBTQ+ people discover or accept their identity in their 30s, 40s, or beyond. This is their story."),
+      readTime: t("7 min read"),
     },
     {
       id: "before-stonewall",
-      category: "HISTORY",
+      category: t("HISTORY"),
       categoryColor: "text-[#EF4444] bg-[#FEF2F2]",
-      title: "Before Stonewall: LGBTQ+ Resistance Through the Ages",
-      description: "Queer people have always existed, resisted, and thrived — long before modern movements gave it a name.",
-      readTime: "8 min read",
+      title: t("Before Stonewall: LGBTQ+ Resistance Through the Ages"),
+      description: t("Queer people have always existed, resisted, and thrived — long before modern movements gave it a name."),
+      readTime: t("8 min read"),
     },
     {
       id: "chosen-family",
-      category: "FAMILY",
+      category: t("FAMILY"),
       categoryColor: "text-[#3B82F6] bg-[#EFF6FF]",
-      title: "Chosen Family: How Queer People Build Belonging",
-      description: "When biological families fall short, LGBTQ+ people have long built their own. A look at what chosen family really means.",
-      readTime: "6 min read",
+      title: t("Chosen Family: How Queer People Build Belonging"),
+      description: t("When biological families fall short, LGBTQ+ people have long built their own. A look at what chosen family really means."),
+      readTime: t("6 min read"),
     },
     {
       id: "affirming-healthcare",
-      category: "HEALTH",
+      category: t("HEALTH"),
       categoryColor: "text-[#06B6D4] bg-[#ECFEFF]",
-      title: "Finding Affirming Healthcare: A Practical Guide",
-      description: "What to look for in a provider, questions to ask, and how to advocate for yourself in medical settings.",
-      readTime: "5 min read",
+      title: t("Finding Affirming Healthcare: A Practical Guide"),
+      description: t("What to look for in a provider, questions to ask, and how to advocate for yourself in medical settings."),
+      readTime: t("5 min read"),
     },
     {
       id: "non-binary-beyond",
-      category: "IDENTITY",
+      category: t("IDENTITY"),
       categoryColor: "text-[#8B5CF6] bg-[#F5F3FF]",
-      title: "Non-Binary & Beyond: Understanding Gender Outside the Binary",
-      description: "An accessible guide to gender identity, expression, and why the binary doesn't capture the full picture.",
-      readTime: "6 min read",
+      title: t("Non-Binary & Beyond: Understanding Gender Outside the Binary"),
+      description: t("An accessible guide to gender identity, expression, and why the binary doesn't capture the full picture."),
+      readTime: t("6 min read"),
     },
     {
       id: "internalized-homophobia",
-      category: "MENTAL",
+      category: t("MENTAL"),
       categoryColor: "text-[#10B981] bg-[#ECFDF5]",
-      title: "Internalized Homophobia: What It Is and How to Heal",
-      description: "Growing up with negative messages about LGBTQ+ people leaves marks. Understanding them is the first step to healing.",
-      readTime: "7 min read",
+      title: t("Internalized Homophobia: What It Is and How to Heal"),
+      description: t("Growing up with negative messages about LGBTQ+ people leaves marks. Understanding them is the first step to healing."),
+      readTime: t("7 min read"),
     },
     {
       id: "family-rejection",
-      category: "COMING OUT",
+      category: t("COMING OUT"),
       categoryColor: "text-[#F59E0B] bg-[#FFFBEB]",
-      title: "When Family Doesn't Accept You: What to Do Next",
-      description: "Rejection from family is one of the hardest experiences. Here's how to navigate it with safety and self-compassion.",
-      readTime: "8 min read",
+      title: t("When Family Doesn't Accept You: What to Do Next"),
+      description: t("Rejection from family is one of the hardest experiences. Here's how to navigate it with safety and self-compassion."),
+      readTime: t("8 min read"),
     },
   ];
 
@@ -88,8 +91,8 @@ export function LGBTQArticles() {
       
       <main className="activity-container-lg relative">
         <PrideActivityHeader 
-          title="LGBTQ+ Articles" 
-          subtitle="Insights and stories from the community"
+          title={t("LGBTQ+ Articles")} 
+          subtitle={t("Insights and stories from the community")}
           onBack={() => navigate('/lgbtq-hub')}
           className="mb-8"
         />
@@ -112,7 +115,7 @@ export function LGBTQArticles() {
           <div className="relative z-10 space-y-5">
             <div className="flex items-center gap-3">
               <span className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] md:text-xs font-black uppercase tracking-[0.1em] border border-white/20">
-                ⭐ Featured Article
+                {t("⭐ Featured Article")}
               </span>
               <span className="text-white/80 text-xs md:text-sm font-bold">
                 {featuredArticle.readTime}
@@ -129,7 +132,7 @@ export function LGBTQArticles() {
 
             <div className="flex items-center gap-3 pt-4">
               <span className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-white text-[#8B5CF6] text-base font-black shadow-xl group-hover:scale-105 transition-all">
-                Read Article
+                {t("Read Article")}
                 <ArrowRight size={20} strokeWidth={3} />
               </span>
             </div>
@@ -144,8 +147,8 @@ export function LGBTQArticles() {
           className="mb-8 ml-2"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-[#020817] flex items-center gap-3">
-            More to Read
-            <span className="text-base font-normal text-gray-400">({articles.length} articles)</span>
+            {t("More to Read")}
+            <span className="text-base font-normal text-gray-400">({articles.length} {t("articles")})</span>
           </h2>
         </motion.div>
 
@@ -181,7 +184,7 @@ export function LGBTQArticles() {
 
               <div className="mt-6 pt-5 border-t border-gray-50 flex items-center justify-between">
                 <span className="text-[#8B5CF6] text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
-                  Read more
+                  {t("Read more")}
                   <ArrowRight size={18} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>

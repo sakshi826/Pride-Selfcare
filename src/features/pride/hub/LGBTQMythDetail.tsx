@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft, Key } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface MythDetail {
   id: string;
@@ -11,60 +12,61 @@ interface MythDetail {
   remember: string;
 }
 
-const mythsData: MythDetail[] = [
-  {
-    id: "phase",
-    category: "IDENTITY",
-    myth: "Being LGBTQ+ is just a phase.",
-    fact: "Sexual orientation and gender identity are consistent and enduring aspects of who a person is. Research consistently shows that LGBTQ+ identities remain stable across the lifespan for the vast majority of people.",
-    whyExists: "This myth often comes from a place of hoping someone will 'change back' — usually from family members who haven't yet accepted the person. It can also stem from conflating early exploration with the identity itself.",
-    remember: "Exploration is real, but so is identity. One doesn't erase the other.",
-  },
-  {
-    id: "mental-illness",
-    category: "HEALTH",
-    myth: "Being gay is a mental illness.",
-    fact: "Major health organizations worldwide — including the American Psychiatric Association, World Health Organization, and American Psychological Association — declassified homosexuality as a mental disorder decades ago. Being LGBTQ+ is a natural variation of human sexuality and gender identity.",
-    whyExists: "This harmful myth stems from outdated medical classifications from the mid-20th century and continues to be perpetuated by those who oppose LGBTQ+ rights. It has been thoroughly debunked by modern science and medicine.",
-    remember: "Love and identity are not illnesses. Science has been clear on this for over 50 years.",
-  },
-  {
-    id: "bisexual",
-    category: "ORIENTATION",
-    myth: "Bisexual people are just confused or going through a phase.",
-    fact: "Bisexuality is a real, stable, and well-documented sexual orientation. Bisexual individuals are attracted to more than one gender, and this attraction is as valid and consistent as any other orientation.",
-    whyExists: "This myth comes from a binary view of sexuality that assumes people must be either gay or straight. It's also perpetuated by bi-erasure in both straight and LGBTQ+ communities, where bisexual people's identities are invalidated based on who they're currently dating.",
-    remember: "Your orientation is about who you're attracted to, not who you're currently with.",
-  },
-  {
-    id: "parenting",
-    category: "FAMILY",
-    myth: "Same-sex couples can't raise healthy, happy children.",
-    fact: "Decades of research consistently show that children raised by same-sex couples thrive just as well as those raised by different-sex couples. What matters most for child development is a loving, stable home environment — not the parents' gender or sexual orientation.",
-    whyExists: "This myth is rooted in traditional assumptions about family structure and is often used to justify discrimination against LGBTQ+ parents. It persists despite overwhelming scientific evidence to the contrary.",
-    remember: "Children need love, stability, and support — not a specific parental gender configuration.",
-  },
-  {
-    id: "trans-confusion",
-    category: "GENDER",
-    myth: "Trans people are just confused about their gender.",
-    fact: "Gender identity is a deeply held, consistent sense of one's gender. For transgender people, this identity doesn't match the sex they were assigned at birth. Research shows that trans identities are stable over time and that supporting trans people in their authentic identity leads to significantly better mental health outcomes.",
-    whyExists: "This myth comes from conflating gender identity with biological sex, and from a lack of understanding about the difference between the two. It's also perpetuated by those who are uncomfortable with gender diversity.",
-    remember: "Trans people know who they are. Confusion comes from others, not from within.",
-  },
-  {
-    id: "western-import",
-    category: "CULTURE",
-    myth: "LGBTQ+ identities are a Western import.",
-    fact: "Diverse expressions of gender and sexuality have existed across all cultures throughout human history. From Two-Spirit people in Indigenous North American cultures to hijra in South Asia, muxe in Mexico, and fa'afafine in Samoa — LGBTQ+ identities are universal and timeless.",
-    whyExists: "This myth is used to delegitimize LGBTQ+ rights by framing them as foreign or colonial. In reality, it was often colonialism that imposed rigid Western gender and sexuality norms on cultures that previously had more fluid understandings.",
-    remember: "LGBTQ+ people have always existed, everywhere. What's imported is often the prejudice, not the identity.",
-  },
-];
-
 export function LGBTQMythDetail() {
   const navigate = useNavigate();
   const { mythId } = useParams<{ mythId: string }>();
+  const { t } = useTranslation("hub");
+
+  const mythsData: MythDetail[] = [
+    {
+      id: "phase",
+      category: t("IDENTITY"),
+      myth: t("Being LGBTQ+ is just a phase."),
+      fact: t("Sexual orientation and gender identity are consistent and enduring aspects of who a person is. Research consistently shows that LGBTQ+ identities remain stable across the lifespan for the vast majority of people."),
+      whyExists: t("This myth often comes from a place of hoping someone will 'change back' — usually from family members who haven't yet accepted the person. It can also stem from conflating early exploration with the identity itself."),
+      remember: t("Exploration is real, but so is identity. One doesn't erase the other."),
+    },
+    {
+      id: "mental-illness",
+      category: t("HEALTH"),
+      myth: t("Being gay is a mental illness."),
+      fact: t("Major health organizations worldwide — including the American Psychiatric Association, World Health Organization, and American Psychological Association — declassified homosexuality as a mental disorder decades ago. Being LGBTQ+ is a natural variation of human sexuality and gender identity."),
+      whyExists: t("This harmful myth stems from outdated medical classifications from the mid-20th century and continues to be perpetuated by those who oppose LGBTQ+ rights. It has been thoroughly debunked by modern science and medicine."),
+      remember: t("Love and identity are not illnesses. Science has been clear on this for over 50 years."),
+    },
+    {
+      id: "bisexual",
+      category: t("ORIENTATION"),
+      myth: t("Bisexual people are just confused or going through a phase."),
+      fact: t("Bisexuality is a real, stable, and well-documented sexual orientation. Bisexual individuals are attracted to more than one gender, and this attraction is as valid and consistent as any other orientation."),
+      whyExists: t("This myth comes from a binary view of sexuality that assumes people must be either gay or straight. It's also perpetuated by bi-erasure in both straight and LGBTQ+ communities, where bisexual people's identities are invalidated based on who they're currently dating."),
+      remember: t("Your orientation is about who you're attracted to, not who you're currently with."),
+    },
+    {
+      id: "parenting",
+      category: t("FAMILY"),
+      myth: t("Same-sex couples can't raise healthy, happy children."),
+      fact: t("Decades of research consistently show that children raised by same-sex couples thrive just as well as those raised by different-sex couples. What matters most for child development is a loving, stable home environment — not the parents' gender or sexual orientation."),
+      whyExists: t("This myth is rooted in traditional assumptions about family structure and is often used to justify discrimination against LGBTQ+ parents. It persists despite overwhelming scientific evidence to the contrary."),
+      remember: t("Children need love, stability, and support — not a specific parental gender configuration."),
+    },
+    {
+      id: "trans-confusion",
+      category: t("GENDER"),
+      myth: t("Trans people are just confused about their gender."),
+      fact: t("Gender identity is a deeply held, consistent sense of one's gender. For transgender people, this identity doesn't match the sex they were assigned at birth. Research shows that trans identities are stable over time and that supporting trans people in their authentic identity leads to significantly better mental health outcomes."),
+      whyExists: t("This myth comes from conflating gender identity with biological sex, and from a lack of understanding about the difference between the two. It's also perpetuated by those who are uncomfortable with gender diversity."),
+      remember: t("Trans people know who they are. Confusion comes from others, not from within."),
+    },
+    {
+      id: "western-import",
+      category: t("CULTURE"),
+      myth: t("LGBTQ+ identities are a Western import."),
+      fact: t("Diverse expressions of gender and sexuality have existed across all cultures throughout human history. From Two-Spirit people in Indigenous North American cultures to hijra in South Asia, muxe in Mexico, and fa'afafine in Samoa — LGBTQ+ identities are universal and timeless."),
+      whyExists: t("This myth is used to delegitimize LGBTQ+ rights by framing them as foreign or colonial. In reality, it was often colonialism that imposed rigid Western gender and sexuality norms on cultures that previously had more fluid understandings."),
+      remember: t("LGBTQ+ people have always existed, everywhere. What's imported is often the prejudice, not the identity."),
+    },
+  ];
   
   const currentIndex = mythsData.findIndex((m) => m.id === mythId);
   const mythDetail = mythsData[currentIndex];
@@ -72,7 +74,7 @@ export function LGBTQMythDetail() {
   if (!mythDetail) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p>Myth not found</p>
+        <p>{t("Myth not found")}</p>
       </div>
     );
   }
@@ -130,7 +132,7 @@ export function LGBTQMythDetail() {
             <div className="flex items-start gap-2 mb-3">
               <div className="w-2 h-2 rounded-full bg-[#DC2626] mt-2"></div>
               <h2 className="text-[#DC2626] text-sm font-bold uppercase tracking-wider">
-                Common Myth
+                {t("Common Myth")}
               </h2>
             </div>
             <p className="text-[#991B1B] text-xl md:text-2xl italic leading-relaxed">
@@ -148,7 +150,7 @@ export function LGBTQMythDetail() {
             <div className="flex items-start gap-2 mb-3">
               <div className="w-2 h-2 rounded-full bg-[#16A34A] mt-2"></div>
               <h2 className="text-[#16A34A] text-sm font-bold uppercase tracking-wider">
-                The Fact
+                {t("The Fact")}
               </h2>
             </div>
             <p className="text-[#065F46] text-base md:text-lg leading-relaxed">
@@ -166,7 +168,7 @@ export function LGBTQMythDetail() {
             <div className="flex items-start gap-3 mb-4">
               <Key className="text-[#2563EB] flex-shrink-0 mt-0.5" size={20} strokeWidth={2.5} />
               <h2 className="text-[#2563EB] text-sm font-bold uppercase tracking-wider">
-                Why this myth exists
+                {t("Why this myth exists")}
               </h2>
             </div>
             <p className="text-[#475569] text-base md:text-lg leading-relaxed">
@@ -182,7 +184,7 @@ export function LGBTQMythDetail() {
             className="bg-gradient-to-br from-[#F5F3FF] to-[#EDE9FE] rounded-2xl p-6 md:p-8 mb-8 border border-[#C4B5FD]/30"
           >
             <h3 className="text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">
-              Remember This
+              {t("Remember This")}
             </h3>
             <p className="text-[#5B21B6] text-lg md:text-xl italic leading-relaxed">
               {mythDetail.remember}
@@ -205,7 +207,7 @@ export function LGBTQMythDetail() {
                   : "text-[#CBD5E1] bg-gray-50 cursor-not-allowed"
               }`}
             >
-              ← Prev
+              {t("← Prev")}
             </button>
             <button
               onClick={handleNext}
@@ -220,7 +222,7 @@ export function LGBTQMythDetail() {
                   : "text-[#94A3B8] cursor-not-allowed"
               }`}
             >
-              Next →
+              {t("Next →")}
             </button>
           </motion.div>
         </main>

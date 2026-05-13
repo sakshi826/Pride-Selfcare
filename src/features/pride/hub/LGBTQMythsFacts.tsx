@@ -1,40 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 
 export function LGBTQMythsFacts() {
   const navigate = useNavigate();
+  const { t } = useTranslation("hub");
+  
   const mythsFacts = [
     {
       id: "phase",
-      myth: "Being LGBTQ+ is just a phase.",
-      fact: "Sexual orientation and gender identity are enduring, not temporary.",
+      myth: t("Being LGBTQ+ is just a phase."),
+      fact: t("Sexual orientation and gender identity are enduring, not temporary."),
     },
     {
       id: "mental-illness",
-      myth: "Being gay is a mental illness.",
-      fact: "Major health bodies worldwide declassified this decades ago.",
+      myth: t("Being gay is a mental illness."),
+      fact: t("Major health bodies worldwide declassified this decades ago."),
     },
     {
       id: "bisexual",
-      myth: "Bisexual people are just confused or going through a phase.",
-      fact: "Bisexuality is a real, stable, and well-documented orientation.",
+      myth: t("Bisexual people are just confused or going through a phase."),
+      fact: t("Bisexuality is a real, stable, and well-documented orientation."),
     },
     {
       id: "parenting",
-      myth: "Same-sex couples can't raise healthy, happy children.",
-      fact: "Decades of research show children thrive with loving parents regardless of gender.",
+      myth: t("Same-sex couples can't raise healthy, happy children."),
+      fact: t("Decades of research show children thrive with loving parents regardless of gender."),
     },
     {
       id: "trans-confusion",
-      myth: "Trans people are just confused about their gender.",
-      fact: "Gender identity is deeply held — trans identities are consistent over time.",
+      myth: t("Trans people are just confused about their gender."),
+      fact: t("Gender identity is deeply held — trans identities are consistent over time."),
     },
     {
       id: "western-import",
-      myth: "LGBTQ+ identities are a Western import.",
-      fact: "Diverse gender and sexuality expressions have existed across all cultures through history.",
+      myth: t("LGBTQ+ identities are a Western import."),
+      fact: t("Diverse gender and sexuality expressions have existed across all cultures through history."),
     },
   ];
 
@@ -59,8 +62,8 @@ export function LGBTQMythsFacts() {
       
       <main className="activity-container-lg relative">
         <PrideActivityHeader 
-          title="Myths & Facts" 
-          subtitle="Debunking misconceptions about the LGBTQ+ community"
+          title={t("Myths & Facts")} 
+          subtitle={t("Debunking misconceptions about the LGBTQ+ community")}
           onBack={() => navigate('/lgbtq-hub')}
           className="mb-8"
         />
@@ -84,7 +87,7 @@ export function LGBTQMythsFacts() {
               <div className="bg-red-50/50 p-6 border-b border-red-100 group-hover:bg-red-100/50 transition-colors">
                 <div className="flex items-start gap-3">
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wide">
-                    MYTH
+                    {t("MYTH")}
                   </span>
                   <p className="flex-1 text-red-900 text-lg italic leading-relaxed pt-0.5">
                     {mythFact.myth}
@@ -99,7 +102,7 @@ export function LGBTQMythsFacts() {
                   </p>
                 </div>
                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wide whitespace-nowrap">
-                  Fact ✓
+                  {t("Fact ✓")}
                 </span>
               </div>
             </motion.button>
@@ -114,7 +117,7 @@ export function LGBTQMythsFacts() {
         >
           <div className="max-w-2xl mx-auto px-6 py-4 bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50 shadow-sm">
             <p className="text-gray-500 text-sm leading-relaxed italic">
-              These facts are grounded in decades of research by medical, psychological, and social science communities worldwide.
+              {t("These facts are grounded in decades of research by medical, psychological, and social science communities worldwide.")}
             </p>
           </div>
         </motion.div>
