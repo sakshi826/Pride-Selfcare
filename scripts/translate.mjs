@@ -133,13 +133,13 @@ async function processModuleFile(modulePath, fileName, force = false) {
     return;
   }
 
-  const baseName = path.basename(fileName, '.en.json');
-  const outputPrefix = baseName === 'en' ? '' : `${baseName}.`;
+  const baseName = fileName.replace(/\.en\.json$/, '').replace(/\.json$/, '');
+  const outputPrefix = (baseName === 'en' || baseName === '') ? '' : `${baseName}.`;
 
   console.log(`\n📂 Processing: ${modulePath}/${fileName}`);
   
   const enData = JSON.parse(fs.readFileSync(enFilePath, 'utf8'));
-  const enOutputPath = path.join(outputDir, `${outputPrefix}en.json`);
+  const enOutputPath = path.join(outputDir, `${outputPrefix === '' ? 'en.json' : `${outputPrefix}en.json`}`);
   if (enOutputPath !== enFilePath) {
     fs.writeFileSync(enOutputPath, JSON.stringify(enData, null, 2), 'utf8');
   }
