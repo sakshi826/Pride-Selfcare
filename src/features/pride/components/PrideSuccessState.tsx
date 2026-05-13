@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Share2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { ShareModal } from "@/components/pride/ShareModal";
 
 interface PrideSuccessStateProps {
@@ -12,17 +13,17 @@ interface PrideSuccessStateProps {
 }
 
 export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
-  title = "You did it!",
-  message = "You showed up for yourself today. That matters more than you know.",
+  title,
+  message,
   emoji = "🎉",
   onRestart,
   variant = "pride"
 }) => {
+  const { t } = useTranslation("hub");
   const [isShareOpen, setIsShareOpen] = useState(false);
   
-  const gradientClass = variant === "trans"
-    ? "from-[#55cdfc] to-[#f7a8b8]"
-    : "from-[#EC4899] to-[#3B82F6]";
+  const displayTitle = title || t("You did it!");
+  const displayMessage = message || t("You showed up for yourself today. That matters more than you know.");
 
   const icons = variant === "trans"
     ? ["💙", "🩷", "🤍", "🩷", "💙"]
@@ -49,10 +50,10 @@ export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
           {emoji}
         </motion.div>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-[#EC4899] to-[#A855F7] bg-clip-text text-transparent">
-          {title}
+          {displayTitle}
         </h2>
         <p className="text-gray-600 leading-relaxed text-lg max-w-sm mx-auto">
-          {message}
+          {displayMessage}
         </p>
       </div>
       <div className="flex gap-2 justify-center text-2xl py-2">
@@ -74,7 +75,7 @@ export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
             onClick={onRestart}
             className="btn-secondary w-full"
           >
-            Start Over
+            {t("Start Over")}
           </button>
         )}
         <button
@@ -82,7 +83,7 @@ export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
           className="flex items-center justify-center gap-2 px-6 py-2.5 mx-auto rounded-full border border-purple-200 bg-purple-50/50 text-purple-600 hover:bg-purple-100/50 transition-all text-sm font-bold shadow-sm mb-2"
         >
           <Share2 size={16} />
-          <span>Share</span>
+          <span>{t("Share")}</span>
         </button>
 
         <button
@@ -94,13 +95,13 @@ export const PrideSuccessState: React.FC<PrideSuccessStateProps> = ({
               : undefined 
           }}
         >
-          Back to Hub
+          {t("Back to Hub")}
         </button>
 
         <ShareModal 
           isOpen={isShareOpen} 
           onClose={() => setIsShareOpen(false)} 
-          title="Share This Activity"
+          title={t("Share This Activity")}
         />
       </div>
     </motion.div>

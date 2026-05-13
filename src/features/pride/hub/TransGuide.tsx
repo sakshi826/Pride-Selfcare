@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronDown, Lightbulb, MessageSquare, TrendingUp, BookOpen, Smile, User, Users, Heart, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 
@@ -13,96 +14,97 @@ interface InteractiveTool {
   link: string | null;
 }
 
-const interactiveTools: InteractiveTool[] = [
-  { id: "joy-pride", icon: Sparkles, label: "Joy and Pride", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/joy-pride-trans" },
-  { id: "coming-out", icon: Users, label: "Coming Out", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trans-coming-out" },
-  { id: "mental-health", icon: Heart, label: "Mental Health", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-and-mental-health" },
-  { id: "talk-to-family", icon: User, label: "Talk to Your Family", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/bi-family-friends-convo" },
-  { id: "dealing-dysphoria", icon: Smile, label: "Dealing With Dysphoria", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/dealing-with-dysphoria" },
-  { id: "medical-transition", icon: BookOpen, label: "Navigating Medical Transition", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/medical-transition" },
-];
-
-interface Tip {
-  id: string;
-  title: string;
-  description: string;
-  bgColor: string;
-  iconColor: string;
-}
-
-const tips: Tip[] = [
-  {
-    id: "affirm-identity-internally",
-    title: "Affirm Your Identity Internally",
-    description: "Your identity is valid regardless of external validation. Self-affirmation builds inner strength.",
-    bgColor: "#D1F4E0",
-    iconColor: "#059669"
-  },
-  {
-    id: "gender-affirming-support",
-    title: "Seek Gender-Affirming Support",
-    description: "Connect with professionals or communities that respect and affirm your gender.",
-    bgColor: "#D4E4F7",
-    iconColor: "#2563EB"
-  },
-  {
-    id: "protect-mental-safety",
-    title: "Protect Your Mental Safety",
-    description: "Limit exposure to transphobic environments and prioritize your emotional well-being.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  },
-  {
-    id: "celebrate-progress",
-    title: "Celebrate Progress, Not Perfection",
-    description: "Your journey is unique. Celebrate every step forward, no matter how small.",
-    bgColor: "#FFF4D6",
-    iconColor: "#D97706"
-  }
-];
-
-interface Myth {
-  id: string;
-  title: string;
-  description: string;
-  bgColor: string;
-  iconColor: string;
-}
-
-const myths: Myth[] = [
-  {
-    id: "just-a-trend",
-    title: "Myth: Being Trans is a Trend",
-    description: "Gender identity is deeply personal and not influenced by trends.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  },
-  {
-    id: "must-transition-medically",
-    title: "Myth: Trans People Must Transition Medically",
-    description: "Not all trans individuals choose or have access to medical transition.",
-    bgColor: "#FFF4D6",
-    iconColor: "#D97706"
-  },
-  {
-    id: "identities-invalid",
-    title: "Myth: Trans Identities Are Invalid",
-    description: "Trans identities are real and recognized across cultures and science.",
-    bgColor: "#D4E4F7",
-    iconColor: "#2563EB"
-  },
-  {
-    id: "confused",
-    title: "Myth: Trans People Are Confused",
-    description: "Trans individuals have a clear understanding of their identity, even if others don't.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  }
-];
-
 export function TransGuide() {
   const navigate = useNavigate();
+  const { t } = useTranslation("guides");
   const [expandedSection, setExpandedSection] = useState<'tips' | 'myths' | null>(null);
+
+  const interactiveTools: InteractiveTool[] = [
+    { id: "joy-pride", icon: Sparkles, label: t("Joy and Pride"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/joy-pride-trans" },
+    { id: "coming-out", icon: Users, label: t("Coming Out"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/trans-coming-out" },
+    { id: "mental-health", icon: Heart, label: t("Mental Health"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/trans-and-mental-health" },
+    { id: "talk-to-family", icon: User, label: t("Talk to Your Family"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/bi-family-friends-convo" },
+    { id: "dealing-dysphoria", icon: Smile, label: t("Dealing With Dysphoria"), bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/dealing-with-dysphoria" },
+    { id: "medical-transition", icon: BookOpen, label: t("Navigating Medical Transition"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/medical-transition" },
+  ];
+
+  interface Tip {
+    id: string;
+    title: string;
+    description: string;
+    bgColor: string;
+    iconColor: string;
+  }
+
+  const tips: Tip[] = [
+    {
+      id: "affirm-identity-internally",
+      title: t("Affirm Your Identity Internally"),
+      description: t("Your identity is valid regardless of external validation. Self-affirmation builds inner strength."),
+      bgColor: "#D1F4E0",
+      iconColor: "#059669"
+    },
+    {
+      id: "gender-affirming-support",
+      title: t("Seek Gender-Affirming Support"),
+      description: t("Connect with professionals or communities that respect and affirm your gender."),
+      bgColor: "#D4E4F7",
+      iconColor: "#2563EB"
+    },
+    {
+      id: "protect-mental-safety",
+      title: t("Protect Your Mental Safety"),
+      description: t("Limit exposure to transphobic environments and prioritize your emotional well-being."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    },
+    {
+      id: "celebrate-progress",
+      title: t("Celebrate Progress, Not Perfection"),
+      description: t("Your journey is unique. Celebrate every step forward, no matter how small."),
+      bgColor: "#FFF4D6",
+      iconColor: "#D97706"
+    }
+  ];
+
+  interface Myth {
+    id: string;
+    title: string;
+    description: string;
+    bgColor: string;
+    iconColor: string;
+  }
+
+  const myths: Myth[] = [
+    {
+      id: "just-a-trend",
+      title: t("Myth: Being Trans is a Trend"),
+      description: t("Gender identity is deeply personal and not influenced by trends."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    },
+    {
+      id: "must-transition-medically",
+      title: t("Myth: Trans People Must Transition Medically"),
+      description: t("Not all trans individuals choose or have access to medical transition."),
+      bgColor: "#FFF4D6",
+      iconColor: "#D97706"
+    },
+    {
+      id: "identities-invalid",
+      title: t("Myth: Trans Identities Are Invalid"),
+      description: t("Trans identities are real and recognized across cultures and science."),
+      bgColor: "#D4E4F7",
+      iconColor: "#2563EB"
+    },
+    {
+      id: "confused",
+      title: t("Myth: Trans People Are Confused"),
+      description: t("Trans individuals have a clear understanding of their identity, even if others don't."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    }
+  ];
 
   const handleToolClick = (link: string | null) => {
     if (link) {
@@ -120,8 +122,8 @@ export function TransGuide() {
       
       <main className="activity-container-lg relative">
         <PrideActivityHeader 
-          title="Trans Guide" 
-          subtitle="Support and resources for the trans community"
+          title={t("Trans Guide")} 
+          subtitle={t("Support and resources for the trans community")}
           onBack={() => navigate('/lgbtq-hub')}
           className="mb-8"
         />
@@ -141,8 +143,8 @@ export function TransGuide() {
               <Lightbulb className="text-white" size={28} strokeWidth={2} />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-[#020817] mb-1">Tips</h2>
-              <p className="text-[#64748B] text-sm font-medium">Daily wisdom for your wellbeing</p>
+              <h2 className="text-xl font-bold text-[#020817] mb-1">{t("Tips")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Daily wisdom for your wellbeing")}</p>
             </div>
             <ChevronDown
               className={`text-[#64748B] transition-all duration-300 flex-shrink-0 ${
@@ -199,8 +201,8 @@ export function TransGuide() {
               <MessageSquare className="text-white" size={28} strokeWidth={2} />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-[#020817] mb-1">Myths</h2>
-              <p className="text-[#64748B] text-sm font-medium">Debunking harmful stereotypes</p>
+              <h2 className="text-xl font-bold text-[#020817] mb-1">{t("Myths")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Debunking harmful stereotypes")}</p>
             </div>
             <ChevronDown
               className={`text-[#64748B] transition-all duration-300 flex-shrink-0 ${
@@ -254,8 +256,8 @@ export function TransGuide() {
               <TrendingUp className="text-white" size={24} strokeWidth={2.5} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-[#020817]">Interactive Tools</h2>
-              <p className="text-[#64748B] text-sm font-medium">Exercises for recovery and wellness</p>
+              <h2 className="text-xl font-bold text-[#020817]">{t("Interactive Tools")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Exercises for recovery and wellness")}</p>
             </div>
           </div>
 

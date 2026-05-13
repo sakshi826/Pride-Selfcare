@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Calendar, Clock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { sql } from "@/lib/db";
 
 interface PrideTrackerHistoryProps {
@@ -12,10 +13,13 @@ interface PrideTrackerHistoryProps {
 export const PrideTrackerHistory: React.FC<PrideTrackerHistoryProps> = ({
   tableName,
   renderEntry,
-  emptyMessage = "No entries yet. Start tracking today!"
+  emptyMessage
 }) => {
+  const { t, i18n } = useTranslation("hub");
   const [entries, setEntries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const displayEmptyMessage = emptyMessage || t("No entries yet. Start tracking today!");
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -42,7 +46,7 @@ export const PrideTrackerHistory: React.FC<PrideTrackerHistoryProps> = ({
     return (
       <div className="py-20 flex flex-col items-center justify-center gap-4">
         <Loader2 className="animate-spin text-pride-purple" size={40} />
-        <p className="text-muted-foreground font-medium animate-pulse">Retrieving your history...</p>
+        <p className="text-muted-foreground font-medium animate-pulse">{t("Retrieving your history...")}</p>
       </div>
     );
   }
@@ -52,7 +56,7 @@ export const PrideTrackerHistory: React.FC<PrideTrackerHistoryProps> = ({
       <div className="premium-card p-12 text-center space-y-4">
         <div className="text-4xl">🗒️</div>
         <p className="text-lg text-muted-foreground font-medium italic">
-          {emptyMessage}
+          {displayEmptyMessage}
         </p>
       </div>
     );
@@ -71,7 +75,7 @@ export const PrideTrackerHistory: React.FC<PrideTrackerHistoryProps> = ({
           <div className="bg-black/5 px-6 py-2 flex justify-between items-center border-b border-black/5">
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               <Calendar size={12} />
-              {new Date(entry.created_at).toLocaleDateString("en-US", { 
+              {new Date(entry.created_at).toLocaleDateString(i18n.language, { 
                 month: "short", 
                 day: "numeric", 
                 year: "numeric" 
@@ -79,7 +83,7 @@ export const PrideTrackerHistory: React.FC<PrideTrackerHistoryProps> = ({
             </div>
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               <Clock size={12} />
-              {new Date(entry.created_at).toLocaleTimeString("en-US", { 
+              {new Date(entry.created_at).toLocaleTimeString(i18n.language, { 
                 hour: "2-digit", 
                 minute: "2-digit" 
               })}

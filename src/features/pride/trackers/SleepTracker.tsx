@@ -1,23 +1,15 @@
 import { useState } from "react";
 import { Moon, Sun, Save, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 import { PrideSuccessState } from "../components/PrideSuccessState";
-import { Share2 } from "lucide-react";
 import { ShareModal } from "@/components/pride/ShareModal";
-
-const QUALITY_OPTIONS = [
-  { value: 0, label: "Poor", emoji: "😫" },
-  { value: 1, label: "Restless", emoji: "🥱" },
-  { value: 2, label: "Okay", emoji: "😐" },
-  { value: 3, label: "Good", emoji: "🙂" },
-  { value: 4, label: "Excellent", emoji: "✨" },
-];
-
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 export default function SleepTracker() {
+  const { t } = useTranslation("trackers");
   const [bedtime, setBedtime] = useState("22:00");
   const [wakeTime, setWakeTime] = useState("07:00");
   const [quality, setQuality] = useState<number | null>(null);
@@ -25,6 +17,14 @@ export default function SleepTracker() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+
+  const QUALITY_OPTIONS = [
+    { value: 0, label: t("Poor"), emoji: "😫" },
+    { value: 1, label: t("Restless"), emoji: "🥱" },
+    { value: 2, label: t("Okay"), emoji: "😐" },
+    { value: 3, label: t("Good"), emoji: "🙂" },
+    { value: 4, label: t("Excellent"), emoji: "✨" },
+  ];
 
   const handleSubmit = async () => {
     if (quality === null) return;
@@ -51,8 +51,8 @@ export default function SleepTracker() {
         <PrideFloatingOrbs />
         <div className="activity-container-sm space-y-4">
           <PrideSuccessState 
-            title="Sweet Dreams!"
-            message="Your sleep data has been saved to your wellness profile. Consistency is key."
+            title={t("Sweet Dreams!")}
+            message={t("Your sleep data has been saved to your wellness profile. Consistency is key.")}
             emoji="🌙"
             onRestart={() => {
               setIsSuccess(false);
@@ -63,7 +63,7 @@ export default function SleepTracker() {
           <ShareModal 
             isOpen={isShareOpen} 
             onClose={() => setIsShareOpen(false)}
-            title="Share Your Sleep Tracker"
+            title={t("Share Your Sleep Tracker")}
           />
         </div>
       </div>
@@ -76,8 +76,8 @@ export default function SleepTracker() {
 
       <div className="activity-container-sm">
         <PrideActivityHeader 
-          title={showHistory ? "Sleep History" : "Sleep Log"} 
-          subtitle={showHistory ? "Analyzing your rest patterns" : "Track your rest and recovery"}
+          title={showHistory ? t("Sleep History") : t("Sleep Log")} 
+          subtitle={showHistory ? t("Analyzing your rest patterns") : t("Track your rest and recovery")}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
           onBack={() => {
@@ -98,22 +98,22 @@ export default function SleepTracker() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100 flex flex-col items-center gap-1">
                     <Moon size={16} className="text-blue-500" />
-                    <span className="text-xs font-bold text-muted-foreground uppercase">Bedtime</span>
+                    <span className="text-xs font-bold text-muted-foreground uppercase">{t("Bedtime")}</span>
                     <span className="text-xl font-black text-blue-600">{entry.bedtime}</span>
                   </div>
                   <div className="p-4 rounded-2xl bg-orange-50/50 border border-orange-100 flex flex-col items-center gap-1">
                     <Sun size={16} className="text-orange-500" />
-                    <span className="text-xs font-bold text-muted-foreground uppercase">Wake Time</span>
+                    <span className="text-xs font-bold text-muted-foreground uppercase">{t("Wake Time")}</span>
                     <span className="text-xl font-black text-orange-600">{entry.waketime}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-4 rounded-2xl bg-black/5">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{QUALITY_OPTIONS.find(q => q.value === entry.quality)?.emoji}</span>
-                    <span className="font-bold text-foreground">{QUALITY_OPTIONS.find(q => q.value === entry.quality)?.label} Quality</span>
+                    <span className="font-bold text-foreground">{QUALITY_OPTIONS.find(q => q.value === entry.quality)?.label} {t("Quality")}</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-60">Log Date</p>
+                    <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-60">{t("Log Date")}</p>
                     <p className="text-sm font-bold text-foreground">{new Date(entry.date).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -127,7 +127,7 @@ export default function SleepTracker() {
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-blue-600 font-bold">
                   <Moon size={18} />
-                  <span>Bedtime</span>
+                  <span>{t("Bedtime")}</span>
                 </div>
                 <input
                   type="time"
@@ -139,7 +139,7 @@ export default function SleepTracker() {
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-orange-500 font-bold">
                   <Sun size={18} />
-                  <span>Wake Time</span>
+                  <span>{t("Wake Time")}</span>
                 </div>
                 <input
                   type="time"
@@ -154,7 +154,7 @@ export default function SleepTracker() {
             <div className="space-y-6">
               <div className="flex items-center gap-2 text-pride-purple font-bold">
                 <Star size={18} />
-                <span>How was your sleep?</span>
+                <span>{t("How was your sleep?")}</span>
               </div>
               <div className="grid grid-cols-5 gap-2">
                 {QUALITY_OPTIONS.map((q) => (
@@ -184,7 +184,7 @@ export default function SleepTracker() {
               ) : (
                 <>
                   <Save size={20} />
-                  <span>Save Sleep Log</span>
+                  <span>{t("Save Sleep Log")}</span>
                 </>
               )}
             </button>

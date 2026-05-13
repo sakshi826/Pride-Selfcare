@@ -6,13 +6,15 @@ import { PrideActivityHeader } from "../components/PrideActivityHeader";
 
 export function LGBTQTips() {
   const navigate = useNavigate();
+  const { t } = useTranslation("tips");
+  
   const tips = [
-    { id: "community", icon: Users, iconBg: "from-[#A855F7] to-[#9333EA]", title: "Find Your Community", description: "Connection with people who get it can ease loneliness and fear.", link: "/find-your-community" },
-    { id: "boundaries", icon: Shield, iconBg: "from-[#3B82F6] to-[#2563EB]", title: "Set Gentle Boundaries", description: "Protecting your energy isn't selfish — it's survival.", link: "/set-gentle-boundaries" },
-    { id: "identity", icon: Leaf, iconBg: "from-[#10B981] to-[#059669]", title: "Honor Your Identity", description: "Your identity is valid — even when the world questions it.", link: "/honor-your-identity" },
-    { id: "self-talk", icon: Sparkles, iconBg: "from-[#F59E0B] to-[#D97706]", title: "Affirming Self-Talk", description: "Replace internalized shame with words that actually fit you.", link: "/affirming-self-talk" },
-    { id: "safe-spaces", icon: Home, iconBg: "from-[#EF4444] to-[#DC2626]", title: "Create Safe Spaces", description: "Build small pockets of safety — physical and emotional.", link: "/create-safe-spaces" },
-    { id: "grief", icon: Moon, iconBg: "from-[#06B6D4] to-[#0891B2]", title: "Process Grief & Loss", description: "Rejection and coming-out losses are real grief. Tend to them.", link: "/process-grief-loss" },
+    { id: "community", icon: Users, iconBg: "from-[#A855F7] to-[#9333EA]", title: t("Find Your Community"), description: t("Connection with people who get it can ease loneliness and fear."), link: "/find-your-community" },
+    { id: "boundaries", icon: Shield, iconBg: "from-[#3B82F6] to-[#2563EB]", title: t("Set Gentle Boundaries"), description: t("Protecting your energy isn't selfish — it's survival."), link: "/set-gentle-boundaries" },
+    { id: "identity", icon: Leaf, iconBg: "from-[#10B981] to-[#059669]", title: t("Honor Your Identity"), description: t("Your identity is valid — even when the world questions it."), link: "/honor-your-identity" },
+    { id: "self-talk", icon: Sparkles, iconBg: "from-[#F59E0B] to-[#D97706]", title: t("Affirming Self-Talk"), description: t("Replace internalized shame with words that actually fit you."), link: "/affirming-self-talk" },
+    { id: "safe-spaces", icon: Home, iconBg: "from-[#EF4444] to-[#DC2626]", title: t("Create Safe Spaces"), description: t("Build small pockets of safety — physical and emotional."), link: "/create-safe-spaces" },
+    { id: "grief", icon: Moon, iconBg: "from-[#06B6D4] to-[#0891B2]", title: t("Process Grief & Loss"), description: t("Rejection and coming-out losses are real grief. Tend to them."), link: "/process-grief-loss" },
   ];
 
   const container = {
@@ -36,8 +38,8 @@ export function LGBTQTips() {
       
       <main className="activity-container-lg relative">
         <PrideActivityHeader 
-          title="LGBTQ+ Tips" 
-          subtitle="Advice and support for your journey"
+          title={t("LGBTQ+ Tips")} 
+          subtitle={t("Advice and support for your journey")}
           onBack={() => navigate('/lgbtq-hub')}
           className="mb-8"
         />
@@ -98,7 +100,7 @@ export function LGBTQTips() {
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50">
             <Sparkles className="text-[#A855F7]" size={20} />
             <p className="text-[#64748B] text-sm md:text-base font-medium italic">
-              You're doing great. Take your time.
+              {t("You're doing great. Take your time.")}
             </p>
             <Sparkles className="text-[#EC4899]" size={20} />
           </div>

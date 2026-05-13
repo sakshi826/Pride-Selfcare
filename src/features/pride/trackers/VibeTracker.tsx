@@ -1,38 +1,39 @@
 import { useState } from "react";
 import { Check, Zap, Flame, Cloud, Wind, Share2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { sql } from "@/lib/db";
 import { ShareModal } from "@/components/pride/ShareModal";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 import { PrideSuccessState } from "../components/PrideSuccessState";
-
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
-const VIBES = [
-  { id: "high-energy", label: "High Energy", icon: <Zap size={28} />, color: "from-amber-300 to-orange-500", glow: "shadow-orange-200" },
-  { id: "chill", label: "Chilled", icon: <Wind size={28} />, color: "from-sky-300 to-indigo-500", glow: "shadow-sky-200" },
-  { id: "fiery", label: "Fiery", icon: <Flame size={28} />, color: "from-rose-400 to-red-600", glow: "shadow-rose-200" },
-  { id: "dreamy", label: "Dreamy", icon: <Cloud size={28} />, color: "from-violet-300 to-fuchsia-500", glow: "shadow-violet-200" },
-];
-
-const REFLECTIONS = [
-  "Feeling creative",
-  "Productive day",
-  "Socially charged",
-  "Need some alone time",
-  "Physically tired",
-  "Mentally sharp",
-  "In my feelings",
-  "Ready for anything",
-];
-
 export default function VibeTracker() {
+  const { t } = useTranslation("trackers");
   const [selectedVibe, setSelectedVibe] = useState("");
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+
+  const VIBES = [
+    { id: "high-energy", label: t("High Energy"), icon: <Zap size={28} />, color: "from-amber-300 to-orange-500", glow: "shadow-orange-200" },
+    { id: "chill", label: t("Chilled"), icon: <Wind size={28} />, color: "from-sky-300 to-indigo-500", glow: "shadow-sky-200" },
+    { id: "fiery", label: t("Fiery"), icon: <Flame size={28} />, color: "from-rose-400 to-red-600", glow: "shadow-rose-200" },
+    { id: "dreamy", label: t("Dreamy"), icon: <Cloud size={28} />, color: "from-violet-300 to-fuchsia-500", glow: "shadow-violet-200" },
+  ];
+
+  const REFLECTIONS = [
+    t("Feeling creative"),
+    t("Productive day"),
+    t("Socially charged"),
+    t("Need some alone time"),
+    t("Physically tired"),
+    t("Mentally sharp"),
+    t("In my feelings"),
+    t("Ready for anything"),
+  ];
 
   const toggleReflection = (r: string) => {
     setSelectedReflections(prev => 
@@ -64,8 +65,8 @@ export default function VibeTracker() {
         <PrideFloatingOrbs />
         <div className="activity-container-sm space-y-4">
           <PrideSuccessState 
-            title="Vibe Locked In!"
-            message="Your energy levels are recorded. Honor whatever space you're in today."
+            title={t("Vibe Locked In!")}
+            message={t("Your energy levels are recorded. Honor whatever space you're in today.")}
             emoji="✨"
             onRestart={() => {
               setIsSuccess(false);
@@ -77,7 +78,7 @@ export default function VibeTracker() {
           <ShareModal 
             isOpen={isShareOpen} 
             onClose={() => setIsShareOpen(false)}
-            title="Share Your Vibe Tracker"
+            title={t("Share Your Vibe Tracker")}
           />
         </div>
       </div>
@@ -90,8 +91,8 @@ export default function VibeTracker() {
 
       <div className="activity-container-sm">
         <PrideActivityHeader 
-          title={showHistory ? "Vibe History" : "Vibe Check"} 
-          subtitle={showHistory ? "Look back at your energy journey" : "Tune in to your internal frequency."}
+          title={showHistory ? t("Vibe History") : t("Vibe Check")} 
+          subtitle={showHistory ? t("Look back at your energy journey") : t("Tune in to your internal frequency.")}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
           onBack={() => {
@@ -135,7 +136,7 @@ export default function VibeTracker() {
             <section className="space-y-6">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-1.5 h-6 bg-pride-purple rounded-full" />
-                <h2 className="text-lg font-bold text-gray-800">Current Energy</h2>
+                <h2 className="text-lg font-bold text-gray-800">{t("Current Energy")}</h2>
               </div>
               
               <div className="grid grid-cols-2 gap-4 md:gap-6">
@@ -175,7 +176,7 @@ export default function VibeTracker() {
             <section className="space-y-6">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-1.5 h-6 bg-pride-pink rounded-full" />
-                <h2 className="text-lg font-bold text-gray-800">Reflections</h2>
+                <h2 className="text-lg font-bold text-gray-800">{t("Reflections")}</h2>
               </div>
               
               <div className="premium-card p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -215,12 +216,12 @@ export default function VibeTracker() {
                 ) : (
                   <>
                     <Zap className={selectedVibe ? "animate-pulse" : ""} />
-                    <span>Lock in the Vibe</span>
+                    <span>{t("Lock in the Vibe")}</span>
                   </>
                 )}
               </button>
               <p className="text-center text-gray-400 text-sm mt-4 font-medium italic">
-                "Your energy is valid. No matter what the frequency is today."
+                {t("\"Your energy is valid. No matter what the frequency is today.\"")}
               </p>
             </div>
           </div>

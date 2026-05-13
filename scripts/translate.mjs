@@ -24,79 +24,140 @@ const SUPPORTED_LANGUAGES = [
   'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'
 ];
 
-async function translateBatch(texts, targetLanguage) {
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function translateBatch(texts, targetLanguage, retryCount = 0) {
   const url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
   
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        q: texts,
-        target: targetLanguage,
-        format: 'text'
-      })
-    });
-    
-    const data = await response.json();
-    if (data.error) {
-      throw new Error(data.error.message);
+  const CHUNK_SIZE = 50;
+  const results = [];
+  
+  for (let i = 0; i < texts.length; i += CHUNK_SIZE) {
+    const chunk = texts.slice(i, i + CHUNK_SIZE);
+    let attempt = 0;
+    let success = false;
+
+    while (attempt < 3 && !success) {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            q: chunk,
+            target: targetLanguage,
+            format: 'text'
+          })
+        });
+
+        const data = await response.json();
+        if (data.error) {
+          if (data.error.message.includes('Rate Limit') || data.error.code === 429) {
+            const waitTime = Math.pow(2, attempt) * 2000;
+            console.log(`  ⚠️ Rate limit hit. Retrying in ${waitTime}ms... (Attempt ${attempt + 1})`);
+            await sleep(waitTime);
+            attempt++;
+            continue;
+          }
+          throw new Error(data.error.message);
+        }
+        results.push(...data.data.translations.map(t => t.translatedText));
+        success = true;
+      } catch (error) {
+        console.error(`  ❌ Error translating chunk to ${targetLanguage}:`, error.message);
+        attempt++;
+        if (attempt === 3) {
+          results.push(...chunk); // Fallback to original
+        } else {
+          await sleep(1000);
+        }
+      }
     }
-    return data.data.translations.map(t => t.translatedText);
-  } catch (error) {
-    console.error(`Error translating batch to ${targetLanguage}:`, error.message);
-    return null;
+    // Small delay between chunks to be nice to the API
+    await sleep(200);
   }
+  return results;
 }
 
-async function translateObject(obj, targetLanguage) {
-  const keys = Object.keys(obj);
-  const values = Object.values(obj);
+async function translateFile(enFilePath, outputDir, lang, outputPrefix, force = false) {
+  const outputPath = path.join(outputDir, `${outputPrefix}${lang}.json`);
   
-  console.log(`Translating ${keys.length} keys to ${targetLanguage}...`);
-  const translatedValues = await translateBatch(values, targetLanguage);
-  
-  if (!translatedValues) return obj;
-  
-  const result = {};
-  keys.forEach((key, index) => {
-    result[key] = translatedValues[index];
-  });
-  return result;
-}
-
-async function processModule(moduleName) {
-  const i18nPath = path.resolve(process.cwd(), 'src/features/pride', moduleName, 'i18n');
-  const enPath = path.join(i18nPath, 'en.json');
-  
-  if (!fs.existsSync(enPath)) {
-    console.error(`❌ en.json not found for module ${moduleName} at ${enPath}`);
+  // Support resume: skip if file exists unless forced
+  if (fs.existsSync(outputPath) && !force) {
+    console.log(`  ⏩ Skipping ${lang} (already exists)`);
     return;
   }
+
+  const enData = JSON.parse(fs.readFileSync(enFilePath, 'utf8'));
+  const keys = Object.keys(enData);
+  const values = Object.values(enData);
   
-  const enData = JSON.parse(fs.readFileSync(enPath, 'utf8'));
+  const placeholderMap = {};
+  const safeValues = values.map((v, i) => {
+    if (typeof v !== 'string') return v;
+    const matches = v.match(/\{\{[^}]+\}\}/g) || [];
+    let safe = v;
+    matches.forEach((m, j) => {
+      const token = `__PH_${i}_${j}__`;
+      placeholderMap[token] = m;
+      safe = safe.replace(m, token);
+    });
+    return safe;
+  });
+
+  console.log(`  Translating ${keys.length} keys to ${lang}...`);
+  const translated = await translateBatch(safeValues, lang);
+
+  const result = {};
+  keys.forEach((key, index) => {
+    let val = translated[index];
+    if (typeof val === 'string') {
+      Object.entries(placeholderMap).forEach(([token, original]) => {
+        val = val.replace(new RegExp(token, 'g'), original);
+      });
+    }
+    result[key] = val;
+  });
+
+  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
+  console.log(`  ✅ ${outputPath}`);
+}
+
+async function processModuleFile(modulePath, fileName, force = false) {
+  const enFilePath = path.resolve(process.cwd(), modulePath, fileName);
+  const outputDir = path.resolve(process.cwd(), modulePath);
   
+  if (!fs.existsSync(enFilePath)) {
+    console.error(`❌ File not found: ${enFilePath}`);
+    return;
+  }
+
+  const baseName = path.basename(fileName, '.en.json');
+  const outputPrefix = baseName === 'en' ? '' : `${baseName}.`;
+
+  console.log(`\n📂 Processing: ${modulePath}/${fileName}`);
+  
+  const enData = JSON.parse(fs.readFileSync(enFilePath, 'utf8'));
+  const enOutputPath = path.join(outputDir, `${outputPrefix}en.json`);
+  if (enOutputPath !== enFilePath) {
+    fs.writeFileSync(enOutputPath, JSON.stringify(enData, null, 2), 'utf8');
+  }
+
   for (const lang of SUPPORTED_LANGUAGES) {
-    const langPath = path.join(i18nPath, `${lang}.json`);
-    
-    // Skip if already exists (optional, but good for resuming)
-    // if (fs.existsSync(langPath)) {
-    //   console.log(`skipping ${lang} for ${moduleName}, already exists.`);
-    //   continue;
-    // }
-    
-    console.log(`\n🌍 Translating ${moduleName} to ${lang}...`);
-    const translatedData = await translateObject(enData, lang);
-    
-    fs.writeFileSync(langPath, JSON.stringify(translatedData, null, 2));
-    console.log(`✅ Saved ${langPath}`);
+    await translateFile(enFilePath, outputDir, lang, outputPrefix, force);
+    // Delay between languages to prevent aggressive rate limiting
+    await sleep(2000);
   }
 }
 
-const moduleName = process.argv[2];
-if (!moduleName) {
-  console.error('Usage: node scripts/translate.mjs <module-name>');
+const modulePath = process.argv[2];
+const fileName = process.argv[3] || 'en.json';
+const force = process.argv.includes('--force');
+
+if (!modulePath) {
+  console.error('Usage: node scripts/translate.mjs <i18n-dir-path> [source-file] [--force]');
   process.exit(1);
 }
 
-processModule(moduleName);
+processModuleFile(modulePath, fileName, force);

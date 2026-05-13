@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronDown, Lightbulb, MessageSquare, TrendingUp, BookOpen, Smile, User, Users, Heart, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 
@@ -13,96 +14,97 @@ interface InteractiveTool {
   link: string | null;
 }
 
-const interactiveTools: InteractiveTool[] = [
-  { id: "celebrate-identity", icon: Sparkles, label: "Celebrate your Identity", bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/content/gay-and-proud" },
-  { id: "confidence-mirror", icon: Smile, label: "Confidence Mirror", bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/content/confidence-mirror" },
-  { id: "masculinity", icon: Sparkles, label: "Masculinity on your own terms", bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/content/masculinity-on-your-own-terms" },
-  { id: "coming-out", icon: Users, label: "Coming out", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/gay-coming-out" },
-  { id: "handle-reactions", icon: Heart, label: "Handle Reactions of Others", bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/content/when-they-react" },
-  { id: "dealing-homophobia", icon: BookOpen, label: "Dealing with Homophobia", bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/dealing-with-homophobia" },
-];
-
-interface Tip {
-  id: string;
-  title: string;
-  description: string;
-  bgColor: string;
-  iconColor: string;
-}
-
-const tips: Tip[] = [
-  {
-    id: "embrace-authentic-self",
-    title: "Embrace Your Authentic Self",
-    description: "Allow yourself to exist without filtering or hiding who you are. Authenticity builds confidence and reduces internal stress over time.",
-    bgColor: "#D1F4E0",
-    iconColor: "#059669"
-  },
-  {
-    id: "find-affirming-spaces",
-    title: "Find Affirming Spaces",
-    description: "Engage in communities where you feel accepted and celebrated. Safe spaces help build belonging and emotional security.",
-    bgColor: "#D4E4F7",
-    iconColor: "#2563EB"
-  },
-  {
-    id: "manage-external-negativity",
-    title: "Manage External Negativity",
-    description: "Limit exposure to homophobic environments or content. Protecting your mental space is essential for long-term well-being.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  },
-  {
-    id: "prioritize-emotional-expression",
-    title: "Prioritize Emotional Expression",
-    description: "Talk about your feelings with trusted people or through journaling. Emotional openness strengthens mental health.",
-    bgColor: "#FFF4D6",
-    iconColor: "#D97706"
-  }
-];
-
-interface Myth {
-  id: string;
-  title: string;
-  description: string;
-  bgColor: string;
-  iconColor: string;
-}
-
-const myths: Myth[] = [
-  {
-    id: "lifestyle-choice",
-    title: "Myth: Being Gay is a Lifestyle Choice",
-    description: "Sexual orientation is not a choice but an inherent part of identity.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  },
-  {
-    id: "less-serious",
-    title: "Myth: Gay Relationships Are Less Serious",
-    description: "Gay relationships are just as committed and meaningful as any other.",
-    bgColor: "#FFF4D6",
-    iconColor: "#D97706"
-  },
-  {
-    id: "certain-way",
-    title: "Myth: All Gay Men Act a Certain Way",
-    description: "There is no single personality or behavior that defines being gay.",
-    bgColor: "#D4E4F7",
-    iconColor: "#2563EB"
-  },
-  {
-    id: "always-confident",
-    title: "Myth: Gay People Are Always Confident",
-    description: "Many still face internal struggles despite outward confidence.",
-    bgColor: "#FFE0EC",
-    iconColor: "#DB2777"
-  }
-];
-
 export function GayGuide() {
   const navigate = useNavigate();
+  const { t } = useTranslation("guides");
   const [expandedSection, setExpandedSection] = useState<'tips' | 'myths' | null>(null);
+
+  const interactiveTools: InteractiveTool[] = [
+    { id: "celebrate-identity", icon: Sparkles, label: t("Celebrate your Identity"), bgColor: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)", link: "/content/gay-and-proud" },
+    { id: "confidence-mirror", icon: Smile, label: t("Confidence Mirror"), bgColor: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)", link: "/content/confidence-mirror" },
+    { id: "masculinity", icon: Sparkles, label: t("Masculinity on your own terms"), bgColor: "linear-gradient(135deg, #10B981 0%, #059669 100%)", link: "/content/masculinity-on-your-own-terms" },
+    { id: "coming-out", icon: Users, label: t("Coming out"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/gay-coming-out" },
+    { id: "handle-reactions", icon: Heart, label: t("Handle Reactions of Others"), bgColor: "linear-gradient(135deg, #EC4899 0%, #DB2777 100%)", link: "/content/when-they-react" },
+    { id: "dealing-homophobia", icon: BookOpen, label: t("Dealing with Homophobia"), bgColor: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)", link: "/content/dealing-with-homophobia" },
+  ];
+
+  interface Tip {
+    id: string;
+    title: string;
+    description: string;
+    bgColor: string;
+    iconColor: string;
+  }
+
+  const tips: Tip[] = [
+    {
+      id: "embrace-authentic-self",
+      title: t("Embrace Your Authentic Self"),
+      description: t("Allow yourself to exist without filtering or hiding who you are. Authenticity builds confidence and reduces internal stress over time."),
+      bgColor: "#D1F4E0",
+      iconColor: "#059669"
+    },
+    {
+      id: "find-affirming-spaces",
+      title: t("Find Affirming Spaces"),
+      description: t("Engage in communities where you feel accepted and celebrated. Safe spaces help build belonging and emotional security."),
+      bgColor: "#D4E4F7",
+      iconColor: "#2563EB"
+    },
+    {
+      id: "manage-external-negativity",
+      title: t("Manage External Negativity"),
+      description: t("Limit exposure to homophobic environments or content. Protecting your mental space is essential for long-term well-being."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    },
+    {
+      id: "prioritize-emotional-expression",
+      title: t("Prioritize Emotional Expression"),
+      description: t("Talk about your feelings with trusted people or through journaling. Emotional openness strengthens mental health."),
+      bgColor: "#FFF4D6",
+      iconColor: "#D97706"
+    }
+  ];
+
+  interface Myth {
+    id: string;
+    title: string;
+    description: string;
+    bgColor: string;
+    iconColor: string;
+  }
+
+  const myths: Myth[] = [
+    {
+      id: "lifestyle-choice",
+      title: t("Myth: Being Gay is a Lifestyle Choice"),
+      description: t("Sexual orientation is not a choice but an inherent part of identity."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    },
+    {
+      id: "less-serious",
+      title: t("Myth: Gay Relationships Are Less Serious"),
+      description: t("Gay relationships are just as committed and meaningful as any other."),
+      bgColor: "#FFF4D6",
+      iconColor: "#D97706"
+    },
+    {
+      id: "certain-way",
+      title: t("Myth: All Gay Men Act a Certain Way"),
+      description: t("There is no single personality or behavior that defines being gay."),
+      bgColor: "#D4E4F7",
+      iconColor: "#2563EB"
+    },
+    {
+      id: "always-confident",
+      title: t("Myth: Gay People Are Always Confident"),
+      description: t("Many still face internal struggles despite outward confidence."),
+      bgColor: "#FFE0EC",
+      iconColor: "#DB2777"
+    }
+  ];
 
   const handleToolClick = (link: string | null) => {
     if (link) {
@@ -120,8 +122,8 @@ export function GayGuide() {
       
       <main className="activity-container-lg relative">
         <PrideActivityHeader 
-          title="Gay Guide" 
-          subtitle="Resources and support for your journey"
+          title={t("Gay Guide")} 
+          subtitle={t("Resources and support for your journey")}
           onBack={() => navigate('/lgbtq-hub')}
         />
 
@@ -140,8 +142,8 @@ export function GayGuide() {
               <Lightbulb className="text-white" size={28} strokeWidth={2} />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-[#020817] mb-1">Tips</h2>
-              <p className="text-[#64748B] text-sm font-medium">Daily wisdom for your wellbeing</p>
+              <h2 className="text-xl font-bold text-[#020817] mb-1">{t("Tips")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Daily wisdom for your wellbeing")}</p>
             </div>
             <ChevronDown
               className={`text-[#64748B] transition-all duration-300 flex-shrink-0 ${
@@ -198,8 +200,8 @@ export function GayGuide() {
               <MessageSquare className="text-white" size={28} strokeWidth={2} />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-[#020817] mb-1">Myths</h2>
-              <p className="text-[#64748B] text-sm font-medium">Debunking harmful stereotypes</p>
+              <h2 className="text-xl font-bold text-[#020817] mb-1">{t("Myths")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Debunking harmful stereotypes")}</p>
             </div>
             <ChevronDown
               className={`text-[#64748B] transition-all duration-300 flex-shrink-0 ${
@@ -253,8 +255,8 @@ export function GayGuide() {
               <TrendingUp className="text-white" size={24} strokeWidth={2.5} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-[#020817]">Interactive Tools</h2>
-              <p className="text-[#64748B] text-sm font-medium">Exercises for recovery and wellness</p>
+              <h2 className="text-xl font-bold text-[#020817]">{t("Interactive Tools")}</h2>
+              <p className="text-[#64748B] text-sm font-medium">{t("Exercises for recovery and wellness")}</p>
             </div>
           </div>
 

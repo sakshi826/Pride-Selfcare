@@ -1,28 +1,29 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { sql } from "@/lib/db";
 import { PrideFloatingOrbs } from "../components/PrideFloatingOrbs";
 import { PrideActivityHeader } from "../components/PrideActivityHeader";
 import { PrideSuccessState } from "../components/PrideSuccessState";
 import { ShareModal } from "@/components/pride/ShareModal";
-
-const MOOD_OPTIONS = [
-  { value: 1, label: "Awful", emoji: "😫" },
-  { value: 2, label: "Not Great", emoji: "😔" },
-  { value: 3, label: "Okay", emoji: "😐" },
-  { value: 4, label: "Good", emoji: "🙂" },
-  { value: 5, label: "Amazing", emoji: "✨" },
-];
-
 import { PrideTrackerHistory } from "../components/PrideTrackerHistory";
 
 export default function MoodTracker() {
+  const { t } = useTranslation("trackers");
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
   const [note, setNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+
+  const MOOD_OPTIONS = [
+    { value: 1, label: t("Awful"), emoji: "😫" },
+    { value: 2, label: t("Not Great"), emoji: "😔" },
+    { value: 3, label: t("Okay"), emoji: "😐" },
+    { value: 4, label: t("Good"), emoji: "🙂" },
+    { value: 5, label: t("Amazing"), emoji: "✨" },
+  ];
 
   const handleSubmit = async () => {
     if (selectedMood === null) return;
@@ -49,8 +50,8 @@ export default function MoodTracker() {
         <PrideFloatingOrbs />
         <div className="activity-container-sm space-y-4">
           <PrideSuccessState 
-            title="Mood Logged!"
-            message="Your emotional journey is being tracked with care. Every feeling is valid."
+            title={t("Mood Logged!")}
+            message={t("Your emotional journey is being tracked with care. Every feeling is valid.")}
             emoji="✨"
             onRestart={() => {
               setIsSuccess(false);
@@ -62,7 +63,7 @@ export default function MoodTracker() {
           <ShareModal 
             isOpen={isShareOpen} 
             onClose={() => setIsShareOpen(false)}
-            title="Share Your Mood Tracker"
+            title={t("Share Your Mood Tracker")}
           />
         </div>
       </div>
@@ -75,8 +76,8 @@ export default function MoodTracker() {
 
       <div className="activity-container-sm">
         <PrideActivityHeader 
-          title={showHistory ? "Mood History" : "How are you?"} 
-          subtitle={showHistory ? "Reflecting on your emotional path" : "Check in with your emotions"}
+          title={showHistory ? t("Mood History") : t("How are you?")} 
+          subtitle={showHistory ? t("Reflecting on your emotional path") : t("Check in with your emotions")}
           showHistory={!showHistory}
           onHistory={() => setShowHistory(true)}
           onBack={() => {
@@ -100,7 +101,7 @@ export default function MoodTracker() {
                     <p className="font-bold text-lg text-foreground">
                       {MOOD_OPTIONS.find(m => m.value === entry.value)?.label || entry.label}
                     </p>
-                    <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">Mood Score: {entry.value}/5</p>
+                    <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider">{t("Mood Score")}: {entry.value}/5</p>
                   </div>
                 </div>
                 {entry.note && (
@@ -133,11 +134,11 @@ export default function MoodTracker() {
 
             {/* Notes Input */}
             <div className="space-y-3">
-              <label className="text-sm font-bold text-gray-700 ml-1">Add a reflection (optional)</label>
+              <label className="text-sm font-bold text-gray-700 ml-1">{t("Add a reflection (optional)")}</label>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="What's on your mind today?"
+                placeholder={t("What's on your mind today?")}
                 className="w-full h-40 p-5 rounded-[32px] border-2 border-white bg-white/60 backdrop-blur-sm focus:border-pride-purple/50 focus:ring-0 transition-all resize-none text-gray-700 shadow-sm focus:bg-white/90"
               />
             </div>
@@ -153,7 +154,7 @@ export default function MoodTracker() {
               ) : (
                 <>
                   <Send size={20} />
-                  <span>Save Entry</span>
+                  <span>{t("Save Entry")}</span>
                 </>
               )}
             </button>
