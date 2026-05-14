@@ -60,7 +60,7 @@ const guides: GuideCard[] = [
 
 export function LGBTQSelfCare() {
   const navigate = useNavigate();
-  const { t } = useTranslation("hub");
+  const { t, i18n } = useTranslation("hub");
 
   const handleCardClick = (link: string | null) => {
     if (link) {
