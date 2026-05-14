@@ -12,7 +12,7 @@ const i18nDir = 'src/features/pride/hub/i18n';
 const enPath = path.join(i18nDir, 'en.json');
 const enData = JSON.parse(fs.readFileSync(enPath, 'utf8'));
 
-const SUPPORTED_LANGUAGES = ['es', 'fr', 'de', 'pt', 'ru', 'zh-Hans', 'zh-Hant', 'ja', 'ko', 'ar', 'hi', 'bn', 'id', 'tr', 'vi', 'it', 'pl', 'th', 'tl', 'nl', 'sv', 'no', 'da', 'fi', 'cs', 'el', 'ro', 'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'];
+const SUPPORTED_LANGUAGES = ['hi', 'es', 'fr', 'de', 'pt', 'ru', 'zh-Hans', 'zh-Hant', 'ja', 'ko', 'ar', 'bn', 'id', 'tr', 'vi', 'it', 'pl', 'th', 'tl', 'nl', 'sv', 'no', 'da', 'fi', 'cs', 'el', 'ro', 'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'];
 
 async function translateBatch(texts, target) {
     if (texts.length === 0) return [];
@@ -27,43 +27,60 @@ async function translateBatch(texts, target) {
     return data.data.translations.map(t => t.translatedText);
 }
 
+const namespaces = [
+    { dir: 'src/features/pride/hub/i18n', file: 'en.json' },
+    { dir: 'src/features/pride/hub/i18n', file: 'tips.en.json' },
+    { dir: 'src/features/pride/hub/i18n', file: 'guides.en.json' },
+    { dir: 'src/features/pride/trackers/i18n', file: 'en.json' }
+];
+
 async function run() {
-    for (const lang of SUPPORTED_LANGUAGES) {
-        const langPath = path.join(i18nDir, `${lang}.json`);
-        let langData = {};
-        if (fs.existsSync(langPath)) {
-            try {
-                langData = JSON.parse(fs.readFileSync(langPath, 'utf8'));
-            } catch (e) {}
-        }
-        
-        const missingKeys = Object.keys(enData).filter(k => !langData[k] || langData[k] === enData[k]);
-        
-        if (missingKeys.length > 0) {
-            console.log(`Translating ${missingKeys.length} keys to ${lang}...`);
-            const BATCH_SIZE = 50;
-            for (let i = 0; i < missingKeys.length; i += BATCH_SIZE) {
-                const batch = missingKeys.slice(i, i + BATCH_SIZE);
+    for (const ns of namespaces) {
+        const enPath = path.join(ns.dir, ns.file);
+        if (!fs.existsSync(enPath)) continue;
+        const enData = JSON.parse(fs.readFileSync(enPath, 'utf8'));
+        const baseName = ns.file.replace(/\.en\.json$/, '').replace(/\.json$/, '');
+        const outputPrefix = (baseName === 'en' || baseName === '') ? '' : `${baseName}.`;
+
+        console.log(`\n=== Processing Namespace: ${ns.file} in ${ns.dir} ===`);
+
+        for (const lang of SUPPORTED_LANGUAGES) {
+            const langPath = path.join(ns.dir, `${outputPrefix}${lang}.json`);
+            let langData = {};
+            if (fs.existsSync(langPath)) {
                 try {
-                    const translatedBatch = await translateBatch(batch.map(k => enData[k]), lang);
-                    batch.forEach((key, idx) => {
-                        langData[key] = translatedBatch[idx];
-                    });
-                    process.stdout.write('.');
-                    // Save incrementally
-                    fs.writeFileSync(langPath, JSON.stringify(langData, null, 2));
-                } catch (e) {
-                    console.error(`\nError translating batch to ${lang}: ${e.message}`);
-                    if (e.message.includes('Limit') || e.message.includes('403') || e.message.includes('429')) {
-                        console.log("Waiting 15s...");
-                        await new Promise(r => setTimeout(r, 15000));
-                        i -= BATCH_SIZE; // Retry this batch
+                    langData = JSON.parse(fs.readFileSync(langPath, 'utf8'));
+                } catch (e) {}
+            }
+            
+            const missingKeys = Object.keys(enData).filter(k => !langData[k] || langData[k] === enData[k]);
+            
+            if (missingKeys.length > 0) {
+                console.log(`Translating ${missingKeys.length} keys to ${lang}...`);
+                const BATCH_SIZE = 5; 
+                for (let i = 0; i < missingKeys.length; i += BATCH_SIZE) {
+                    const batch = missingKeys.slice(i, i + BATCH_SIZE);
+                    try {
+                        const translatedBatch = await translateBatch(batch.map(k => enData[k]), lang);
+                        batch.forEach((key, idx) => {
+                            langData[key] = translatedBatch[idx];
+                        });
+                        process.stdout.write('.');
+                        fs.writeFileSync(langPath, JSON.stringify(langData, null, 2));
+                        await new Promise(r => setTimeout(r, 1000)); // 1s delay
+                    } catch (e) {
+                        console.error(`\nError translating batch to ${lang}: ${e.message}`);
+                        if (e.message.includes('Limit') || e.message.includes('403') || e.message.includes('429')) {
+                            console.log("Waiting 30s...");
+                            await new Promise(r => setTimeout(r, 30000));
+                            i -= BATCH_SIZE; // Retry this batch
+                        }
                     }
                 }
+                console.log(`\nFinished ${lang}.json`);
+            } else {
+                // console.log(`No missing keys for ${lang}`);
             }
-            console.log(`\nFinished ${lang}.json`);
-        } else {
-            console.log(`No missing keys for ${lang}`);
         }
     }
 }
