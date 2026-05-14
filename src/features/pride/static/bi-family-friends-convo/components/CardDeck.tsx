@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef, ReactNode } from "react";
+import { useState, useCallback, useRef, ReactNode, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, Share2 } from "lucide-react";
 import { ShareModal } from "@/components/pride/ShareModal";
 import { useNavigate } from "react-router-dom";

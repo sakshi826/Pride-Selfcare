@@ -21,14 +21,9 @@ try {
       disableWarningInBrowsers: true,
     });
     
-    // Wrap to ensure it always has a .query method for compatibility
-    sql = async (strings: any, ...values: any[]) => {
-      return neonFn(strings, ...values);
-    };
-    sql.query = async (q: string, params?: any[]) => {
-      // Basic implementation if needed, though neon() usually handles it
-      return neonFn(q, ...(params || []));
-    };
+    // Standard Neon export
+    sql = neonFn;
+    sql.query = (q: string, params?: any[]) => neonFn(q, ...(params || []));
   }
 } catch (err) {
   console.error('Neon initialization failed:', err);
