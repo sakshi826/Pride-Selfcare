@@ -19,10 +19,19 @@ interface BubbleSet {
 
 const CardDeck = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation("minis");
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang');
+    if (lang && i18n.language !== lang) {
+      i18n.changeLanguage(lang);
+    }
+  }, [i18n]);
 
   const next = useCallback(() => {
     if (current < TOTAL - 1) setCurrent((c) => c + 1);
@@ -65,7 +74,7 @@ const CardDeck = () => {
     <div className="flex flex-col items-center w-full max-w-[440px] mx-auto px-4 py-8 gap-5 min-h-screen justify-start">
       <div className="w-full mb-4">
         <PrideActivityHeader 
-          title="Conversation Guide" 
+          title={t("Conversation Guide")} 
           onBack={current > 0 && !finished ? prev : undefined}
         />
       </div>
@@ -106,7 +115,7 @@ const CardDeck = () => {
 
           {/* Active card */}
           <div className="relative z-10">
-            {renderCard(current, next, handleFinish, finished, navigate, setCurrent, setFinished, () => setIsShareOpen(true))}
+            {renderCard(current, next, handleFinish, finished, navigate, setCurrent, setFinished, () => setIsShareOpen(true), t)}
           </div>
         </div>
       </div>
@@ -115,11 +124,11 @@ const CardDeck = () => {
       {!finished && current > 0 && (
         <div className="flex gap-3 w-full mt-4">
           <button onClick={prev} className="btn-pill flex-1 !bg-muted !text-foreground">
-            ← Back
+            ← {t("Back")}
           </button>
           {current < TOTAL - 1 && (
             <button onClick={next} className="btn-pill flex-1">
-              Next →
+              {t("Next")} →
             </button>
           )}
         </div>
@@ -128,7 +137,7 @@ const CardDeck = () => {
       <ShareModal 
         isOpen={isShareOpen} 
         onClose={() => setIsShareOpen(false)} 
-        title="Share This Guide"
+        title={t("Share This Guide")}
       />
     </div>
   );

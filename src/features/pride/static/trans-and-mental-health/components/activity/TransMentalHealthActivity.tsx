@@ -1,6 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import confetti from "canvas-confetti";
 import Card1Stats from "./Card1Stats";
 import Card2Causes from "./Card2Causes";
@@ -14,8 +15,17 @@ const TOTAL = 5;
 
 const TransMentalHealthActivity = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation("minis");
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang');
+    if (lang && i18n.language !== lang) {
+      i18n.changeLanguage(lang);
+    }
+  }, [i18n]);
 
   const goNext = useCallback(() => {
     if (current >= TOTAL - 1) {
@@ -47,7 +57,7 @@ const TransMentalHealthActivity = () => {
   const [finished, setFinished] = useState(false);
 
   const isLast = current === TOTAL - 1;
-  const buttonLabels = ["Next", "Next", "Next", "Next", "Finish ✨"];
+  const buttonLabels = [t("Next"), t("Next"), t("Next"), t("Next"), t("Finish ✨")];
 
   const cards = [
     <Card1Stats key="c1" active={current === 0} />,
@@ -83,7 +93,7 @@ const TransMentalHealthActivity = () => {
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-cyan-500 transition-all"
         >
           <ChevronLeft size={18} strokeWidth={2.5} />
-          Back to Hub
+          {t("Back to Hub")}
         </button>
       </div>
       {/* Floating orbs */}
@@ -122,7 +132,7 @@ const TransMentalHealthActivity = () => {
             />
           </div>
           <p className="text-xs text-foreground mt-2 font-body text-center">
-            {current + 1} of {TOTAL}
+            {current + 1} {t("of")} {TOTAL}
           </p>
         </div>
 

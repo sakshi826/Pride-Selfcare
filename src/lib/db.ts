@@ -4,20 +4,34 @@ const databaseUrl = import.meta.env.VITE_NEON_DATABASE_URL;
 
 console.log('Database URL presence check:', !!databaseUrl);
 
-let sql: any;
+// Ensure sql is always a function that can handle template literals
+const mockSql = (() => {
+  const fn: any = async () => { throw new Error('Database not configured'); };
+  fn.query = async () => { throw new Error('Database not configured'); };
+  return fn;
+})();
+
+let sql: any = mockSql;
+
 try {
   if (!databaseUrl) {
     console.error('VITE_NEON_DATABASE_URL is missing!');
-    // Provide a mock sql that throws a better error when called
-    sql = async () => { throw new Error('Database not configured'); };
   } else {
-    sql = neon(databaseUrl, {
+    const neonFn = neon(databaseUrl, {
       disableWarningInBrowsers: true,
     });
+    
+    // Wrap to ensure it always has a .query method for compatibility
+    sql = async (strings: any, ...values: any[]) => {
+      return neonFn(strings, ...values);
+    };
+    sql.query = async (q: string, params?: any[]) => {
+      // Basic implementation if needed, though neon() usually handles it
+      return neonFn(q, ...(params || []));
+    };
   }
 } catch (err) {
   console.error('Neon initialization failed:', err);
-  sql = async () => { throw new Error('Database initialization error'); };
 }
 
 export { sql };

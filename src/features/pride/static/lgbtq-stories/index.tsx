@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import HeroSection from "./components/HeroSection";
 import StoriesList from "./components/StoriesList";
 import StoryDetail from "./components/StoryDetail";
@@ -9,9 +10,18 @@ import { PrideFloatingOrbs } from "../../components/PrideFloatingOrbs";
 type View = "hero" | "list" | "detail";
 
 const Index = () => {
+  const { t, i18n } = useTranslation("minis");
   const [view, setView] = useState<View>("hero");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang');
+    if (lang && i18n.language !== lang) {
+      i18n.changeLanguage(lang);
+    }
+  }, [i18n]);
 
   const transition = useCallback((to: View, cb?: () => void) => {
     setTransitioning(true);
@@ -37,8 +47,8 @@ const Index = () => {
       <div className="relative z-50 pt-6 pb-2">
         <div className="activity-container-lg">
           <PrideActivityHeader 
-            title="LGBTQ+ Stories" 
-            subtitle="Real journeys of finding yourself"
+            title={t("LGBTQ+ Stories")} 
+            subtitle={t("Real journeys of finding yourself")}
             className="mb-0"
           />
         </div>

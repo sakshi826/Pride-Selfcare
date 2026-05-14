@@ -76,7 +76,7 @@ i18n
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
     resources,
-    ns: ['hub', 'tips', 'guides', 'trackers'],
+    ns: ['hub', 'tips', 'guides', 'trackers', 'minis'],
     defaultNS: 'hub',
   });
 

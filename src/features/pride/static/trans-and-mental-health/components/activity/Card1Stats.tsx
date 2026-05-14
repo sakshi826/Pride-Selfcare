@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CardShell from "./CardShell";
 import CardEye from "./CardEye";
 
@@ -40,19 +41,21 @@ const AnimatedStat = ({ value, suffix, label, color, active }: AnimatedStatProps
   );
 };
 
-const Card1Stats = ({ active }: { active: boolean }) => (
-  <CardShell bandColor="blue">
-    <CardEye eye="The Reality" title="Your Struggles Have a Context" />
-    <p className="text-sm text-[hsl(0,0%,0%)] leading-relaxed mb-5 font-body">
-      These numbers are not meant to alarm you. They are meant to explain. If you have been struggling,
-      there is a documented reason — and a documented path toward better.
-    </p>
-    <div className="space-y-3">
-      <AnimatedStat active={active} value={3} suffix="x" label="Trans people are 3x more likely to experience depression than the general population" color="blue" />
-      <AnimatedStat active={active} value={40} suffix="%" label="Around 40% of trans people report having attempted suicide at some point" color="pink" />
-      <AnimatedStat active={active} value={78} suffix="%" label="78% report significant improvement in mental health after gender-affirming care" color="blue" />
-    </div>
-  </CardShell>
-);
+const Card1Stats = ({ active }: { active: boolean }) => {
+  const { t } = useTranslation("minis");
+  return (
+    <CardShell bandColor="blue">
+      <CardEye eye={t("The Reality")} title={t("Your Struggles Have a Context")} />
+      <p className="text-sm text-[hsl(0,0%,0%)] leading-relaxed mb-5 font-body">
+        {t("These numbers are not meant to alarm you. They are meant to explain. If you have been struggling, there is a documented reason — and a documented path toward better.")}
+      </p>
+      <div className="space-y-3">
+        <AnimatedStat active={active} value={3} suffix="x" label={t("Trans people are 3x more likely to experience depression than the general population")} color="blue" />
+        <AnimatedStat active={active} value={40} suffix="%" label={t("Around 40% of trans people report having attempted suicide at some point")} color="pink" />
+        <AnimatedStat active={active} value={78} suffix="%" label={t("78% report significant improvement in mental health after gender-affirming care")} color="blue" />
+      </div>
+    </CardShell>
+  );
+};
 
 export default Card1Stats;
