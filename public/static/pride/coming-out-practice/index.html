@@ -581,5 +581,41 @@ function burst(count) {
 buildDots();
 renderCard(0);
 </script>
+
+  <!-- Pride Localization Layer -->
+  <div id="google_translate_element" style="display:none"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang') || 'en';
+        
+        // Force cookie for Google Translate
+        const domain = window.location.hostname;
+        document.cookie = "googtrans=/en/" + lang + "; path=/; domain=" + domain;
+        document.cookie = "googtrans=/en/" + lang + "; path=/";
+        
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: true
+        }, 'google_translate_element');
+        
+        // Periodically check and force the dropdown
+        let attempts = 0;
+        const interval = setInterval(() => {
+            const select = document.querySelector('select.goog-te-combo');
+            if (select) {
+                if (select.value !== lang) {
+                    select.value = lang;
+                    select.dispatchEvent(new Event('change'));
+                }
+                attempts++;
+                if (attempts > 10) clearInterval(interval);
+            }
+        }, 1000);
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
