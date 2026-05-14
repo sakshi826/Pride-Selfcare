@@ -15,7 +15,19 @@ function getLanguageFromUrl(): string {
   if (typeof window === 'undefined') return 'en';
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
-  if (lang && SUPPORTED_LANGUAGES.includes(lang)) return lang;
+  console.log('[i18n] URL lang:', lang);
+  if (lang && SUPPORTED_LANGUAGES.includes(lang)) {
+    console.log('[i18n] Using language:', lang);
+    return lang;
+  }
+  // Try to detect from pathname as fallback (e.g. /hi/...)
+  const pathParts = window.location.pathname.split('/');
+  const pathLang = pathParts.find(p => SUPPORTED_LANGUAGES.includes(p));
+  if (pathLang) {
+    console.log('[i18n] Path lang detected:', pathLang);
+    return pathLang;
+  }
+  console.log('[i18n] Falling back to en');
   return 'en';
 }
 
