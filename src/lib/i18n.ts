@@ -49,14 +49,14 @@ SUPPORTED_LANGUAGES.forEach((lang) => {
     trackers: {}
   };
 
-  // Map hub-related files (hub, tips, guides)
+  // Map hub-related files (hub, tips, guides, minis)
   // File naming convention: [namespace].[lang].json or [lang].json (defaults to hub)
   Object.entries(hubModules).forEach(([path, module]: [string, any]) => {
     const fileName = path.split('/').pop() || '';
     if (fileName.includes(`${lang}.json`)) {
-      if (fileName.startsWith('tips.')) resources[lang].tips = module.default;
-      else if (fileName.startsWith('guides.')) resources[lang].guides = module.default;
-      else if (fileName === `${lang}.json`) resources[lang].hub = module.default;
+      const parts = fileName.split('.');
+      const ns = parts.length > 2 ? parts[0] : (fileName === `${lang}.json` ? 'hub' : parts[0]);
+      resources[lang][ns] = module.default;
     }
   });
 

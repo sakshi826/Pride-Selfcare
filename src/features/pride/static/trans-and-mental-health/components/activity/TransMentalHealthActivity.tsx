@@ -15,7 +15,7 @@ const TOTAL = 5;
 
 const TransMentalHealthActivity = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation("minis");
+  const { t, i18n } = useTranslation("minis", { useSuspense: false });
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -23,6 +23,7 @@ const TransMentalHealthActivity = () => {
     const params = new URLSearchParams(window.location.search);
     const lang = params.get('lang');
     if (lang && i18n.language !== lang) {
+      console.log("[Trans Activity] Switching language to:", lang);
       i18n.changeLanguage(lang);
     }
   }, [i18n]);

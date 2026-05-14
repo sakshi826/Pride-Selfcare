@@ -19,7 +19,7 @@ interface BubbleSet {
 
 const CardDeck = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation("minis");
+  const { t, i18n } = useTranslation("minis", { useSuspense: false });
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
@@ -29,6 +29,7 @@ const CardDeck = () => {
     const params = new URLSearchParams(window.location.search);
     const lang = params.get('lang');
     if (lang && i18n.language !== lang) {
+      console.log("[Bi Guide] Switching language to:", lang);
       i18n.changeLanguage(lang);
     }
   }, [i18n]);
