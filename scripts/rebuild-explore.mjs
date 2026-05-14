@@ -1,0 +1,168 @@
+import fs from 'fs';
+
+const filePath = 'src/features/pride/dynamic/identity-exploration/components/explore/ExploreIdentity.tsx';
+const lines = fs.readFileSync(filePath, 'utf-8').split('\n');
+
+// Fix 1: Replace lines 200-315 (0-indexed: 199-314) with proper JSX closing for ExploreIdentity
+// Lines 200-206 are good (</motion.div></AnimatePresence><ShareModal.../>) 
+// Lines 207-315 are the duplicate body that should not be there
+// We need to close the return JSX properly after line 206
+
+const closing = [
+  '      </div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+];
+
+// Fix 2: S6-S10 complete bodies to replace the corrupt end (lines 586-603, 0-indexed 585-602)
+const s6toS10 = [
+  '/* \u2500\u2500\u2500 SCREEN 6: Euphoria \u2500\u2500\u2500 */',
+  'const S6 = ({ answers, setAnswer, onNext }: ScreenProps) => {',
+  '  const { t } = useTranslation("hub");',
+  '  const opts = [t("Expressing myself freely"), t("When others see me how I feel"), t("In certain clothes/styles"), t("When I\'m alone"), t("Still figuring it out"), t("Other")];',
+  '  return (',
+  '    <div className="flex flex-1 flex-col px-5 py-8 overflow-y-auto">',
+  '      <Dots total={5} current={5} />',
+  '      <div className="mt-6 flex flex-col gap-4">',
+  '        <Bubble>{t("Let\'s also notice the moments that feel right.")}</Bubble>',
+  '        <QuestionBubble delay={0.15}>{t("When do you feel most like yourself?")}</QuestionBubble>',
+  '        <div className="mt-2 flex flex-col gap-2.5">',
+  '          {opts.map((o, i) => <Opt key={o} label={o} delay={0.2 + i * 0.04} selected={answers.euph === o} onClick={() => setAnswer("euph", o)} />)}',
+  '        </div>',
+  '        {answers.euph && (',
+  '          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.3 }} className="mt-6">',
+  '            <Btn onClick={onNext}>{t("Continue")}</Btn>',
+  '          </motion.div>',
+  '        )}',
+  '      </div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+  '/* \u2500\u2500\u2500 SCREEN 7: Reflection Pause \u2500\u2500\u2500 */',
+  'const S7 = ({ onNext }: { onNext: () => void }) => {',
+  '  const { t } = useTranslation("hub");',
+  '  return (',
+  '    <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">',
+  '      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={anim} className="w-full text-center">',
+  '        <div className="mx-auto mb-6 h-20 w-20 rounded-full animate-breathe" style={{ background: "linear-gradient(135deg, hsl(0 75% 65% / 0.4), hsl(30 85% 60% / 0.4), hsl(50 90% 65% / 0.4), hsl(140 55% 50% / 0.3), hsl(210 70% 55% / 0.4), hsl(275 60% 60% / 0.4))" }} />',
+  '        <p className="justified-text text-foreground text-base px-2">{t("Thank you for sharing all of this. Let\'s reflect on what this might mean for you.")}</p>',
+  '      </motion.div>',
+  '      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.6 }} className="mt-10 w-full">',
+  '        <Btn onClick={onNext}>{t("Continue")}</Btn>',
+  '      </motion.div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+  '/* \u2500\u2500\u2500 SCREEN 8: Results \u2500\u2500\u2500 */',
+  'const S8 = ({ onNext }: { onNext: () => void }) => {',
+  '  const { t } = useTranslation("hub");',
+  '  const cards = [',
+  '    { icon: "\uD83C\uDF08", title: t("Identity"), text: t("You may be exploring your gender and what feels right for you.") },',
+  '    { icon: "\uD83C\uDFA8", title: t("Expression"), text: t("You seem drawn to expressions that help you feel more like yourself.") },',
+  '    { icon: "\uD83D\uDCAD", title: t("Comfort"), text: t("You feel most at ease in spaces where you feel safe and accepted.") },',
+  '    { icon: "\u2696\uFE0F", title: t("Discomfort"), text: t("Some situations may bring moments of unease or disconnection.") },',
+  '    { icon: "\uD83D\uDC96", title: t("Affirming Moments"), text: t("You feel most aligned when you can express yourself freely.") },',
+  '  ];',
+  '  return (',
+  '    <div className="flex flex-1 flex-col py-8 overflow-y-auto">',
+  '      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={anim} className="text-center mb-6 px-5">',
+  '        <p className="text-3xl mb-2">{t("\u2728")}</p>',
+  '        <h2 className="text-xl font-semibold text-foreground tracking-tight">{t("Your Gender Expression Profile")}</h2>',
+  '        <p className="text-sm text-muted-foreground mt-1 px-2 text-center">{t("This isn\'t a label\u2014just a reflection of what you shared.")}</p>',
+  '      </motion.div>',
+  '      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-5 no-scrollbar">',
+  '        {cards.map((c, i) => (',
+  '          <motion.div key={c.title} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ ...anim, delay: 0.1 + i * 0.08 }}',
+  '            className="premium-card w-[280px] sm:w-[320px] snap-center p-8 flex-shrink-0 flex flex-col items-center text-center">',
+  '            <div className="w-16 h-16 bg-pride-purple/10 rounded-full flex items-center justify-center text-3xl mb-4">',
+  '              {c.icon}',
+  '            </div>',
+  '            <h3 className="text-xl font-bold text-foreground mb-3">{c.title}</h3>',
+  '            <p className="text-foreground/80 text-sm leading-relaxed">{c.text}</p>',
+  '          </motion.div>',
+  '        ))}',
+  '      </div>',
+  '      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.6 }} className="mt-6 px-5">',
+  '        <Btn onClick={onNext}>{t("Continue")}</Btn>',
+  '      </motion.div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+  '/* \u2500\u2500\u2500 SCREEN 9: Suggestions \u2500\u2500\u2500 */',
+  'const S9 = ({ onNext }: { answers: Answers; setAnswer: (k: string, v: string | number) => void; revealStep: number; onNext: () => void }) => {',
+  '  const { t } = useTranslation("hub");',
+  '  const tips = [t("Trying small changes in safe spaces"), t("Journaling your feelings"), t("Experimenting privately with expression"), t("Talking to someone you trust")];',
+  '  return (',
+  '    <div className="flex flex-1 flex-col px-5 py-8 overflow-y-auto">',
+  '      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={anim}>',
+  '        <p className="text-2xl mb-2">{t("\uD83D\uDCA1")}</p>',
+  '        <h2 className="text-lg font-semibold text-foreground mb-4">{t("You might explore")}</h2>',
+  '        <ul className="flex flex-col gap-2.5 mb-8">',
+  '          {tips.map((s, i) => (',
+  '            <motion.li key={s} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ ...anim, delay: 0.1 + i * 0.06 }}',
+  '              className="cloud-shadow rounded-2xl bg-card/80 px-5 py-3.5">',
+  '              <p className="text-foreground text-sm">{s}</p>',
+  '            </motion.li>',
+  '          ))}',
+  '        </ul>',
+  '      </motion.div>',
+  '      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.4 }} className="mt-auto">',
+  '        <Btn onClick={onNext}>{t("Continue")}</Btn>',
+  '      </motion.div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+  '/* \u2500\u2500\u2500 SCREEN 10: Closing \u2500\u2500\u2500 */',
+  'const S10 = ({ onHistory, onSave, isSaving, onBackToHub, onShare }: { onHistory: () => void; onSave: () => void; isSaving: boolean; onBackToHub: () => void; onShare: () => void }) => {',
+  '  const { t } = useTranslation("hub");',
+  '  return (',
+  '    <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">',
+  '      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim}',
+  '        className="cloud-shadow rounded-3xl bg-card/80 p-8 w-full mb-8">',
+  '        <p className="text-foreground text-base leading-relaxed text-center">{t("You don\'t have to figure everything out right now. Give yourself permission to explore at your own pace.")}</p>',
+  '      </motion.div>',
+  '      <div className="w-full flex flex-col gap-3">',
+  '        <button',
+  '          onClick={onShare}',
+  '          className="flex items-center justify-center gap-2 px-6 py-2.5 mx-auto rounded-full border border-purple-200 bg-purple-50/50 text-purple-600 hover:bg-purple-100/50 transition-all text-sm font-bold shadow-sm mb-2"',
+  '        >',
+  '          <Share2 size={16} />',
+  '          <span>{t("Share")}</span>',
+  '        </button>',
+  '        <Btn onClick={onSave} disabled={isSaving}>{isSaving ? t("Saving...") : t("Save my profile")}</Btn>',
+  '        <Btn onClick={onHistory} variant="secondary">{t("View history")}</Btn>',
+  '        <Btn onClick={onBackToHub} variant="ghost">{t("Back to Hub")}</Btn>',
+  '      </div>',
+  '    </div>',
+  '  );',
+  '};',
+  '',
+  'export default ExploreIdentity;',
+  '',
+];
+
+// Build the new file:
+// Keep lines 0-205 (1-indexed 1-206: good content up to </ShareModal />)
+// Add proper closing for ExploreIdentity
+// Keep lines 316-584 (1-indexed 317-585: HistoryScreen through S5)
+// Add S6-S10 + export
+
+const kept1 = lines.slice(0, 206);   // lines 1-206 (0-indexed 0-205)
+const kept2 = lines.slice(316, 585); // lines 317-585 (0-indexed 316-584): HistoryScreen through S5
+
+const result = [
+  ...kept1,
+  ...closing,
+  ...kept2,
+  ...s6toS10,
+].join('\n');
+
+fs.writeFileSync(filePath, result);
+console.log('ExploreIdentity.tsx rebuilt successfully.');
+console.log('Total lines:', result.split('\n').length);

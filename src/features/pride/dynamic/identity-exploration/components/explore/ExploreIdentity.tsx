@@ -204,111 +204,6 @@ const ExploreIdentity = () => {
           onClose={() => setIsShareOpen(false)} 
           title={t("Share My Identity Profile")}
         />
-  const { t } = useTranslation("hub");
-  const navigate = useNavigate();
-  const [screen, setScreen] = useState(0);
-  const [answers, setAnswers] = useState<Answers>({});
-  const [revealStep, setRevealStep] = useState(0);
-  const [showHistory, setShowHistory] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isShareOpen, setIsShareOpen] = useState(false);
-
-  const next = useCallback(() => { setScreen(s => s + 1); setRevealStep(0); }, []);
-  const prev = useCallback(() => { 
-    if (screen > 0) {
-      setScreen(s => s - 1);
-      setRevealStep(0);
-    } else {
-      window.parent.postMessage("exit_activity", "*");
-      window.location.href = "/pride/lgbtq-hub" + window.location.search;
-    }
-  }, [screen]);
-
-  const setAnswer = useCallback((k: string, v: string | number) => {
-    setAnswers(a => ({ ...a, [k]: v }));
-    setTimeout(() => setRevealStep(s => s + 1), 400);
-  }, []);
-  const toggleMulti = useCallback((k: string, v: string) => {
-    setAnswers(a => {
-      const c = (a[k] as string[]) || [];
-      return { ...a, [k]: c.includes(v) ? c.filter(x => x !== v) : [...c, v] };
-    });
-  }, []);
-
-  const saveProfile = async () => {
-    setIsSaving(true);
-    try {
-      const userId = sessionStorage.getItem('user_id');
-      if (!userId) throw new Error('No user session');
-
-      await sql`
-        INSERT INTO identity_exploration_entries (user_id, data)
-        VALUES (${userId}, ${JSON.stringify(answers)})
-      `;
-      toast.success('Profile saved to your journey!');
-    } catch (err) {
-      console.error('Failed to save profile:', err);
-      const history = JSON.parse(localStorage.getItem("identity_exploration_history") || "[]");
-      history.push({ date: new Date().toISOString(), answers });
-      localStorage.setItem("identity_exploration_history", JSON.stringify(history));
-      toast.success('Saved locally. Connect to sync.');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  if (showHistory) {
-    return (
-      <div className="activity-root">
-        <PrideFloatingOrbs />
-        <div className="activity-container-sm py-8 relative z-10">
-          <PrideActivityHeader title={t("Exploration History")} onBack={() => setShowHistory(false)} className="mb-8" />
-          <HistoryScreen onBack={() => setShowHistory(false)} />
-        </div>
-      </div>
-    );
-  }
-
-  const screens = [
-    <S0 key={0} onNext={next} onHistory={() => setShowHistory(true)} onBack={() => {
-      window.parent.postMessage("exit_activity", "*");
-      window.location.href = "/pride/lgbtq-hub" + window.location.search;
-    }} />,
-    <S1 key={1} onNext={next} />,
-    <S2 key={2} {...{ answers, setAnswer, revealStep, onNext: next }} />,
-    <S3 key={3} {...{ answers, setAnswer, revealStep, onNext: next, toggleMulti }} />,
-    <S4 key={4} {...{ answers, setAnswer, revealStep, onNext: next }} />,
-    <S5 key={5} {...{ answers, setAnswer, revealStep, onNext: next }} />,
-    <S6 key={6} {...{ answers, setAnswer, revealStep, onNext: next }} />,
-    <S7 key={7} onNext={next} />,
-    <S8 key={8} onNext={next} />,
-    <S9 key={9} {...{ answers, setAnswer, revealStep, onNext: next }} />,
-    <S10 key={10} onHistory={() => setShowHistory(true)} onSave={saveProfile} isSaving={isSaving} onBackToHub={() => {
-      window.parent.postMessage("exit_activity", "*");
-      window.location.href = "/pride/lgbtq-hub" + window.location.search;
-    }} onShare={() => setIsShareOpen(true)} />,
-  ];
-
-  return (
-    <div className="activity-root">
-      <PrideFloatingOrbs />
-      <div className="activity-container-sm py-8 flex flex-col min-h-screen relative z-10">
-        <PrideActivityHeader 
-          title={t("Identity Exploration")} 
-          subtitle={t("Reflect on your journey")}
-          onBack={screen > 0 ? prev : undefined}
-          className="mb-8"
-        />
-        <AnimatePresence mode="wait">
-          <motion.div key={screen} variants={pageV} initial="enter" animate="center" exit="exit" transition={anim} className="flex flex-1 flex-col">
-            {screens[screen]}
-          </motion.div>
-        </AnimatePresence>
-        <ShareModal 
-          isOpen={isShareOpen} 
-          onClose={() => setIsShareOpen(false)} 
-          title={t("Share My Identity Profile")}
-        />
       </div>
     </div>
   );
@@ -584,19 +479,128 @@ const S5 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
 };
 
 /* ─── SCREEN 6: Euphoria ─── */
-const S6 = ({ answers, setAnswer, onNext }: ScreenProps) => { 
-      <button
-        onClick={onShare}
-        className="flex items-center justify-center gap-2 px-6 py-2.5 mx-auto rounded-full border border-purple-200 bg-purple-50/50 text-purple-600 hover:bg-purple-100/50 transition-all text-sm font-bold shadow-sm mb-2"
-      >
-        <Share2 size={16} />
-        <span>{t("Share")}</span>
-      </button>
-      <Btn onClick={onSave} disabled={isSaving}>{isSaving ? t("Saving...") : t("Save my profile")}</Btn>
-      <Btn onClick={onHistory} variant="secondary">{t("View history")}</Btn>
-      <Btn onClick={onBackToHub} variant="ghost">{t("Back to Hub")}</Btn>
+const S6 = ({ answers, setAnswer, onNext }: ScreenProps) => {
+  const { t } = useTranslation("hub");
+  const opts = [t("Expressing myself freely"), t("When others see me how I feel"), t("In certain clothes/styles"), t("When I'm alone"), t("Still figuring it out"), t("Other")];
+  return (
+    <div className="flex flex-1 flex-col px-5 py-8 overflow-y-auto">
+      <Dots total={5} current={5} />
+      <div className="mt-6 flex flex-col gap-4">
+        <Bubble>{t("Let's also notice the moments that feel right.")}</Bubble>
+        <QuestionBubble delay={0.15}>{t("When do you feel most like yourself?")}</QuestionBubble>
+        <div className="mt-2 flex flex-col gap-2.5">
+          {opts.map((o, i) => <Opt key={o} label={o} delay={0.2 + i * 0.04} selected={answers.euph === o} onClick={() => setAnswer("euph", o)} />)}
+        </div>
+        {answers.euph && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.3 }} className="mt-6">
+            <Btn onClick={onNext}>{t("Continue")}</Btn>
+          </motion.div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+/* ─── SCREEN 7: Reflection Pause ─── */
+const S7 = ({ onNext }: { onNext: () => void }) => {
+  const { t } = useTranslation("hub");
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={anim} className="w-full text-center">
+        <div className="mx-auto mb-6 h-20 w-20 rounded-full animate-breathe" style={{ background: "linear-gradient(135deg, hsl(0 75% 65% / 0.4), hsl(30 85% 60% / 0.4), hsl(50 90% 65% / 0.4), hsl(140 55% 50% / 0.3), hsl(210 70% 55% / 0.4), hsl(275 60% 60% / 0.4))" }} />
+        <p className="justified-text text-foreground text-base px-2">{t("Thank you for sharing all of this. Let's reflect on what this might mean for you.")}</p>
+      </motion.div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.6 }} className="mt-10 w-full">
+        <Btn onClick={onNext}>{t("Continue")}</Btn>
+      </motion.div>
+    </div>
+  );
+};
+
+/* ─── SCREEN 8: Results ─── */
+const S8 = ({ onNext }: { onNext: () => void }) => {
+  const { t } = useTranslation("hub");
+  const cards = [
+    { icon: "🌈", title: t("Identity"), text: t("You may be exploring your gender and what feels right for you.") },
+    { icon: "🎨", title: t("Expression"), text: t("You seem drawn to expressions that help you feel more like yourself.") },
+    { icon: "💭", title: t("Comfort"), text: t("You feel most at ease in spaces where you feel safe and accepted.") },
+    { icon: "⚖️", title: t("Discomfort"), text: t("Some situations may bring moments of unease or disconnection.") },
+    { icon: "💖", title: t("Affirming Moments"), text: t("You feel most aligned when you can express yourself freely.") },
+  ];
+  return (
+    <div className="flex flex-1 flex-col py-8 overflow-y-auto">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={anim} className="text-center mb-6 px-5">
+        <p className="text-3xl mb-2">{t("✨")}</p>
+        <h2 className="text-xl font-semibold text-foreground tracking-tight">{t("Your Gender Expression Profile")}</h2>
+        <p className="text-sm text-muted-foreground mt-1 px-2 text-center">{t("This isn't a label—just a reflection of what you shared.")}</p>
+      </motion.div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-5 no-scrollbar">
+        {cards.map((c, i) => (
+          <motion.div key={c.title} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ ...anim, delay: 0.1 + i * 0.08 }}
+            className="premium-card w-[280px] sm:w-[320px] snap-center p-8 flex-shrink-0 flex flex-col items-center text-center">
+            <div className="w-16 h-16 bg-pride-purple/10 rounded-full flex items-center justify-center text-3xl mb-4">
+              {c.icon}
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-3">{c.title}</h3>
+            <p className="text-foreground/80 text-sm leading-relaxed">{c.text}</p>
+          </motion.div>
+        ))}
+      </div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.6 }} className="mt-6 px-5">
+        <Btn onClick={onNext}>{t("Continue")}</Btn>
+      </motion.div>
+    </div>
+  );
+};
+
+/* ─── SCREEN 9: Suggestions ─── */
+const S9 = ({ onNext }: { answers: Answers; setAnswer: (k: string, v: string | number) => void; revealStep: number; onNext: () => void }) => {
+  const { t } = useTranslation("hub");
+  const tips = [t("Trying small changes in safe spaces"), t("Journaling your feelings"), t("Experimenting privately with expression"), t("Talking to someone you trust")];
+  return (
+    <div className="flex flex-1 flex-col px-5 py-8 overflow-y-auto">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={anim}>
+        <p className="text-2xl mb-2">{t("💡")}</p>
+        <h2 className="text-lg font-semibold text-foreground mb-4">{t("You might explore")}</h2>
+        <ul className="flex flex-col gap-2.5 mb-8">
+          {tips.map((s, i) => (
+            <motion.li key={s} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ ...anim, delay: 0.1 + i * 0.06 }}
+              className="cloud-shadow rounded-2xl bg-card/80 px-5 py-3.5">
+              <p className="text-foreground text-sm">{s}</p>
+            </motion.li>
+          ))}
+        </ul>
+      </motion.div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.4 }} className="mt-auto">
+        <Btn onClick={onNext}>{t("Continue")}</Btn>
+      </motion.div>
+    </div>
+  );
+};
+
+/* ─── SCREEN 10: Closing ─── */
+const S10 = ({ onHistory, onSave, isSaving, onBackToHub, onShare }: { onHistory: () => void; onSave: () => void; isSaving: boolean; onBackToHub: () => void; onShare: () => void }) => {
+  const { t } = useTranslation("hub");
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center px-6 py-12">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim}
+        className="cloud-shadow rounded-3xl bg-card/80 p-8 w-full mb-8">
+        <p className="text-foreground text-base leading-relaxed text-center">{t("You don't have to figure everything out right now. Give yourself permission to explore at your own pace.")}</p>
+      </motion.div>
+      <div className="w-full flex flex-col gap-3">
+        <button
+          onClick={onShare}
+          className="flex items-center justify-center gap-2 px-6 py-2.5 mx-auto rounded-full border border-purple-200 bg-purple-50/50 text-purple-600 hover:bg-purple-100/50 transition-all text-sm font-bold shadow-sm mb-2"
+        >
+          <Share2 size={16} />
+          <span>{t("Share")}</span>
+        </button>
+        <Btn onClick={onSave} disabled={isSaving}>{isSaving ? t("Saving...") : t("Save my profile")}</Btn>
+        <Btn onClick={onHistory} variant="secondary">{t("View history")}</Btn>
+        <Btn onClick={onBackToHub} variant="ghost">{t("Back to Hub")}</Btn>
+      </div>
+    </div>
+  );
+};
 
 export default ExploreIdentity;
