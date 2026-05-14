@@ -111,7 +111,7 @@ export function LesbianGuide() {
       if (link.startsWith('http')) {
         window.open(link, '_blank');
       } else {
-        navigate(link);
+        navigate(link + window.location.search);
       }
     }
   };

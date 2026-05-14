@@ -67,7 +67,7 @@ export function LGBTQSelfCare() {
       if (link.startsWith('http')) {
         window.location.href = link;
       } else {
-        navigate(link);
+        navigate(link + window.location.search);
       }
     }
   };

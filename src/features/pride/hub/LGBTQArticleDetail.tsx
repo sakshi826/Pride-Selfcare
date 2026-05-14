@@ -674,7 +674,7 @@ export function LGBTQArticleDetail() {
                 {t("Want to read more stories and insights from the community?")}
               </p>
               <button
-                onClick={() => navigate("/lgbtq-articles")}
+                onClick={() => navigate("/lgbtq-articles" + window.location.search)}
                 style={{ 
                   background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
                   backgroundColor: '#8B5CF6' 

@@ -102,7 +102,7 @@ export function LGBTQArticles() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          onClick={() => navigate(`/lgbtq-article/${featuredArticle.id}`)}
+          onClick={() => navigate(`/lgbtq-article/${featuredArticle.id}` + window.location.search)}
           className="relative w-full rounded-[40px] p-8 md:p-10 mb-12 overflow-hidden group cursor-pointer text-left shadow-2xl shadow-purple-200 hover:shadow-purple-300 transition-all border border-white"
           style={{ background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)' }}
         >
@@ -160,7 +160,7 @@ export function LGBTQArticles() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + idx * 0.05 }}
-              onClick={() => navigate(`/lgbtq-article/${article.id}`)}
+              onClick={() => navigate(`/lgbtq-article/${article.id}` + window.location.search)}
               className="bg-white/80 backdrop-blur-md rounded-[32px] p-7 border border-white hover:shadow-2xl hover:shadow-purple-100 transition-all group text-left h-full flex flex-col shadow-sm"
             >
               <div className="flex-1 space-y-5">

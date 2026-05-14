@@ -27,7 +27,7 @@ export function LGBTQAssessments() {
     if (link.startsWith('http')) {
       window.location.href = link;
     } else if (link !== "#") {
-      navigate(link);
+      navigate(link + window.location.search);
     }
   };
 

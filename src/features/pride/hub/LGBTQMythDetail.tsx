@@ -84,13 +84,13 @@ export function LGBTQMythDetail() {
 
   const handlePrev = () => {
     if (hasPrev) {
-      navigate(`/lgbtq-myth/${mythsData[currentIndex - 1].id}`);
+      navigate(`/lgbtq-myth/${mythsData[currentIndex - 1].id}` + window.location.search);
     }
   };
 
   const handleNext = () => {
     if (hasNext) {
-      navigate(`/lgbtq-myth/${mythsData[currentIndex + 1].id}`);
+      navigate(`/lgbtq-myth/${mythsData[currentIndex + 1].id}` + window.location.search);
     }
   };
 

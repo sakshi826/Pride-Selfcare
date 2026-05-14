@@ -41,7 +41,7 @@ export function Sidebar() {
         {mainNavItems.map((item) => (
           <button
             key={item.label}
-            onClick={() => navigate(item.path)}
+            onClick={() => navigate(item.path + window.location.search)}
             className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all ${
               isActive(item.path) ? "bg-[#00c0ff] text-white" : "text-[#64748B] hover:bg-slate-50"
             }`}

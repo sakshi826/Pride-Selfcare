@@ -60,7 +60,7 @@ export function LGBTQTips() {
                 variants={item}
                 whileHover={{ scale: 1.01, x: 5 }}
                 whileTap={{ scale: 0.99 }}
-                onClick={() => navigate(tip.link)}
+                onClick={() => navigate(tip.link + window.location.search)}
                 className="w-full bg-white/80 backdrop-blur-md rounded-3xl p-6 md:p-7 flex items-center gap-6 shadow-sm hover:shadow-xl transition-all border border-white group relative overflow-hidden text-left"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-50/0 via-purple-50/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

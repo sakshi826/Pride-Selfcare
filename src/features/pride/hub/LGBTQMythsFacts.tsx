@@ -81,7 +81,7 @@ export function LGBTQMythsFacts() {
               variants={item}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              onClick={() => navigate(`/lgbtq-myth/${mythFact.id}`)}
+              onClick={() => navigate(`/lgbtq-myth/${mythFact.id}` + window.location.search)}
               className="w-full bg-white/80 backdrop-blur-md rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-white group text-left"
             >
               <div className="bg-red-50/50 p-6 border-b border-red-100 group-hover:bg-red-100/50 transition-colors">
