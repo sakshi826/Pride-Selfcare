@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import { useTranslation } from "react-i18next";
 import { Story } from "../data/stories";
 import { useState } from "react";
 import { Share2 } from "lucide-react";
@@ -12,6 +12,7 @@ interface StoryDetailProps {
 }
 
 const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
+  const { t } = useTranslation("minis");
   const [isShareOpen, setIsShareOpen] = useState(false);
   const portraitUrl = story.portrait;
 
@@ -25,7 +26,7 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
         onClick={onBack}
         className="mb-12 flex items-center gap-2 text-slate-400 hover:text-[#8B5CF6] font-bold transition-colors"
       >
-        <span className="text-xl">←</span> All Stories
+        <span className="text-xl">←</span> {t("All Stories")}
       </button>
 
       <div className="relative mb-12">
@@ -45,17 +46,15 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
               borderColor: story.color.border
             }}
           >
-            {story.identity}
+            {t(story.identity)}
           </span>
         </div>
       </div>
 
-
-
       <div className="space-y-8 mb-16">
         {story.story.map((para, i) => (
           <p key={i} className="text-lg md:text-xl text-slate-700 leading-relaxed font-medium">
-            {para}
+            {t(para)}
           </p>
         ))}
       </div>
@@ -70,7 +69,7 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
         }}
       >
         <p className="text-2xl md:text-3xl font-bold italic leading-tight">
-          "{story.highlight}"
+          "{t(story.highlight)}"
         </p>
       </motion.div>
 
@@ -89,10 +88,10 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
           className="block text-xs font-black uppercase tracking-[0.2em] mb-6 opacity-60"
           style={{ color: story.color.tagText }}
         >
-          💭 Something to sit with
+          💭 {t("Something to sit with")}
         </span>
         <p className="text-xl text-slate-800 leading-relaxed font-semibold">
-          {story.takeaway}
+          {t(story.takeaway)}
         </p>
       </div>
 
@@ -102,7 +101,7 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
           className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-full border border-purple-200 bg-purple-50/50 text-purple-600 hover:bg-purple-100/50 transition-all text-sm font-bold shadow-sm"
         >
           <Share2 size={16} />
-          <span>Share Story</span>
+          <span>{t("Share Story")}</span>
         </button>
 
         <button 
@@ -110,14 +109,14 @@ const StoryDetail = ({ story, index, onBack }: StoryDetailProps) => {
           className="px-10 py-5 rounded-3xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold transition-all flex items-center gap-3 group"
         >
           <span className="transition-transform group-hover:-translate-x-2">←</span> 
-          Back to All Stories
+          {t("Back to All Stories")}
         </button>
       </div>
 
       <ShareModal 
         isOpen={isShareOpen} 
         onClose={() => setIsShareOpen(false)} 
-        title="Share This Story"
+        title={t("Share This Story")}
       />
     </motion.div>
   );

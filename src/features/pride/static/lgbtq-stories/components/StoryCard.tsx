@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import { useTranslation } from "react-i18next";
 import { Story } from "../data/stories";
 
 interface StoryCardProps {
@@ -9,6 +9,7 @@ interface StoryCardProps {
 }
 
 const StoryCard = ({ story, index, onClick }: StoryCardProps) => {
+  const { t } = useTranslation("minis");
   const avatarUrl = story.avatar || story.portrait;
 
   return (
@@ -45,17 +46,17 @@ const StoryCard = ({ story, index, onClick }: StoryCardProps) => {
               className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider w-fit"
               style={{ background: story.color.tagBg, color: story.color.tagText }}
             >
-              {story.identity}
+              {t(story.identity)}
             </span>
           </div>
         </div>
         
         <p className="text-slate-600 text-sm leading-relaxed italic line-clamp-3">
-          "{story.quote}"
+          "{t(story.quote)}"
         </p>
 
         <div className="mt-6 flex items-center text-xs font-bold text-[#8B5CF6] opacity-0 group-hover:opacity-100 transition-opacity">
-          Read Full Story <span className="ml-1">→</span>
+          {t("Read Full Story")} <span className="ml-1">→</span>
         </div>
       </div>
     </motion.div>
