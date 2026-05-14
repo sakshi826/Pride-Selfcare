@@ -1,6 +1,5 @@
 {
   " ": " ",
-  " { setPauseDone(true); onNext(); }}>Continue": " { setPauseDone(true); onNext(); }}>Continue",
   "5 min read": "5 min read",
   "6 min read": "6 min read",
   "7 min read": "7 min read",
@@ -253,6 +252,8 @@
   "River Song": "River Song",
   "Safety isn't just physical — it's emotional, too. Even one corner of your life where you can fully exhale makes an enormous difference to your nervous system and mental health.": "Safety isn't just physical — it's emotional, too. Even one corner of your life where you can fully exhale makes an enormous difference to your nervous system and mental health.",
   "Same-sex couples can't raise healthy, happy children.": "Same-sex couples can't raise healthy, happy children.",
+  "Save my profile": "Save my profile",
+  "Saving...": "Saving...",
   "Select all that apply": "Select all that apply",
   "Self-Care": "Self-Care",
   "Self-Discovery Tests": "Self-Discovery Tests",
@@ -372,7 +373,6 @@
   "Your orientation is about who you're attracted to, not who you're currently with.": "Your orientation is about who you're attracted to, not who you're currently with.",
   "Your path is your own. You don't need to have all the same experiences as people who came out young to be 'really' LGBTQ+. Your identity is valid regardless of when you claimed it.": "Your path is your own. You don't need to have all the same experiences as people who came out young to be 'really' LGBTQ+. Your identity is valid regardless of when you claimed it.",
   "articles": "articles",
-  "{isSaving ? 'Saving...' : 'Save my profile'}": "{isSaving ? 'Saving...' : 'Save my profile'}",
   "{{label}} Guide": "{{label}} Guide",
   "← Prev": "← Prev",
   "⏱ Takes about 3–5 minutes": "⏱ Takes about 3–5 minutes",

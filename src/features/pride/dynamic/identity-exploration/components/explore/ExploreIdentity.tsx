@@ -463,7 +463,7 @@ const S5 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t}
             className="mt-6 cloud-shadow rounded-3xl bg-card/80 p-6">
             <p className="justified-text text-foreground mb-4">{t("Thanks for sharing that. Take a moment if you need.")}</p>
-            <Btn onClick={() =>{t(" { setPauseDone(true); onNext(); }}>Continue")}</Btn>
+            <Btn onClick={() => { setPauseDone(true); onNext(); }}>{t("Continue")}</Btn>
           </motion.div>
         )}
       </div>
@@ -581,7 +581,7 @@ const S10 = ({ onHistory, onSave, isSaving, onBackToHub, onShare }: { onHistory:
         <Share2 size={16} />
         <span>{t("Share")}</span>
       </button>
-      <Btn onClick={onSave} disabled={isSaving}>{t("{isSaving ? 'Saving...' : 'Save my profile'}")}</Btn>
+      <Btn onClick={onSave} disabled={isSaving}>{isSaving ? t("Saving...") : t("Save my profile")}</Btn>
       <Btn onClick={onHistory} variant="secondary">{t("View history")}</Btn>
       <Btn onClick={onBackToHub} variant="ghost">{t("Back to Hub")}</Btn>
     </div>
