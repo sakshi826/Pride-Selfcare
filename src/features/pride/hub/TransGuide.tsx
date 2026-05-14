@@ -124,7 +124,7 @@ export function TransGuide() {
         <PrideActivityHeader 
           title={t("Trans Guide")} 
           subtitle={t("Support and resources for the trans community")}
-          onBack={() => navigate('/lgbtq-hub')}
+          onBack={() => navigate('/lgbtq-hub' + window.location.search)}
           className="mb-8"
         />
 

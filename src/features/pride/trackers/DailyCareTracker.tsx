@@ -77,7 +77,7 @@ export default function DailyCareTracker() {
               setStep(step - 1);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              window.location.href = "/pride/lgbtq-hub" + window.location.search;
+              window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
             }
           }}
         />

@@ -304,7 +304,7 @@ export default function ComingOutActivity() {
 
         <div className="absolute top-6 left-6 z-50">
           <button
-            onClick={() => navigate('/lgbtq-hub')}
+            onClick={() => navigate('/lgbtq-hub' + window.location.search)}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-purple-600 transition-all"
           >
             <ChevronLeft size={18} strokeWidth={2.5} />
@@ -337,7 +337,7 @@ export default function ComingOutActivity() {
               <button
                 onClick={() => {
                   window.parent.postMessage("exit_activity", "*");
-                  window.location.href = "/pride/lgbtq-hub" + window.location.search;
+                  window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
                 }}
                 className="font-body text-sm text-white bg-bi-purple px-6 py-2.5 rounded-full hover:opacity-70 transition-opacity flex-1"
               >
@@ -369,7 +369,7 @@ export default function ComingOutActivity() {
 
       <div className="w-full max-w-[440px] px-4 pt-4 mb-6 relative z-50">
         <button
-          onClick={() => navigate('/lgbtq-hub')}
+          onClick={() => navigate('/lgbtq-hub' + window.location.search)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-purple-600 transition-all"
         >
           <ChevronLeft size={18} strokeWidth={2.5} />

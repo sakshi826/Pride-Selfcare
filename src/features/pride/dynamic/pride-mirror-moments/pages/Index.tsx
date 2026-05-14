@@ -80,7 +80,7 @@ const Index = () => {
 
   const handleBack = useCallback(() => {
     if (screen === "intro") {
-      navigate('/lgbtq-hub');
+      navigate('/lgbtq-hub' + window.location.search);
     } else {
       setScreen("intro");
       setNotes([]);
@@ -127,7 +127,7 @@ const Index = () => {
                 onSave={handleSave}
                 onAddMore={handleAddMore}
                 onViewSaved={handleViewSaved}
-                onBackToHub={() => navigate('/lgbtq-hub')}
+                onBackToHub={() => navigate('/lgbtq-hub' + window.location.search)}
               />
             )}
             {screen === "saved" && (

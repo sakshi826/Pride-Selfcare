@@ -22,7 +22,7 @@ export function IdentityGuide({ type }: GuideProps) {
     <div className={`min-h-screen ${data.bg}`}>
       <main className="flex-1 p-6 md:p-10 max-w-4xl mx-auto">
         <header className="mb-10 flex items-center gap-4">
-          <button onClick={() => navigate('/lgbtq-hub')} className="p-2 hover:bg-white rounded-xl shadow-sm border border-slate-200">
+          <button onClick={() => navigate('/lgbtq-hub' + window.location.search)} className="p-2 hover:bg-white rounded-xl shadow-sm border border-slate-200">
             <ChevronLeft size={20} />
           </button>
           <div>

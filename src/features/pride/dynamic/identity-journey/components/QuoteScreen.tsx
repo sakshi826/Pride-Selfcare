@@ -77,7 +77,7 @@ const QuoteScreen = ({ selectedIndex, onClose }: QuoteScreenProps) => {
           transition={{ duration: 0.4, delay: 0.9 }}
           onClick={() => {
             window.parent.postMessage("exit_activity", "*");
-            window.location.href = "/pride/lgbtq-hub" + window.location.search;
+            window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
           }}
           className="px-8 py-3.5 bg-white/50 backdrop-blur-sm border border-primary/10 text-primary font-bold rounded-2xl hover:bg-primary/5 hover:scale-[1.02] active:scale-[0.98] transition-all w-full"
         >

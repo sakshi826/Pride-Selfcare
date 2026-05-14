@@ -43,7 +43,7 @@ const Index = () => {
           <PrideActivityHeader 
             title="Bisexual Stories" 
             subtitle="Voices from the bisexual community"
-            onBack={() => navigate('/lgbtq-hub')}
+            onBack={() => navigate('/lgbtq-hub' + window.location.search)}
             className="mb-0"
           />
         </div>

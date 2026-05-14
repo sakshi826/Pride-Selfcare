@@ -93,7 +93,7 @@ export function LGBTQArticles() {
         <PrideActivityHeader 
           title={t("LGBTQ+ Articles")} 
           subtitle={t("Insights and stories from the community")}
-          onBack={() => navigate('/lgbtq-hub')}
+          onBack={() => navigate('/lgbtq-hub' + window.location.search)}
           className="mb-8"
         />
 

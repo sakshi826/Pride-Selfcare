@@ -60,7 +60,7 @@ const ExplorerFlow = () => {
   const next = () => goTo(screen + 1);
   const prev = () => {
     if (screen === 0) {
-      navigate('/lgbtq-hub');
+      navigate('/lgbtq-hub' + window.location.search);
       return;
     }
     goTo(Math.max(0, screen - 1));
@@ -405,7 +405,7 @@ const ExplorerFlow = () => {
                       <button onClick={() => setShowHistory(true)} className="btn-secondary w-full h-14 font-bold">
                         History
                       </button>
-                      <button onClick={() => navigate('/lgbtq-hub')} className="btn-secondary w-full h-14 font-bold">
+                      <button onClick={() => navigate('/lgbtq-hub' + window.location.search)} className="btn-secondary w-full h-14 font-bold">
                         Hub
                       </button>
                     </div>

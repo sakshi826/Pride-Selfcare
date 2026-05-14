@@ -41,7 +41,7 @@ export function LGBTQTips() {
         <PrideActivityHeader 
           title={t("LGBTQ+ Tips")} 
           subtitle={t("Advice and support for your journey")}
-          onBack={() => navigate('/lgbtq-hub')}
+          onBack={() => navigate('/lgbtq-hub' + window.location.search)}
           className="mb-8"
         />
 

@@ -36,7 +36,7 @@ const EndingScreen = ({ onDone }: Props) => {
     </button>
 
     <button
-      onClick={() => navigate('/lgbtq-hub')}
+      onClick={() => navigate('/lgbtq-hub' + window.location.search)}
       className="btn-primary w-full h-14 text-lg font-bold shadow-lg"
     >
       Back to Hub

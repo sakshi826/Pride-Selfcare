@@ -552,7 +552,7 @@ export function LGBTQArticleDetail() {
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ x: -4 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/lgbtq-hub')}
+            onClick={() => navigate('/lgbtq-hub' + window.location.search)}
             className="flex items-center justify-center w-10 h-10 rounded-xl bg-white/80 backdrop-blur-sm text-[#64748B] hover:text-[#020817] hover:bg-white transition-all shadow-sm hover:shadow-md border border-gray-100 mb-8"
           >
             <ChevronLeft size={20} strokeWidth={2.5} />
