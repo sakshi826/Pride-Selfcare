@@ -41,63 +41,49 @@ function getLanguageFromUrl(): string {
   return 'en';
 }
 
-import hubEn from '../features/pride/hub/i18n/en.json';
-import hubEs from '../features/pride/hub/i18n/es.json';
-import hubHi from '../features/pride/hub/i18n/hi.json';
-
 // Automatically load all translation files using Vite's glob import
 const hubModules = import.meta.glob('../features/pride/hub/i18n/*.json', { eager: true });
 const trackerModules = import.meta.glob('../features/pride/trackers/i18n/*.json', { eager: true });
 
-console.log("[i18n] Glob detected hub files:", Object.keys(hubModules).length);
-console.log("[i18n] Glob detected tracker files:", Object.keys(trackerModules).length);
+const resources: any = {};
 
-const resources: any = {
-  en: { hub: hubEn, tips: {}, guides: {}, trackers: {}, minis: {} },
-  es: { hub: hubEs, tips: {}, guides: {}, trackers: {}, minis: {} },
-  hi: { hub: hubHi, tips: {}, guides: {}, trackers: {}, minis: {} }
-};
+// Initialize resources for all supported languages
+SUPPORTED_LANGUAGES.forEach(lang => {
+  resources[lang] = { hub: {}, tips: {}, guides: {}, trackers: {}, minis: {} };
+});
 
-SUPPORTED_LANGUAGES.forEach((lang) => {
-  if (!resources[lang]) {
-    resources[lang] = {
-      hub: {},
-      tips: {},
-      guides: {},
-      trackers: {},
-      minis: {}
-    };
+// Single pass over hub modules to populate resources
+Object.entries(hubModules).forEach(([path, module]: [string, any]) => {
+  const fileName = path.split(/[\\/]/).pop() || '';
+  const content = module.default || module;
+  
+  // Extract namespace and language from fileName (e.g., "guides.es.json" or "es.json")
+  const parts = fileName.replace('.json', '').split('.');
+  let ns = 'hub';
+  let lang = '';
+  
+  if (parts.length === 1) {
+    lang = parts[0];
+  } else {
+    ns = parts[0];
+    lang = parts[1];
   }
 
-  // Map hub-related files
-  Object.entries(hubModules).forEach(([path, module]: [string, any]) => {
-    const fileName = path.split(/[\\/]/).pop() || '';
-    const content = module.default || module;
-    
-    if (fileName === `${lang}.json`) {
-      resources[lang].hub = content;
-    } else if (fileName === `tips.${lang}.json`) {
-      resources[lang].tips = content;
-    } else if (fileName === `guides.${lang}.json`) {
-      resources[lang].guides = content;
-    } else if (fileName === `minis.${lang}.json`) {
-      resources[lang].minis = content;
-    }
-  });
+  if (resources[lang]) {
+    resources[lang][ns] = content;
+  }
+});
 
-  // Map tracker files
-  Object.entries(trackerModules).forEach(([path, module]: [string, any]) => {
-    const fileName = path.split('/').pop() || '';
-    const content = module.default || module;
-    if (fileName === `${lang}.json`) {
-      resources[lang].trackers = content;
-    }
-  });
+// Map tracker files
+Object.entries(trackerModules).forEach(([path, module]: [string, any]) => {
+  const fileName = path.split(/[\\/]/).pop() || '';
+  const lang = fileName.replace('.json', '');
+  if (resources[lang]) {
+    resources[lang].trackers = module.default || module;
+  }
 });
 
 const detectedLang = getLanguageFromUrl();
-console.log("[i18n] Detected language:", detectedLang);
-console.log("[i18n] Hub keys for detected lang:", Object.keys(resources[detectedLang]?.hub || {}).length);
 
 i18n
   .use(initReactI18next)
@@ -109,7 +95,7 @@ i18n
     ns: ['hub', 'tips', 'guides', 'trackers', 'minis'],
     defaultNS: 'hub',
     react: {
-      useSuspense: false // Disable suspense globally to prevent blank screens
+      useSuspense: false
     }
   });
 
