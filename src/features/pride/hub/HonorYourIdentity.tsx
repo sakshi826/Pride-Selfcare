@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Write your identity down — in your own words, for yourself",
-  "Spend time with media that reflects your experience",
-  "Notice when you downplay yourself — and gently correct it",
-  "Celebrate small milestones in your journey",
-];
+import { useTranslation } from "react-i18next";
 
 export function HonorYourIdentity() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Write your identity down — in your own words, for yourself"),
+    t("Spend time with media that reflects your experience"),
+    t("Notice when you downplay yourself — and gently correct it"),
+    t("Celebrate small milestones in your journey"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function HonorYourIdentity() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Honor Your Identity
+                {t("Honor Your Identity")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function HonorYourIdentity() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Living in a world that often questions or erases your identity can cause you to internalize doubt. Regularly affirming your identity is a quiet act of resistance and self-love.
+              {t("Living in a world that often questions or erases your identity can cause you to internalize doubt. Regularly affirming your identity is a quiet act of resistance and self-love.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function HonorYourIdentity() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">

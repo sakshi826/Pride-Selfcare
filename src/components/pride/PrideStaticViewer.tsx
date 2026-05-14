@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { PrideActivityHeader } from "../../features/pride/components/PrideActivityHeader";
 import { PrideFloatingOrbs } from "../../features/pride/components/PrideFloatingOrbs";
 
@@ -19,8 +20,10 @@ const slugMetadata: Record<string, { title: string; subtitle: string }> = {
 export function PrideStaticViewer() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation("guides");
+  
   // Ensure we use a path relative to the public root, considering the basename
-  const src = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/static/pride/${slug}/index.html`;
+  const src = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/static/pride/${slug}/index.html?lang=${i18n.language}`;
   
   const metadata = slug ? slugMetadata[slug] : null;
 
@@ -32,8 +35,8 @@ export function PrideStaticViewer() {
       <div className="relative z-50 bg-white/40 backdrop-blur-md border-b border-white/20">
         <div className="activity-container-lg py-4">
           <PrideActivityHeader 
-            title={metadata?.title || "Pride Resources"} 
-            subtitle={metadata?.subtitle || "Explore and grow"}
+            title={metadata ? t(metadata.title) : t("Pride Resources")} 
+            subtitle={metadata ? t(metadata.subtitle) : t("Explore and grow")}
             className="mb-0"
           />
         </div>
@@ -47,7 +50,7 @@ export function PrideStaticViewer() {
           style={{
             border: "none",
           }}
-          sandbox="allow-scripts"
+          sandbox="allow-scripts allow-same-origin"
         />
       </div>
     </div>

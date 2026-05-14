@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Look for local LGBTQ+ centres or support groups",
-  "Join an online community that matches your identity",
-  "Attend one Pride or queer social event, even briefly",
-  "Reach out to one person who might understand you",
-];
+import { useTranslation } from "react-i18next";
 
 export function FindYourCommunity() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Look for local LGBTQ+ centres or support groups"),
+    t("Join an online community that matches your identity"),
+    t("Attend one Pride or queer social event, even briefly"),
+    t("Reach out to one person who might understand you"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function FindYourCommunity() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Find Your Community
+                {t("Find Your Community")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function FindYourCommunity() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Isolation is one of the biggest challenges LGBTQ+ people face. Being seen by others who share your experience isn't a luxury — it's a genuine source of healing and resilience.
+              {t("Isolation is one of the biggest challenges LGBTQ+ people face. Being seen by others who share your experience isn't a luxury — it's a genuine source of healing and resilience.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function FindYourCommunity() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">

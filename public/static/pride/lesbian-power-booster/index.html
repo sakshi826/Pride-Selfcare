@@ -277,7 +277,43 @@ html, body {
 }
 .restart-btn:hover { background:rgba(212,67,122,0.18); transform:translateY(-1px); }
 </style>
+
+<!-- Auto-Translation Script -->
+<script>
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let lang = urlParams.get('lang');
+  if (lang) {
+    // Map standard codes to Google Translate codes
+    const langMap = {
+      'zh-Hans': 'zh-CN',
+      'zh-Hant': 'zh-TW',
+    };
+    lang = langMap[lang] || lang;
+    if (lang !== 'en') {
+      document.cookie = "googtrans=/en/" + lang + "; path=/";
+      document.cookie = "googtrans=/en/" + lang + "; domain=" + window.location.hostname + "; path=/";
+      
+      const script = document.createElement('script');
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      document.head.appendChild(script);
+      
+      window.googleTranslateElementInit = function() {
+        new google.translate.TranslateElement({pageLanguage: 'en', autoDisplay: false});
+        // Hide the Google Translate banner
+        const style = document.createElement('style');
+        style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
+        document.head.appendChild(style);
+      };
+    } else {
+      // Clear translation cookie if English
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+  }
+})();
+</script>
 </head>
+
 <body>
 
 <div class="bg">

@@ -85,7 +85,7 @@ export default function SleepTracker() {
               setShowHistory(false);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              window.location.href = "/pride/lgbtq-hub";
+              window.location.href = "/pride/lgbtq-hub" + window.location.search;
             }
           }}
         />

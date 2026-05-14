@@ -286,7 +286,7 @@ const CardActivity = () => {
           <button
             onClick={() => {
               window.parent.postMessage("exit_activity", "*");
-              window.location.href = "/pride/lgbtq-hub";
+              window.location.href = "/pride/lgbtq-hub" + window.location.search;
             }}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-purple-600 transition-all"
           >
@@ -319,7 +319,7 @@ const CardActivity = () => {
               <button
                 onClick={() => {
                   window.parent.postMessage("exit_activity", "*");
-                  window.location.href = "/pride/lgbtq-hub";
+                  window.location.href = "/pride/lgbtq-hub" + window.location.search;
                 }}
                 className="py-4 px-8 rounded-2xl font-body font-bold text-base text-white transition-all hover:scale-[1.02] active:scale-95"
                 style={{ background: "linear-gradient(135deg, #d1006c, #6b35b8, #0050a0)" }}
@@ -353,7 +353,7 @@ const CardActivity = () => {
         <button
           onClick={() => {
             window.parent.postMessage("exit_activity", "*");
-            window.location.href = "/pride/lgbtq-hub";
+            window.location.href = "/pride/lgbtq-hub" + window.location.search;
           }}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-purple-600 transition-all"
         >

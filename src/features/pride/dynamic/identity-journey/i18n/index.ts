@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import en from './locales/en.json';
@@ -43,26 +43,22 @@ const resources = {
     tl: { translation: tl },
 };
 
-// URL Language Support
 const getLanguage = () => {
     const params = new URLSearchParams(window.location.search);
     const lang = params.get('lang');
     if (lang && resources[lang as keyof typeof resources]) {
-        localStorage.setItem('language', lang);
         return lang;
     }
     return localStorage.getItem('language') || 'en';
 };
 
-i18n
-    .use(initReactI18next)
-    .init({
-        resources,
-        lng: getLanguage(),
-        fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false,
-        },
-    });
+const i18n = i18next.createInstance();
+i18n.use(initReactI18next).init({
+    resources,
+    lng: getLanguage(),
+    fallbackLng: 'en',
+    defaultNS: 'translation',
+    interpolation: { escapeValue: false },
+});
 
 export default i18n;

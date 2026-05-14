@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Identify one space where you feel drained or unsafe",
-  "Decide what you're willing to share — and what's yours to keep",
-  "Practice a simple phrase to exit hard conversations",
-  "Give yourself permission to leave rooms that cost too much",
-];
+import { useTranslation } from "react-i18next";
 
 export function SetGentleBoundaries() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Identify one space where you feel drained or unsafe"),
+    t("Decide what you're willing to share — and what's yours to keep"),
+    t("Practice a simple phrase to exit hard conversations"),
+    t("Give yourself permission to leave rooms that cost too much"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function SetGentleBoundaries() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Set Gentle Boundaries
+                {t("Set Gentle Boundaries")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function SetGentleBoundaries() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Navigating family, workplaces, or social circles that aren't fully affirming takes energy. Boundaries help you decide when, where, and with whom you spend that energy.
+              {t("Navigating family, workplaces, or social circles that aren't fully affirming takes energy. Boundaries help you decide when, where, and with whom you spend that energy.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function SetGentleBoundaries() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">

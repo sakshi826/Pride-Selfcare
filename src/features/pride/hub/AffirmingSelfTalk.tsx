@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Notice one negative thought you have about yourself today",
-  "Ask: whose voice is this really?",
-  "Replace it with something true and kind — even if small",
-  "Write three things you appreciate about who you are",
-];
+import { useTranslation } from "react-i18next";
 
 export function AffirmingSelfTalk() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Notice one negative thought you have about yourself today"),
+    t("Ask: whose voice is this really?"),
+    t("Replace it with something true and kind — even if small"),
+    t("Write three things you appreciate about who you are"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function AffirmingSelfTalk() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Affirming Self-Talk
+                {t("Affirming Self-Talk")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function AffirmingSelfTalk() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Internalized shame often sounds like your own voice. Replacing those patterns with affirming language takes practice, but it genuinely reshapes how you see yourself over time.
+              {t("Internalized shame often sounds like your own voice. Replacing those patterns with affirming language takes practice, but it genuinely reshapes how you see yourself over time.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function AffirmingSelfTalk() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">

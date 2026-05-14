@@ -109,7 +109,7 @@ const ReflectionScreen = ({ stars, onSave, onCreateAnother }: ReflectionScreenPr
         <button
           onClick={() => {
             window.parent.postMessage("exit_activity", "*");
-            window.location.href = "/pride/lgbtq-hub";
+            window.location.href = "/pride/lgbtq-hub" + window.location.search;
           }}
           className="btn-secondary w-full h-14"
         >

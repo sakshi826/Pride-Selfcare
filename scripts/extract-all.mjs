@@ -59,6 +59,17 @@ hubFiles.forEach(file => {
         extractFromT(path.join(ROOT, 'src/features/pride/hub', file)).forEach(s => hubStrings.add(s));
     }
 });
+
+// Add Dynamic Identity Exploration strings to hub namespace
+const exploreDir = path.join(ROOT, 'src/features/pride/dynamic/identity-exploration/components/explore');
+if (fs.existsSync(exploreDir)) {
+    fs.readdirSync(exploreDir).forEach(file => {
+        if (file.endsWith('.tsx')) {
+            extractFromT(path.join(exploreDir, file)).forEach(s => hubStrings.add(s));
+        }
+    });
+}
+
 const hubResult = {};
 Array.from(hubStrings).sort().forEach(s => hubResult[s] = s);
 fs.writeFileSync(path.join(hubI18nDir, 'en.json'), JSON.stringify(hubResult, null, 2));

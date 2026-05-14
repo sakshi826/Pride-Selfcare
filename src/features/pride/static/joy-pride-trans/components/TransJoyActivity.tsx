@@ -322,7 +322,7 @@ export default function TransJoyActivity() {
               goPrev();
             } else {
               window.parent.postMessage("exit_activity", "*");
-              window.location.href = "/pride/lgbtq-hub";
+              window.location.href = "/pride/lgbtq-hub" + window.location.search;
             }
           }}
         />

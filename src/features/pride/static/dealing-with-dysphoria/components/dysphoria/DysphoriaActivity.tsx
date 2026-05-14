@@ -79,7 +79,7 @@ const DysphoriaActivity = () => {
               goTo(current - 1, -1);
             } else {
               window.parent.postMessage("exit_activity", "*");
-              window.location.href = "/pride/lgbtq-hub";
+              window.location.href = "/pride/lgbtq-hub" + window.location.search;
             }
           }}
         />

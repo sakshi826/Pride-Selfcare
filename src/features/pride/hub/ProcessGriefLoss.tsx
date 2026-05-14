@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Name what you've actually lost — don't minimize it",
-  "Allow yourself to feel it without rushing to be 'over it'",
-  "Talk to someone who won't ask you to explain why it hurts",
-  "Consider a therapist who specialises in LGBTQ+ experiences",
-];
+import { useTranslation } from "react-i18next";
 
 export function ProcessGriefLoss() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Name what you've actually lost — don't minimize it"),
+    t("Allow yourself to feel it without rushing to be 'over it'"),
+    t("Talk to someone who won't ask you to explain why it hurts"),
+    t("Consider a therapist who specialises in LGBTQ+ experiences"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function ProcessGriefLoss() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Process Grief & Loss
+                {t("Process Grief & Loss")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function ProcessGriefLoss() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Coming out, rejection, and identity transitions often carry real grief — for relationships, for the life you imagined, for time lost. That grief deserves space, not suppression.
+              {t("Coming out, rejection, and identity transitions often carry real grief — for relationships, for the life you imagined, for time lost. That grief deserves space, not suppression.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function ProcessGriefLoss() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">

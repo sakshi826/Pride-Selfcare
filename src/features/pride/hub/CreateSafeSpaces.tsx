@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
-
-const steps = [
-  "Identify one person, place, or group where you feel safe",
-  "Invest in making your own space feel like yours",
-  "Keep a small 'comfort kit' for hard days",
-  "Know your nearest LGBTQ+ affirming resource or hotline",
-];
+import { useTranslation } from "react-i18next";
 
 export function CreateSafeSpaces() {
+  const { t } = useTranslation("hub");
   const navigate = useNavigate();
+
+  const steps = [
+    t("Identify one person, place, or group where you feel safe"),
+    t("Invest in making your own space feel like yours"),
+    t("Keep a small 'comfort kit' for hard days"),
+    t("Know your nearest LGBTQ+ affirming resource or hotline"),
+  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#F9F6FE] via-[#FBF8FF] to-[#F5F3FF]">
@@ -33,7 +35,7 @@ export function CreateSafeSpaces() {
                 <ChevronLeft size={20} strokeWidth={2.5} />
               </motion.button>
               <h1 className="text-3xl md:text-4xl text-[#1E293B] font-bold tracking-tight">
-                Create Safe Spaces
+                {t("Create Safe Spaces")}
               </h1>
             </div>
 
@@ -49,10 +51,10 @@ export function CreateSafeSpaces() {
             className="mb-8 md:mb-10"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-4">
-              Why It Helps
+              {t("Why It Helps")}
             </h2>
             <p className="text-[#64748B] text-base md:text-lg leading-relaxed">
-              Safety isn't just physical — it's emotional, too. Even one corner of your life where you can fully exhale makes an enormous difference to your nervous system and mental health.
+              {t("Safety isn't just physical — it's emotional, too. Even one corner of your life where you can fully exhale makes an enormous difference to your nervous system and mental health.")}
             </p>
           </motion.div>
 
@@ -64,7 +66,7 @@ export function CreateSafeSpaces() {
             className="mb-8"
           >
             <h2 className="text-xl md:text-2xl font-bold text-[#1E293B] mb-6">
-              What You Can Do
+              {t("What You Can Do")}
             </h2>
 
             <div className="space-y-5">
