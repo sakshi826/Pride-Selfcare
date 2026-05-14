@@ -223,17 +223,17 @@ function renderCard(
     case 0:
       return (
         <ActivityCard
-          eyebrow="Welcome"
-          title="This Conversation Belongs to You"
+          eyebrow={t("Welcome")}
+          title={t("This Conversation Belongs to You")}
           color="pink"
-          button={{ label: "Let's begin →", onClick: next }}
-          notice="If your home environment feels unsafe, please prioritise your safety above disclosure."
+          button={{ label: t("Let's begin →"), onClick: next }}
+          notice={t("If your home environment feels unsafe, please prioritise your safety above disclosure.")}
         >
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Telling your family you are bisexual is one of the most personal decisions you can make. There is no right time, no perfect script, and no outcome you are obligated to produce. This activity is about helping you feel prepared — not pressured.
+            {t("Telling your family you are bisexual is one of the most personal decisions you can make. There is no right time, no perfect script, and no outcome you are obligated to produce. This activity is about helping you feel prepared — not pressured.")}
           </p>
-          <Affirmation text="You decide who knows, when, and how." />
-          <Affirmation text="Your safety and readiness come first." />
+          <Affirmation text={t("You decide who knows, when, and how.")} />
+          <Affirmation text={t("Your safety and readiness come first.")} />
         </ActivityCard>
       );
     case 1:
