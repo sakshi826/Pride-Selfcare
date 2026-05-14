@@ -15,9 +15,16 @@ function getLanguageFromUrl(): string {
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
   
-  if (lang && SUPPORTED_LANGUAGES.includes(lang)) {
-    localStorage.setItem('pride_lang', lang); // Save to local storage
-    return lang;
+  if (lang) {
+    const baseLang = lang.split('-')[0];
+    if (SUPPORTED_LANGUAGES.includes(lang)) {
+      localStorage.setItem('pride_lang', lang);
+      return lang;
+    }
+    if (SUPPORTED_LANGUAGES.includes(baseLang)) {
+      localStorage.setItem('pride_lang', baseLang);
+      return baseLang;
+    }
   }
 
   // Try localStorage
@@ -34,50 +41,76 @@ function getLanguageFromUrl(): string {
   return 'en';
 }
 
+import hubEn from '../features/pride/hub/i18n/en.json';
+import hubEs from '../features/pride/hub/i18n/es.json';
+import hubHi from '../features/pride/hub/i18n/hi.json';
+
 // Automatically load all translation files using Vite's glob import
-// This avoids 140+ manual import statements
 const hubModules = import.meta.glob('../features/pride/hub/i18n/*.json', { eager: true });
 const trackerModules = import.meta.glob('../features/pride/trackers/i18n/*.json', { eager: true });
 
-const resources: any = {};
+console.log("[i18n] Glob detected hub files:", Object.keys(hubModules).length);
+console.log("[i18n] Glob detected tracker files:", Object.keys(trackerModules).length);
+
+const resources: any = {
+  en: { hub: hubEn, tips: {}, guides: {}, trackers: {}, minis: {} },
+  es: { hub: hubEs, tips: {}, guides: {}, trackers: {}, minis: {} },
+  hi: { hub: hubHi, tips: {}, guides: {}, trackers: {}, minis: {} }
+};
 
 SUPPORTED_LANGUAGES.forEach((lang) => {
-  resources[lang] = {
-    hub: {},
-    tips: {},
-    guides: {},
-    trackers: {}
-  };
+  if (!resources[lang]) {
+    resources[lang] = {
+      hub: {},
+      tips: {},
+      guides: {},
+      trackers: {},
+      minis: {}
+    };
+  }
 
-  // Map hub-related files (hub, tips, guides, minis)
-  // File naming convention: [namespace].[lang].json or [lang].json (defaults to hub)
+  // Map hub-related files
   Object.entries(hubModules).forEach(([path, module]: [string, any]) => {
-    const fileName = path.split('/').pop() || '';
-    if (fileName.includes(`${lang}.json`)) {
-      const parts = fileName.split('.');
-      const ns = parts.length > 2 ? parts[0] : (fileName === `${lang}.json` ? 'hub' : parts[0]);
-      resources[lang][ns] = module.default;
+    const fileName = path.split(/[\\/]/).pop() || '';
+    const content = module.default || module;
+    
+    if (fileName === `${lang}.json`) {
+      resources[lang].hub = content;
+    } else if (fileName === `tips.${lang}.json`) {
+      resources[lang].tips = content;
+    } else if (fileName === `guides.${lang}.json`) {
+      resources[lang].guides = content;
+    } else if (fileName === `minis.${lang}.json`) {
+      resources[lang].minis = content;
     }
   });
 
   // Map tracker files
   Object.entries(trackerModules).forEach(([path, module]: [string, any]) => {
     const fileName = path.split('/').pop() || '';
+    const content = module.default || module;
     if (fileName === `${lang}.json`) {
-      resources[lang].trackers = module.default;
+      resources[lang].trackers = content;
     }
   });
 });
 
+const detectedLang = getLanguageFromUrl();
+console.log("[i18n] Detected language:", detectedLang);
+console.log("[i18n] Hub keys for detected lang:", Object.keys(resources[detectedLang]?.hub || {}).length);
+
 i18n
   .use(initReactI18next)
   .init({
-    lng: getLanguageFromUrl(),
+    lng: detectedLang,
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
     resources,
     ns: ['hub', 'tips', 'guides', 'trackers', 'minis'],
     defaultNS: 'hub',
+    react: {
+      useSuspense: false // Disable suspense globally to prevent blank screens
+    }
   });
 
 export default i18n;
