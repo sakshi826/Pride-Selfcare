@@ -32,14 +32,14 @@ const Dots = ({ total, current }: { total: number; current: number }) => (
 );
 
 const Bubble = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...t, delay }}
+  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...anim, delay }}
     className="premium-card px-8 py-6 shadow-xl border-l-4 border-l-pride-blue">
     <p className="justified-text text-foreground/90 text-lg font-medium leading-relaxed">{children}</p>
   </motion.div>
 );
 
 const QuestionBubble = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...t, delay }}
+  <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...anim, delay }}
     className="premium-card px-8 py-6 border-pride-purple/20 bg-pride-purple/5 shadow-inner">
     <p className="justified-text text-foreground font-bold text-xl leading-tight">{children}</p>
   </motion.div>
@@ -62,7 +62,7 @@ const Btn = ({ children, onClick, variant = "primary", disabled = false }: { chi
 const Opt = ({ label, selected, onClick, delay = 0, multi }: {
   label: string; selected?: boolean; onClick: () => void; delay?: number; multi?: boolean;
 }) => (
-  <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ ...t, delay }}
+  <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ ...anim, delay }}
     whileTap={{ scale: 0.98 }} onClick={onClick}
     className={cn(
       "w-full py-5 px-8 text-left font-bold transition-all duration-300 rounded-2xl",
@@ -195,7 +195,7 @@ const ExploreIdentity = () => {
           className="mb-8"
         />
         <AnimatePresence mode="wait">
-          <motion.div key={screen} variants={pageV} initial="enter" animate="center" exit="exit" transition={t} className="flex flex-1 flex-col">
+          <motion.div key={screen} variants={pageV} initial="enter" animate="center" exit="exit" transition={anim} className="flex flex-1 flex-col">
             {screens[screen]}
           </motion.div>
         </AnimatePresence>
@@ -300,7 +300,7 @@ const ExploreIdentity = () => {
           className="mb-8"
         />
         <AnimatePresence mode="wait">
-          <motion.div key={screen} variants={pageV} initial="enter" animate="center" exit="exit" transition={t} className="flex flex-1 flex-col">
+          <motion.div key={screen} variants={pageV} initial="enter" animate="center" exit="exit" transition={anim} className="flex flex-1 flex-col">
             {screens[screen]}
           </motion.div>
         </AnimatePresence>
@@ -408,13 +408,13 @@ const S0 = ({ onNext, onHistory, onBack }: { onNext: () => void; onHistory: () =
       </button>
     </div>
     <div className="flex flex-1 flex-col items-center justify-center">
-      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={t} className="w-full">
+      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={anim} className="w-full">
         <p className="text-5xl mb-4 text-center">{t("🌱")}</p>
         <h1 className="text-2xl font-semibold text-foreground mb-4 text-center" style={{ letterSpacing: "-0.02em" }}>{t("Explore Your Identity")}</h1>
         <p className="justified-text text-foreground/80 text-base mb-2 px-2">{t("A gentle space to reflect on how you experience your gender. No pressure. No labels. Just you.")}</p>
         <p className="text-sm text-muted-foreground mt-3 justified-text px-2">{t("⏱ Takes about 3–5 minutes")}</p>
       </motion.div>
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...t, delay: 0.3 }} className="mt-10 w-full">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...anim, delay: 0.3 }} className="mt-10 w-full">
         <Btn onClick={onNext}>{t("Start")}</Btn>
       </motion.div>
     </div>
@@ -428,11 +428,11 @@ const S1 = ({ onNext }: { onNext: () => void }) => {
   return (
   <div className="flex flex-1 flex-col items-center justify-center px-6 py-12"
     style={{ background: "radial-gradient(circle at 40% 30%, hsl(330 50% 90% / 0.3), transparent 50%), radial-gradient(circle at 60% 70%, hsl(240 60% 85% / 0.25), transparent 50%)" }}>
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t}
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim}
       className="cloud-shadow rounded-3xl bg-card/80 p-8 backdrop-blur-sm w-full">
       <p className="justified-text text-foreground text-base leading-relaxed">{t("You can skip anything. Take your time—this is for you.")}</p>
     </motion.div>
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...t, delay: 0.4 }} className="mt-8 w-full">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.4 }} className="mt-8 w-full">
       <Btn onClick={onNext}>{t("Continue")}</Btn>
     </motion.div>
   </div>
@@ -454,7 +454,7 @@ const S2 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           {q1.map((o, i) => <Opt key={o} label={o} delay={0.2 + i * 0.04} selected={answers.id_feel === o} onClick={() => setAnswer("id_feel", o)} />)}
         </div>
         {answers.id_feel && revealStep >= 1 && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t} className="mt-4 flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim} className="mt-4 flex flex-col gap-4">
             <QuestionBubble>{t("Do you feel connected to the gender you were assigned at birth?")}</QuestionBubble>
             <div className="mt-2 flex flex-col gap-2.5">
               {q2.map((o, i) => <Opt key={o} label={o} delay={0.05 + i * 0.04} selected={answers.id_conn === o} onClick={() => setAnswer("id_conn", o)} />)}
@@ -462,7 +462,7 @@ const S2 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           </motion.div>
         )}
         {answers.id_conn && revealStep >= 2 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...t, delay: 0.2 }} className="mt-6">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.2 }} className="mt-6">
             <Btn onClick={onNext}>{t("Continue")}</Btn>
           </motion.div>
         )}
@@ -483,7 +483,7 @@ const S3 = ({ answers, setAnswer, toggleMulti, revealStep, onNext }: MultiProps)
       <div className="mt-6 flex flex-col gap-4">
         <Bubble>{t("Now, let&apos;s look at how you express yourself.")}</Bubble>
         <QuestionBubble delay={0.15}>{t("What kind of expression feels most like you?")}</QuestionBubble>
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ ...t, delay: 0.25 }}
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ ...anim, delay: 0.25 }}
           className="premium-card mt-2 p-8">
           <div className="flex justify-between text-xs font-black uppercase tracking-widest text-muted-foreground mb-6">
             <span className="text-pride-purple">Feminine</span>
@@ -498,7 +498,7 @@ const S3 = ({ answers, setAnswer, toggleMulti, revealStep, onNext }: MultiProps)
           </div>
         </motion.div>
         {answers.expr_slider !== undefined && revealStep >= 1 && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t} className="mt-4 flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim} className="mt-4 flex flex-col gap-4">
             <QuestionBubble>{t("What are you curious to explore?")}</QuestionBubble>
             <p className="text-xs text-muted-foreground px-1">{t("Select all that apply")}</p>
             <div className="flex flex-col gap-2.5">
@@ -507,7 +507,7 @@ const S3 = ({ answers, setAnswer, toggleMulti, revealStep, onNext }: MultiProps)
           </motion.div>
         )}
         {selected.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...t, delay: 0.2 }} className="mt-6">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.2 }} className="mt-6">
             <Btn onClick={onNext}>{t("Continue")}</Btn>
           </motion.div>
         )}
@@ -531,7 +531,7 @@ const S4 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           {q1.map((o, i) => <Opt key={o} label={o} delay={0.2 + i * 0.04} selected={answers.soc_where === o} onClick={() => setAnswer("soc_where", o)} />)}
         </div>
         {answers.soc_where && revealStep >= 1 && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t} className="mt-4 flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim} className="mt-4 flex flex-col gap-4">
             <QuestionBubble>{t("Do you ever feel like you&apos;re &ldquo;pretending&rdquo;?")}</QuestionBubble>
             <div className="flex flex-col gap-2.5">
               {q2.map((o, i) => <Opt key={o} label={o} delay={0.05 + i * 0.04} selected={answers.soc_pretend === o} onClick={() => setAnswer("soc_pretend", o)} />)}
@@ -539,7 +539,7 @@ const S4 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           </motion.div>
         )}
         {answers.soc_pretend && revealStep >= 2 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...t, delay: 0.2 }} className="mt-6">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...anim, delay: 0.2 }} className="mt-6">
             <Btn onClick={onNext}>{t("Continue")}</Btn>
           </motion.div>
         )}
@@ -564,7 +564,7 @@ const S5 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           {q1.map((o, i) => <Opt key={o} label={o} delay={0.2 + i * 0.04} selected={answers.dys_feel === o} onClick={() => setAnswer("dys_feel", o)} />)}
         </div>
         {answers.dys_feel && revealStep >= 1 && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t} className="mt-4 flex flex-col gap-4">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim} className="mt-4 flex flex-col gap-4">
             <QuestionBubble>{t("When does this usually happen?")}</QuestionBubble>
             <div className="flex flex-col gap-2.5">
               {q2.map((o, i) => <Opt key={o} label={o} delay={0.05 + i * 0.04} selected={answers.dys_when === o} onClick={() => setAnswer("dys_when", o)} />)}
@@ -572,7 +572,7 @@ const S5 = ({ answers, setAnswer, revealStep, onNext }: ScreenProps) => {
           </motion.div>
         )}
         {answers.dys_when && revealStep >= 2 && !pauseDone && (
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={t}
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={anim}
             className="mt-6 cloud-shadow rounded-3xl bg-card/80 p-6">
             <p className="justified-text text-foreground mb-4">{t("Thanks for sharing that. Take a moment if you need.")}</p>
             <Btn onClick={() => { setPauseDone(true); onNext(); }}>{t("Continue")}</Btn>
