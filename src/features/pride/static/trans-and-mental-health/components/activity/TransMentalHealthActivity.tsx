@@ -63,7 +63,7 @@ const TransMentalHealthActivity = () => {
         onRestart={() => { setFinished(false); setCurrent(0); }} 
         onBackToHub={() => {
           window.parent.postMessage("exit_activity", "*");
-          window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
+          window.location.href = "/pride/lgbtq-hub" + window.location.search;
         }} 
       />
     );
@@ -78,7 +78,7 @@ const TransMentalHealthActivity = () => {
         <button
           onClick={() => {
             window.parent.postMessage("exit_activity", "*");
-            window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
+            window.location.href = "/pride/lgbtq-hub" + window.location.search;
           }}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/80 backdrop-blur-sm text-gray-500 font-bold text-sm shadow-sm hover:text-cyan-500 transition-all"
         >

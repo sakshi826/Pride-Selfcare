@@ -337,7 +337,7 @@ export default function ComingOutActivity() {
               <button
                 onClick={() => {
                   window.parent.postMessage("exit_activity", "*");
-                  window.location.href = "/pride/lgbtq-hub" + window.location.search + window.location.search;
+                  window.location.href = "/pride/lgbtq-hub" + window.location.search;
                 }}
                 className="font-body text-sm text-white bg-bi-purple px-6 py-2.5 rounded-full hover:opacity-70 transition-opacity flex-1"
               >
