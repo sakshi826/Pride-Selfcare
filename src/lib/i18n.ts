@@ -10,24 +10,27 @@ export const SUPPORTED_LANGUAGES = [
   'hu', 'uk', 'he', 'ms', 'ta', 'te', 'ur'
 ];
 
-// Read lang directly from URL query param — always reliable, no cache issues
 function getLanguageFromUrl(): string {
   if (typeof window === 'undefined') return 'en';
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
-  console.log('[i18n] URL lang:', lang);
+  
   if (lang && SUPPORTED_LANGUAGES.includes(lang)) {
-    console.log('[i18n] Using language:', lang);
+    localStorage.setItem('pride_lang', lang); // Save to local storage
     return lang;
   }
+
+  // Try localStorage
+  const savedLang = localStorage.getItem('pride_lang');
+  if (savedLang && SUPPORTED_LANGUAGES.includes(savedLang)) {
+    return savedLang;
+  }
+
   // Try to detect from pathname as fallback (e.g. /hi/...)
   const pathParts = window.location.pathname.split('/');
   const pathLang = pathParts.find(p => SUPPORTED_LANGUAGES.includes(p));
-  if (pathLang) {
-    console.log('[i18n] Path lang detected:', pathLang);
-    return pathLang;
-  }
-  console.log('[i18n] Falling back to en');
+  if (pathLang) return pathLang;
+
   return 'en';
 }
 
