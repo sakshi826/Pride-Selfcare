@@ -23,7 +23,6 @@ try {
     
     // Standard Neon export
     sql = neonFn;
-    sql.query = (q: string, params?: any[]) => neonFn(q, ...(params || []));
   }
 } catch (err) {
   console.error('Neon initialization failed:', err);

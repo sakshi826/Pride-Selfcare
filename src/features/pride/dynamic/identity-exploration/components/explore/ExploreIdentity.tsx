@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 /* ─── Shared Animation Config ─── */
 const ease = [0.32, 0.72, 0, 1] as [number, number, number, number];
-const t = { type: "tween" as const, ease, duration: 0.45 };
+const anim = { type: "tween" as const, ease, duration: 0.45 };
 const pageV = { enter: { opacity: 0, y: 20 }, center: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 } };
 
 /* ─── Small reusable pieces ─── */
